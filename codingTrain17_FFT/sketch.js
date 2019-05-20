@@ -11,7 +11,7 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('Daddy YankeeDura.mp3');
+  song = loadSound('Who You Say I Am Lyric Video - Hillsong Worship.mp3');
 }
 
 function setup() {
@@ -20,7 +20,7 @@ function setup() {
   button = createButton('toggle');
   button.mousePressed(toggleSong);
   song.play();
-  fft = new p5.FFT(0.65, 512);
+  fft = new p5.FFT(0.3, 512);
   w = width / 64;
   colorMode(HSB);
 }
@@ -31,11 +31,13 @@ function draw() {
   // console.log(spectrum.length); //default: 1024 frequency length
   // stroke(255);
   noStroke();
+  ellipseMode(CORNER);
   for (var i = 0; i < spectrum.length; i++) {
     var amp = spectrum[i];
     var y = map(amp, 0, 512, 0, height);
-    fill(i, 255, 255);
-    rect(i*w,y, w - 2, height - y * 2, 5);
+    fill(i*5, 200, i*10);
+    // rect(i*w,y, w - 2, height - y * 2, 5);
+    ellipse(i*w, y , 50, height - y * 1.5)
 
   }
 }
