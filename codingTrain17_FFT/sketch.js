@@ -20,22 +20,22 @@ function setup() {
   button = createButton('toggle');
   button.mousePressed(toggleSong);
   song.play();
-  fft = new p5.FFT(0.8, 512);
+  fft = new p5.FFT(0.65, 512);
   w = width / 64;
+  colorMode(HSB);
 }
 
 function draw() {
   background(0);
   var spectrum = fft.analyze();
-  console.log(spectrum.length); //default: 1024 frequency length
-  stroke(255);
-  noFill();
+  // console.log(spectrum.length); //default: 1024 frequency length
+  // stroke(255);
+  noStroke();
   for (var i = 0; i < spectrum.length; i++) {
     var amp = spectrum[i];
-    var y = map(amp, 0, 512, height, 0);
-    // line(i, height, i , y);
-    // rect(i*w, y, i*w, height - y);
-    rect(i*w, y, w, height - y);
+    var y = map(amp, 0, 512, 0, height);
+    fill(i, 255, 255);
+    rect(i*w,y, w - 2, height - y * 2, 5);
 
   }
 }
