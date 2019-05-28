@@ -1,11 +1,14 @@
-var inc = 0.01; //increment
-var scl = 20; //scale
+var inc = 0.1; //increment
+var scl = 10; //scale
 var cols, rows;
+
+var fr; //framerate
 
 function setup(){
   createCanvas(200, 200);
   cols = floor(width/scl);
   rows = floor(height/scl);
+  fr = createP(''); // creating Paragraph element
 }
 
 function draw() {
@@ -16,9 +19,10 @@ function draw() {
       var index = (x + y * width) * 4;
       var r = noise(xoff, yoff) * 255;
       xoff += inc;
-      fill(random(255));
+      fill(r);
       rect(x*scl, y*scl, scl, scl);
     }
     yoff += inc;
   }
+  fr.html(floor(frameRate()));
 }
