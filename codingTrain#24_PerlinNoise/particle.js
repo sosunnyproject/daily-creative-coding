@@ -1,6 +1,6 @@
 function Particle() {
   this.pos = createVector(random(width), random(height));
-  this.vel = p5.Vector.random2D();
+  this.vel = createVector(0, 0);
   this.acc = createVector(0, 0);
 
   // update vel based on acc
@@ -27,5 +27,15 @@ function Particle() {
     if(this.pos.x < 0) this.pos.x = width;
     if(this.pos.y > height) this.pos.y = 0;
     if(this.pos.y < 0) this.pos.y = height;
+  }
+
+  // im a particle, size me up to the scale of one grid square
+  // find the vecotr inside it, apply force
+  this.follow = function(vectors) {
+    var x = floor(this.pos.x / scl);
+    var y = floor(this.pos.y / scl);
+    var index = x + y * cols;
+    var force = vectors[index];
+    this.applyForce(force);
   }
 }
