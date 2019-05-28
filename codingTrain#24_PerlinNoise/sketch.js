@@ -1,7 +1,7 @@
 var inc = 0.1; //increment
 var scl = 10; //scale
 var cols, rows;
-
+var zoff = 0;
 var fr; //framerate
 
 function setup(){
@@ -18,8 +18,8 @@ function draw() {
     var xoff = 0;
     for (var x = 0; x < cols; x++) {
       var index = (x + y * width) * 4;
-      var r = noise(xoff, yoff) * 255;
-      var v = p5.Vector.fromAngle(random(TWO_PI));  // "i want vector on every spot on the grid."05:10
+      var angle = noise(xoff, yoff, zoff) * TWO_PI;
+      var v = p5.Vector.fromAngle(angle);  // "i want vector on every spot on the grid."05:10
       xoff += inc;
       stroke(255);
       push();
@@ -30,6 +30,7 @@ function draw() {
 
     }
     yoff += inc;
+    zoff += 0.001;
   }
   fr.html(floor(frameRate()));
 }
