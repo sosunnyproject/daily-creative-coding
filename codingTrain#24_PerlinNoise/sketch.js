@@ -3,12 +3,15 @@ var scl = 10; //scale
 var cols, rows;
 var zoff = 0;
 var fr; //framerate
-
+var particles = [];
 function setup(){
   createCanvas(200, 200);
   cols = floor(width/scl);
   rows = floor(height/scl);
   fr = createP(''); // creating Paragraph element
+  for (var i = 0; i < 100; i++) {
+    particles[i] = new Particle();
+  }
 }
 
 function draw() {
@@ -21,7 +24,8 @@ function draw() {
       var angle = noise(xoff, yoff, zoff) * TWO_PI;
       var v = p5.Vector.fromAngle(angle);  // "i want vector on every spot on the grid."05:10
       xoff += inc;
-      stroke(255);
+      stroke(255, 100);
+      strokeWeight(0.5);
       push();
       translate(x * scl, y * scl);
       rotate(v.heading());
@@ -30,7 +34,12 @@ function draw() {
 
     }
     yoff += inc;
-    zoff += 0.001;
+    //zoff += 0.001;  // fixed flow field, if you comment this
+  }
+  for (var i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].show();
+    particles[i].edges();
   }
   fr.html(floor(frameRate()));
 }
