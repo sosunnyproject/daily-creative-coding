@@ -20,7 +20,7 @@ function setup() {
 }
 
 function draw() {
-  flying -= 0.2;
+  flying -= random(0.3, 0.6)
   var yoff = flying
   for (var y = 0; y < rows; y++) {
     var xoff = 0;
