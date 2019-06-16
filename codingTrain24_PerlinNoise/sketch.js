@@ -14,7 +14,7 @@ function setup(){
 
   flowfield = new Array(cols*rows); //preset the size of array
 
-  for (var i = 0; i < 1000; i++) {
+  for (var i = 0; i < 500; i++) {
     particles[i] = new Particle();
   }
 
@@ -48,11 +48,15 @@ function draw() {
     yoff += inc;
     zoff += 0.00004;  // fixed flow field, if you comment this
   }
+
   for (var i = 0; i < particles.length; i++) {
+    let col = random(100, 255);
+    // console.log(col);
+    // stroke(100, col, map(sin(angle), -1, 1, 100, 255), ); //color
     particles[i].follow(flowfield);
     // find appropriate, nearby vector
-    particles[i].update();
-    particles[i].show();
+    particles[i].update(col);
+    particles[i].show(col);
     particles[i].edges();
   }
   fr.html(floor(frameRate()));
