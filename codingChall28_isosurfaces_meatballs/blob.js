@@ -1,7 +1,7 @@
 class Blob {
-  constructor(x, y) {
+  constructor(x, y,r) {
     this.pos = createVector(x, y);
-    this.r = 10;
+    this.r = r;
     this.vel = p5.Vector.random2D();
     this.vel.mult(random(2,5));
   }
