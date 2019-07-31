@@ -1,14 +1,27 @@
 class Blob {
   constructor(x, y) {
     this.pos = createVector(x, y);
-    this.r = 5;
+    this.r = 10;
+    this.vel = p5.Vector.random2D();
+    this.vel.mult(random(2,5));
   }
 
   show() {
     noFill();
-    stroke(0);
-    strokeWeight(5);
+    noStroke();
+    // stroke(0);
+    // strokeWeight(5);
     ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
+  }
+
+  update() {
+    this.pos.add(this.vel);
+    if (this.pos.x > width || this.pos.x < 0) {
+      this.vel.x *= -1;
+    }
+    if (this.pos.y > height || this.pos.y < 0) {
+      this.vel.y *= -1;
+    }
   }
 
 }

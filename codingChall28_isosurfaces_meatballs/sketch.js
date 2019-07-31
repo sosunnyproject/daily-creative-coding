@@ -15,10 +15,10 @@ function draw() {
       let d = dist(x, y, b.pos.x, b.pos.y);
       let col = 1000 * b.r / d;
       set(x, y, color(col));
-      // pixels[index] = color(255, 0, 255);
     }
   }
   updatePixels();
+  b.update();
   b.show();
 
 }
