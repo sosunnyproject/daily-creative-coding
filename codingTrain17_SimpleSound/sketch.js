@@ -15,11 +15,19 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600,600);
+  cnv = createCanvas(600,600);
   button = createButton('toggle');
   button.mousePressed(toggleSong);
   song.play();
   amp = new p5.Amplitude();
+
+  cnv.mouseClicked(function() {
+    if (sound.isPlaying() ){
+      sound.stop();
+    } else {
+      sound.play();
+    }
+  });
 }
 
 function draw() {
