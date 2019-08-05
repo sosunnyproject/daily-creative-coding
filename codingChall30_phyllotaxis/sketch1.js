@@ -22,38 +22,11 @@ function draw() {
 
 
   noStroke();
-  ellipse(x1,y1, 8,8);
-/*
-  var x1 = r * cos(a) + 150;
-  var y1 = r * sin(a) + 150;
-  fill((n-r)%255, 50, 250);
-  noStroke();
-  ellipse(x1,y1,15, 15)
+  // ellipse(x1,y1, 8,8);
+  translate(x1, y1);
+  push();
+  triangle(40, 100, 20, 85, 20, 115);
+  pop();
 
-  var x2 = r * cos(a) +300;
-  var y2 = r * sin(a) +300;
-  fill(r%255, 50, 250);
-  noStroke();
-  ellipse(x2,y2,15, 15)
-
-
-  var x3 = r * cos(a) + 450;
-  var y3 = r * sin(a) + 150;
-  fill((n+a)%255, 50, 250);
-  noStroke();
-  ellipse(x3,y3,15, 15)
-
-  var x4 = r * cos(a) + 450;
-  var y4 = r * sin(a) + 450;
-  fill(n%255, 50, 250);
-  noStroke();
-  ellipse(x4,y4,15, 15)
-
-  var x5 = r * cos(a) + 150;
-  var y5 = r * sin(a) + 450;
-  fill((a-r)%255, 50, 250);
-  noStroke();
-  ellipse(x5,y5,15, 15)
-  */
   n++;
 }
