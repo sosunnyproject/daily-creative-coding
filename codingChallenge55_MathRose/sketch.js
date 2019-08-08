@@ -17,7 +17,7 @@ function draw() {
 
   // mult decimal values to tone down the speed
   d = map(sin(frameCount*0.002),-1, 1, 1, 10);
-  n = map(cos(frameCount*0.005),1, -1, 5, 15);
+  n = map(cos(frameCount*0.005),1, -1, 5, 10);
 
   let k = n / d;
   background(0);
