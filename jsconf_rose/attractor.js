@@ -1,7 +1,7 @@
 class Attractor {
   constructor() {
     this.power = 30;
-    this.position = createVector(0, 0);
+    this.position = createVector(0, 0); // 기본 고정 위치: 화면 중앙.
   }
 
   display() {

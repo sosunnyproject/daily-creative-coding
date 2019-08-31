@@ -1,11 +1,5 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
-
-// Simple Particle System
-// A simple Particle class
-
 class Particle {
+  // 위치, 파티클 이미지 인자
   constructor(x, y, img) {
     this.position = createVector(x, y);
     this.velocity = createVector(random(-10, 10), random(-0.5, 0.5));
@@ -14,16 +8,18 @@ class Particle {
     this.img = img;
   }
 
+  // 업데이트 및 렌더
   run() {
     this.update();
     this.render();
   }
 
+  // force 적용
   applyForce(f) {
     this.acceleration.add(f);
   }
 
-  // Method to update position
+  // 위치 업데이트
   update() {
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
@@ -31,6 +27,7 @@ class Particle {
     this.velocity.limit(7);
   }
 
+  // 도형 그리기 대신 이미지 렌더
   render() {
     imageMode(CENTER);
     tint(this.lifespan*3);
@@ -43,7 +40,7 @@ class Particle {
   //   ellipse(this.position.x, this.position.y, 12, 12);
   // }
 
-  // Is the particle still useful?
+  // 파티클 수명
   isDead() {
     if (this.lifespan < 0.0) {
       return true;

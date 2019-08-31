@@ -9,29 +9,28 @@ class ParticleSystem {
     this.img = img;
   }
 
-
+  // 새로운 파티클 추가
   addParticle() {
     this.particles.push(new Particle(this.origin.x, this.origin.y, this.img));
   }
 
   run() {
     // Run every particle
-    // ES6 for..of loop
     for (let particle of this.particles) {
       particle.run();
     }
-
-    // Filter removes any elements of the array that do not pass the test
+    // 죽은 파티클 제거
     this.particles = this.particles.filter(particle => !particle.isDead());
   }
 
-  // A function to apply a force to all Particles
+  // 파티클에 force 적용
   applyForce(f) {
     for (let particle of this.particles) {
       particle.applyForce(f);
     }
   }
 
+  // 파티클에 repel 적용
   applyRepeller(r) {
     if(-mouseX/2< mouseX < width/2 || -height/2 < mouseY < height/2) {
       for (let particle of this.particles) {
@@ -40,7 +39,7 @@ class ParticleSystem {
       }
     }
   }
-
+  // 파티클에 attract 적용
   applyAttractor(a) {
     for (let particle of this.particles) {
       let force = a.attract(particle);
