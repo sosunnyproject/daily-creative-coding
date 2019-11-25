@@ -44,7 +44,7 @@ function draw() {
   // fill(map((a-r) % 180, 0, 179, 180, 256), (a-r) % 20 + 35, 100); //blue to purple
   // fill((r) % 50, 43, 100); //red-yellow
   // fill(n % 85 + 110,  n % 20 + 35, 100); //green to blue
-  fill(map(pix[1], 0, 255, 160, 360), r % 20 + 45, n % 50 + 60); // red to orange
+  fill(map(pix[1], 0, 255, 135, 360), r % 20 + 45, n % 50 + 60); // red to orange
   // fill(pix, 20);
 
   noStroke();
