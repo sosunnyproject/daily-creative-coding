@@ -6,7 +6,7 @@ I am compiling most of my codes here.
 
 ## Tools
 - p5.js : https://p5js.org/
-- orca: https://github.com/hundredrabbits/Orca
+-  🎼 orca: https://github.com/hundredrabbits/Orca
 - deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
 
 ## Links
@@ -17,4 +17,4 @@ I am compiling most of my codes here.
   - https://docs.google.com/presentation/d/1GxAAlDRQaV8lhH6I-sGC8QH1v70old_-kFr6xpyUI0I/edit?usp=sharing
  
 ## Contribution
-sorry, currently not accepting branch / merge / contribution to this personal archive. 
+🙊 sorry, currently not accepting branch / merge / contribution to this personal archive. 
