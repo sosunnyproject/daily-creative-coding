@@ -1,4 +1,4 @@
-# daily-creative-coding
+# daily-creative-coding 👩‍🎨 👩‍💻
 ### Daily works on creative coding. Using P5.js mostly.
 
 As I am currently participating private lab / study group on creative technology, 
