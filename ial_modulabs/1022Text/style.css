@@ -1,0 +1,18 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+  font-family: 'Lovers Quarrel', cursive;
+  font-family: 'Work Sans', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Black Han Sans', sans-serif;
+  font-family: 'Tenor Sans', sans-serif;
+  font-family: 'Bubblegum Sans', cursive;
+  font-family: 'Port Lligat Sans', sans-serif;
+  font-family: 'Encode Sans Semi Condensed', sans-serif;
+  font-family: 'Averia Sans Libre', cursive;
+
+}
