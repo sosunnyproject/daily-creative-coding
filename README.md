@@ -16,5 +16,13 @@ I am compiling most of my codes here.
 - Presentation @ women who code @ seoul 2019
   - https://docs.google.com/presentation/d/1GxAAlDRQaV8lhH6I-sGC8QH1v70old_-kFr6xpyUI0I/edit?usp=sharing
  
+## Inspiration 
+- Daniel Shiffman / NYU Professor
+  - https://www.youtube.com/user/shiffman/videos
+  - https://natureofcode.com/book/
+- https://lauren-mccarthy.com/
+- https://genekogan.com/
+- #creativeCoding on Instagram
+
 ## Contribution
 🙊 sorry, currently not accepting branch / merge / contribution to this personal archive. 
