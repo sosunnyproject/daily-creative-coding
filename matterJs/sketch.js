@@ -11,8 +11,8 @@ var boxA;
 let fixCircles = [];
 let radius = 200;
 var letters = [];
-var w = 20;
-var words = ['위', '잉']
+var w = 30;
+var words = ['별', '똥', '*']
 let index = 0;
 let slider1;
 let val;
@@ -20,45 +20,52 @@ let val;
 function setup(){
   createCanvas(600,600);
 
-  engine.world.gravity.y = -0.7;
+  engine.world.gravity.y = 1.4;
   Engine.run(engine);
   ellipseMode(CENTER);
-  // colorMode(HSB);
-  for (let angle = 0; angle < 720; angle+= 60)   {
+  colorMode(HSB);
 
+  // textFont('Gamja Flower');
+  // textFont('Cute Font');
+  // textFont('Hi Melody');
+  textFont('Single Day');
+  // draw fixed circles following the circular path of the canvas
+  for (let angle = 0; angle < 720; angle+= 60)   {
     let x = width/2 + radius * cos(angle);
-	let y = height/2 + radius * sin(angle);
+	  let y = height/2 + radius * sin(angle);
     fixCircles.push(
       new ObjCircle(
-        x, y, 20,
-        color(angle%360,70,100),{isStatic:true}
+        x, y, 10+angle%50,
+        color(40+(angle%80),80,100),{isStatic:true}
       )
     );
   }
 
-  console.log(fixCircles.length);
+  //console.log(fixCircles.length);
 
-  slider1 = createSlider(0, 10, 2); //text velocity
+  slider1 = createSlider(0, 50, 30); //text velocity
   //slider1.position(10, 10);
-  slider1.style('width', '80px');
+  slider1.style('width', '400px');
   val = slider1.value();
 }
 
 function mouseDragged() {
 
-  let letter = Bodies.circle(mouseX, mouseY, w/2, {restitution:0.2});
+  let letter = Bodies.circle(mouseX, mouseY, w/2, {restitution:1});
   World.add(engine.world, letter);
-  letter.text = words[index%2];
+  letter.text = words[index%3];
   letters.push(letter);
-  Body.setVelocity(letter, {x:0, y:3});
+  Body.setVelocity(letter, {x:2, y:5});
   index++;
 }
 
 function mouseClicked() {
- console.log(mouseX, mouseY);
+ // console.log(mouseX, mouseY);
 }
 
 function draw(){
+  val = slider1.value();
+
   ellipseMode(CENTER);
   background(0);
   // radians(30) 회전을 적용. 회전축 적용위해 push, pop
@@ -66,6 +73,7 @@ function draw(){
     obj.display();
   }
 
+  w = val;
   fill(255);
   textSize(w);
   textAlign(CENTER, CENTER);
@@ -75,7 +83,7 @@ function draw(){
     push();
     translate(pos.x, pos.y);
     rotate(letter.angle);
-    fill(100, 40, 30+val*3);
+    fill(50, 100, 30 + sin(frameCount/15)*40);
     text(letter.text, 0,0);
     pop();
   }
