@@ -1,0 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+/* 
+  c1 = color(242, 204, 12);
+  c2 = color(242, 68, 68);
+  c3 = color(242, 12, 204);
+  c4 = color(4, 118, 217);
+  c5 = color(242, 227, 15);
+*/

@@ -1,13 +1,13 @@
 let objects = [];
 let fixed = [];
 let count = 0;
-let ons = ['溫','ON','온','michelin', '2020'];
+let ons = ['溫','ON','온', '2020'];
 let colors = [];
 
 function setup() {
   createCanvas(400, 400);
   rectMode(CENTER);
-  colorMode(HSB);
+  // colorMode(HSB);
   textAlign(CENTER, CENTER);
   runEngine();
   setBall();
@@ -15,7 +15,7 @@ function setup() {
 
 function draw() {
 
-  if(frameCount%500 ==1) setBall();
+  if(frameCount%300 ==1) setBall();
   background(0);
 
   for (let i = objects.length - 1; i >= 0; i--) {
@@ -49,7 +49,7 @@ function setBall(){
   } else if (textRand == ons[2]){
     textFont('Song Myung');
   } else {
-    textSize(width*0.2);
+    textSize(width*0.4);
     textFont('Calistoga');
   }
 
@@ -66,12 +66,12 @@ function setBall(){
 
     if(brightness(c) == 0) {
       fixed.push(new ObjCircle
-        (x, y, 3, color(random(30, 50), 100, 100), {isStatic:true})
+        (x, y, 3,color('white'), 100, 100, {isSleeping:true})
       );
     }
     else {
       fixed.push(new ObjCircle
-        (x, y, 3, color(random(30, 50), 100, 100), {isSleeping:true})
+        (x, y, 3, color(random(210, 252), 3, 3),{isStatic:true})
       );
     }
   });

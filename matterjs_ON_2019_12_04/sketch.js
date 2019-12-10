@@ -7,19 +7,21 @@ let colors = [];
 function setup() {
   createCanvas(400, 400);
   rectMode(CENTER);
-
   colorMode(HSB);
-
   textAlign(CENTER, CENTER);
   runEngine();
   setBall();
 
-  objects.push(new ObjRect(width/2, height*0.8, width/2, 20, color('white'), {isStatic:true}));
+   // objects.push(new ObjRect(width/2, height*0.8, width/2, 20, color('white'), {isStatic:true}));
 }
 
 function draw() {
 
-  if(frameCount%30 ==1) setBall();
+  if(frameCount%30 ==1) {
+    setBall();
+    setRose(width/2, 100);
+  }
+
   background(0);
 
   for (let i = objects.length - 1; i >= 0; i--) {
@@ -45,37 +47,35 @@ function draw() {
 // restitution --> isStatic
 function setBall(){
   background(255);
+
+  if(count == ons.length) count=0;
+
   textSize(height*0.5);
-  textRand = random(ons);
-  if(textRand == ons[1]) {
-    console.log(textRand);
+  if(count == 1) {
     textFont('Calistoga');
-  } else if (textRand == ons[0]){
-    console.log(textRand);
-    textFont('NotoSansSC');
-  } else if (textRand == ons[2]){
-    console.log(textRand);
-    textFont('SongMyung');
+  } else if (count == 0){
+    textFont('Noto Sans SC');
+  } else if (count == 2){
+    textFont('Song Myung');
   }
 
-  text(textRand, width/2, height/2);
+  console.log(count);
+  text(ons[count], width/2, height/2);
 
   for(let obj of fixed){
     obj.remove();
   }
   fixed = []; //reset the array
 
-  for(let x=0; x<width; x+=5) {
-    for(let y=0; y<height; y+=5) {
+  for(let x=0; x<width; x+=7) {
+    for(let y=0; y<height; y+=7) {
       let c = get(x, y);
       if(brightness(c) == 0) {
-        fixed.push(new ObjCircle(x, y, 3, color(random(20, 50), 100, 100), {isStatic:true}));
+        fixed.push(new ObjCircle(x, y, 4, color(frameCount%20, 80, 80), {isStatic:true}));
       }
     }
   }
-
-  //count++;
-  //if(count>9)  count= 0;
+  count++;
 }
 
 function mouseDragged(){
@@ -104,4 +104,27 @@ function setParticle() {
 
   // ObjRect(x,y,w,h,shapeColor,option={})
   // ObjCircle(x,y,radius,shapeColor,option={})
+}
+
+function setRose(posX, posY) {
+  let d = 4 // sliderD.value(); // d=4
+  let n = 6 // sliderN.value(); // n=6
+  let k = n / d;
+  push();
+  translate(posX, posY); //  translate(width*0.25, height*0.8);
+  // colorMode(HSB);
+  beginShape();
+  noFill();
+  stroke(30, 100, 100);
+  //stroke(map(tan(frameCount*0.025), -1, 1, 200, 360), 50, 255);
+  strokeWeight(10);
+  // change a ++ inc value : circle to n-angled shapes
+   for (var a = 0; a < TWO_PI * d; a += 0.1) {
+     var r = 10 * cos(k * a);
+     var x = r  * cos(a);
+     var y = r * sin(a);
+     vertex(x,y);
+   }
+   endShape();
+   pop();
 }
