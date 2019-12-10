@@ -2,62 +2,141 @@ let counter = 0.00;
 let radius = 80;
 let slider;
 function setup() {
-  createCanvas(200, 200, WEBGL);
-  setAttributes('antiAlias',true);
+  createCanvas(400, 400, WEBGL);
+  setAttributes('antialias',true);
+  setAttributes('perPixelLighting',true);
   background(20);
+
   // the slider make move the light from behind (1) to front (1);
-   slider = createSlider(-1, 1, -0.3, 0.1);
+   slider = createSlider(-1, 1, -0.25, 0.25);
 
 }
 
 function draw() {
   background(0);
-  
+
   // test to manipulate with the mouse
   orbitControl();
-  
+
   // Array of 5 colors
-  // c1 = color(15, 76, 129); // classic blue
-  c1 = color(235,215,122);
-  c2 = color(108, 182, 206)
-  //c1 = color(217, 126, 150);
-  // c2 = color(140, 42, 78);
-  // c3 = color(217, 78, 129);
-  // c4 = color(242, 206, 219);
-  // c5 = color(242, 196, 218);
-  
+  c1 = color(15, 76, 129); // classic blue
+  c2 = color(108, 182, 206); // cool blue
+
   // try with 2, 3, or 5 colors
-  let colArray = [c1,c2, c1, c2, c1];
-  
+  let colArray = [c1,c1,c1];
+
   // for the rotation of light colors
   counter++;
-  
+
   // If you want accelerate or slow dow the rotation
   // let spd = noise(frameCount%40)/ slider.value();
-  let spd = 0.008;
-  
+  let spd = 0.025;
+
+  // point light
+  let pointX = mouseX - width/2; // webgl coord
+  let pointY = mouseY - height/2; // webgl coord
+  // pointLight(color, locX, locY, locZ);
+
+  // amber color(250, 215,122)
+  /*
+  pointLight(
+    color(250,
+          map(mouseX, 0, width, 170, 255),
+          map(mouseY, 0, width, 75, 175)),
+             pointX, pointY, 120);
+  */
+  //ambientLight
+  // ambientLight(color(15, 76, 129));
+
   // For each color, we create the position of the light around a circle and we add the position of all colors already calculated
-  
+  // 조명이 이동하는 것.
+
   for(i=0;i<colArray.length;i++){
-    
+
     let lightPosx = sin(counter*spd+((TWO_PI/colArray.length)*i));
-    // sin(counter * spd +  (TWO_PI/colArray.length)*i);
-        
+
     let lightPosy = cos(counter*spd+((TWO_PI/colArray.length)*i));
- // cos(counter * spd + (TWO_PI/colArray.length)*i);
-    
-    
-    // Create the Lights 
-    // directionalLight(colArray[i],lightPosx,lightPosy, slider.value()*0.1);
-    
-    // Try this if you want to experiment others effects 
-    directionalLight(colArray[i],lightPosx,lightPosy, lightPosx*lightPosy * slider.value());
+
+    // directionalLight
+    directionalLight
+    (colArray[i],  // color
+     lightPosx,    // x
+     lightPosy,    // y
+     lightPosx*lightPosy*slider.value() // z
+    );
+
   }
-  
-  //Try specular material. 
-  // Or try to decrease the value of the color
-  ambientMaterial(map(sin(frameCount*0.025), -1, 1, 0, 255));
+
+  // 고정된 directional Light
+   directionalLight
+    (color('#7D7AEB'),  // bottom left
+     -width/2,    // x
+     height/2,    // y
+     0 // z
+    );
+
+
+  directionalLight
+    (color('#0904B8'),  // top right
+     width/2,    // x
+     -height/2,    // y
+     0 // z
+    );
+
+  directionalLight
+    (color('#104A85'),  // center
+     0,    // x
+     0,    // y
+     -50 // z
+    );
+
+  directionalLight
+    (color('#916436'),  // bottom right
+     width/2,    // x
+     height/2,    // y
+     -20 // z
+    );
+
+  directionalLight
+    (color('#B84404'),  // top left
+     -width/2,    // x
+     -height/2,    // y
+     -20 // z
+    );
+
+
+  // Materials
+  ambientMaterial(255);
+
+  /*
+  ambientMaterial(
+    map(sin(frameCount*0.025),
+        -1, 1,     // original sin values
+        100, 205));  // map to 0 ~ 255
+  */
+
+  // 변수: color: original obj color
+  /*
+  specularMaterial(map(sin(frameCount*0.025),
+        -1, 1,     // original sin values
+        100, 150));
+  */
+
+  // normalMaterial(); // 디폴트 색깔이 있음.
   noStroke();
-  sphere(50);
-  
+  sphere(90);
+
+  translate(-width/4 - 25, -height/4);
+  push();
+  ambientMaterial(15, 76, 129);
+  noStroke();
+  sphere(40);
+  pop();
+
+  translate(width/4 + 105, -height/4 + 75);
+  push();
+  ambientMaterial(15, 76, 129);
+  noStroke();
+  sphere(40);
+  pop();
 }
