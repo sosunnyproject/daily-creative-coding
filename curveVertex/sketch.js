@@ -22,11 +22,9 @@ function pickPoint() {
   stroke(0);
   strokeWeight(3);
   point(mouseX, mouseY);
-
   // sea
   // sun 210, 330
-  // sk
-
+  // sk 
   let v = createVector(mouseX, mouseY);
   vectorArray.push(v);
   drawCurve();
@@ -35,7 +33,7 @@ function pickPoint() {
 function drawCurve() {
   noFill();
   beginShape();
-  for(let i = 0 ; i < vectorArray.length; i++) {
+  for(let i = 0; i < vectorArray.length; i++) {
     let col =
         baliImg.get(vectorArray[i].x, vectorArray[i].y);
     stroke(col);
