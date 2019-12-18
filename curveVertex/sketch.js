@@ -1,17 +1,19 @@
 function preload() {
-  baliImg = loadImage('bali-beach1.jpg');
+  baliImg = loadImage('bali-beach2.jpg');
 }
+
+let slider, slider2;
 
 function setup() {
   createCanvas(400, 400);
   baliImg.resize(400, 400);
+  slider = createSlider(0, 60, 10);
+  slider2 = createSlider(0, 60, 10);
 }
 
 function draw() {
   background(0);
-  background(baliImg);
-
-
+  // background(baliImg);
   // straight line
   /*
     for(let y = 10; y < height; y += 10) {
@@ -27,8 +29,10 @@ function draw() {
     */
 
   let gap = 0;
-  let heightGap = 7;
-  let noiseScale = 0.05;
+  let heightGap = 15;
+  let noiseScale = 0.25;
+  let sliderVal = slider.value();
+  let sliderVal2 = slider2.value();
 
   // noise
   for (let y = 3; y < height; y += heightGap) {
@@ -38,14 +42,14 @@ function draw() {
     let startY = y;
     let endX = width;
     let endY = y;
-    for (let x = startX+gap; x < endX - gap ; x += 0.7) {
+    for (let x = startX+gap; x < endX - gap ; x += 1) {
       let col = baliImg.get(x, y);
       stroke(col);
       let noiseVal = noise((frameCount + x) * noiseScale,
                            frameCount * 0.22 * noiseScale);
-      line(x, y + noiseVal * 37, x, y + noiseVal * 35);
+      line(x, y + noiseVal * sliderVal, x, y + noiseVal * sliderVal2);
     }
 
-    gap += 3;
+    gap += 0;  // x width control
   }
 }
