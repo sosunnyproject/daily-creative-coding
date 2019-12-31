@@ -4,6 +4,10 @@ let count = 0;
 let ons = ['溫','ON','온'];
 let colors = [];
 
+function preload() {
+  //myFont = loadFont('assets/inconsolata.otf');
+}
+
 function setup() {
   createCanvas(400, 400);
   rectMode(CENTER);
@@ -19,7 +23,7 @@ function draw() {
 
   if(frameCount%30 ==1) {
     setBall();
-    setRose(width/2, 100);
+    setRose(200, 100);
   }
 
   background(0);
@@ -49,8 +53,8 @@ function setBall(){
   background(255);
 
   if(count == ons.length) count=0;
-
   textSize(height*0.5);
+  /*
   if(count == 1) {
     textFont('Calistoga');
   } else if (count == 0){
@@ -58,8 +62,9 @@ function setBall(){
   } else if (count == 2){
     textFont('Song Myung');
   }
+  */
 
-  console.log(count);
+  // console.log(count);
   text(ons[count], width/2, height/2);
 
   for(let obj of fixed){
