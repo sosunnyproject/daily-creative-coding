@@ -16,7 +16,7 @@ function setup() {
 }
 
 function draw() {
-  // background(255);
+  background(255);
   for(let x = 0; x < width; x += gap) {
     for(let y = 0; y < height; y += gap) {
 
@@ -32,7 +32,10 @@ function draw() {
 
       fill(color);
       noStroke();
-      ellipse(x, y, rad, rad);
+
+      ellipse(x, y, rad*noise(frameCount*0.5), rad*noise(frameCount*0.5));
+
+
     }
   }
 }
