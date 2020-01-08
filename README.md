@@ -15,6 +15,9 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
   - archive: http://www.modulabs.co.kr/IAW
 - Presentation @ women who code @ seoul 2019
   - https://docs.google.com/presentation/d/1GxAAlDRQaV8lhH6I-sGC8QH1v70old_-kFr6xpyUI0I/edit?usp=sharing
+- Presentation @ modulabs conference @ seoul 2019
+  - http://moducon.kr/creative-coding-learn-code-to-make-art/
+- Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.wordpress.com/portfolio/)
  
 ## Inspiration 
 - Daniel Shiffman / NYU Professor
