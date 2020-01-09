@@ -74,7 +74,7 @@ function draw() {
         let thickness =  map(micLevel, 1, 0, 5, 1);
         strokeWeight(5);
         //ellipse(x, y, rad * noise(micLevel)*5, rad * noise(micLevel)*7);
-        rect(x, y, rad * micLevel, rad * micLevel*1.5);
+        rect(x, y, rad * micLevel*10, rad * micLevel*20);
 
       }
     }
