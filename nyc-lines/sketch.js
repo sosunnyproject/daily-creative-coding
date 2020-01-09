@@ -4,14 +4,23 @@ let gap = 10;
 let imgs = [];
 let ind = 0;
 let slider1, slider2;
-let mic;
+let mic, micLevel;
 let ellButton, rectButton;
 let col;
+let angle, spacing;
 
 function preload() {
   for (let i = 0; i < 5; i++) {
     imgs[i] = loadImage("n" + i + ".jpg");
   }
+}
+
+function mousePressed() {
+  if (getAudioContext().state !== 'running') {
+    getAudioContext().resume();
+  }
+  console.log(getAudioContext().state);
+  console.log(micLevel);
 }
 
 function setup() {
@@ -24,6 +33,7 @@ function setup() {
   // audio in
   mic = new p5.AudioIn();
   mic.start();
+  getAudioContext().resume();
 
   // button
   /*
@@ -32,6 +42,8 @@ function setup() {
   ellButton.mousePressed(changeShape('ellipse'));
   rectButton.mousePressed(changeShape('rectangle'));
   */
+  angleMode(DEGREES);
+  spacing = 50;
 }
 
 
@@ -40,7 +52,7 @@ function draw() {
   let bVal = slider1.value();
   rad = slider2.value();
 
-  // let micLevel = mic.getLevel();
+  micLevel = mic.getLevel();
 
   background(0);
   bgImg.resize(width, height);
@@ -56,11 +68,13 @@ function draw() {
       col = bgImg.get(x + bgImg.width/2, y + bgImg.height/2);
 
       if (brightness(col) > bVal) {
-        col[3] = 200;
-        fill(col);
-        noStroke();
-        ellipse(x, y, rad * noise(frameCount * 0.5), rad * noise(frameCount * 0.5));
-        // rect(x, y, rad, rad * noise(frameCount * 0.5) * random(3));
+        col[3] = map(micLevel, 0, 1, 150, 255);
+        noFill();
+        stroke(col);
+        let thickness =  map(micLevel, 1, 0, 5, 1);
+        strokeWeight(5);
+        //ellipse(x, y, rad * noise(micLevel)*5, rad * noise(micLevel)*7);
+        rect(x, y, rad * micLevel, rad * micLevel*1.5);
 
       }
     }
