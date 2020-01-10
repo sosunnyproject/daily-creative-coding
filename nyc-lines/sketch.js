@@ -11,8 +11,8 @@ let angle = 0;
 let spacing;
 
 function preload() {
-  for (let i = 0; i < 20; i++) {
-    imgs[i] = loadImage("s" + i + ".JPG");
+  for (let i = 0; i < 10; i++) {
+    imgs[i] = loadImage("w" + i + ".jpg");
   }
 }
 
