@@ -10,8 +10,8 @@ let col;
 let angle, spacing;
 
 function preload() {
-  for (let i = 0; i < 5; i++) {
-    imgs[i] = loadImage("n" + i + ".jpg");
+  for (let i = 0; i < 10; i++) {
+    imgs[i] = loadImage("s" + i + ".JPG");
   }
 }
 
@@ -24,7 +24,7 @@ function mousePressed() {
 }
 
 function setup() {
-  createCanvas(800, 600, WEBGL);
+  createCanvas(600, 600, WEBGL);
   bgImg = imgs[0];
   bgImg.resize(width, height);
   slider1  = createSlider(0, 100, 20);
@@ -35,13 +35,6 @@ function setup() {
   mic.start();
   getAudioContext().resume();
 
-  // button
-  /*
-  ellButton = createButton('elliipse');
-  rectButton = createButton('rectangle');
-  ellButton.mousePressed(changeShape('ellipse'));
-  rectButton.mousePressed(changeShape('rectangle'));
-  */
   angleMode(DEGREES);
   spacing = 50;
 }
@@ -68,13 +61,13 @@ function draw() {
       col = bgImg.get(x + bgImg.width/2, y + bgImg.height/2);
 
       if (brightness(col) > bVal) {
-        col[3] = map(micLevel, 0, 1, 150, 255);
+        col[3] = map(micLevel, 0, 1, 200, 255);
         noFill();
         stroke(col);
         let thickness =  map(micLevel, 1, 0, 5, 1);
-        strokeWeight(5);
-        //ellipse(x, y, rad * noise(micLevel)*5, rad * noise(micLevel)*7);
-        rect(x, y, rad * micLevel*10, rad * micLevel*20);
+        strokeWeight(2);
+        ellipse(x, y, rad * noise(micLevel)*1.5, rad * noise(micLevel)*1.5);
+        // rect(x, y, rad * micLevel*10, rad * micLevel*20);
 
       }
     }
