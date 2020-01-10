@@ -10,7 +10,7 @@ let col;
 let angle, spacing;
 
 function preload() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     imgs[i] = loadImage("s" + i + ".JPG");
   }
 }
@@ -28,7 +28,7 @@ function setup() {
   bgImg = imgs[0];
   bgImg.resize(width, height);
   slider1  = createSlider(0, 100, 20);
-  slider2  = createSlider(0, 50, 5);
+  slider2  = createSlider(0, 120, 20);
 
   // audio in
   mic = new p5.AudioIn();
@@ -57,7 +57,6 @@ function draw() {
 
   for (let x = -width/2; x < width/2; x += gap) {
     for (let y = -height/2; y < height/2; y += gap) {
-
       col = bgImg.get(x + bgImg.width/2, y + bgImg.height/2);
 
       if (brightness(col) > bVal) {
@@ -65,10 +64,14 @@ function draw() {
         noFill();
         stroke(col);
         let thickness =  map(micLevel, 1, 0, 5, 1);
-        strokeWeight(2);
-        ellipse(x, y, rad * noise(micLevel)*1.5, rad * noise(micLevel)*1.5);
+        strokeWeight(thickness);
+        //ellipse(x, y, rad * noise(micLevel)*1.5, rad * noise(micLevel)*1.5);
         // rect(x, y, rad * micLevel*10, rad * micLevel*20);
-
+        push();
+        for(let a = 0; a < 360; a += rad) {
+          line(x, y, x + rad/2*sin(a)+ micLevel*20, y + rad/2*cos(a)+micLevel*30);
+        }
+        pop();
       }
     }
   }
