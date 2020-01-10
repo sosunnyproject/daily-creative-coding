@@ -7,7 +7,8 @@ let slider1, slider2;
 let mic, micLevel;
 let ellButton, rectButton;
 let col;
-let angle, spacing;
+let angle = 0;
+let spacing;
 
 function preload() {
   for (let i = 0; i < 20; i++) {
@@ -63,15 +64,19 @@ function draw() {
         col[3] = map(micLevel, 0, 1, 200, 255);
         noFill();
         stroke(col);
-        let thickness =  map(micLevel, 1, 0, 5, 1);
+        let thickness =  map(micLevel, 1, 0, 10, 1);
         strokeWeight(thickness);
         //ellipse(x, y, rad * noise(micLevel)*1.5, rad * noise(micLevel)*1.5);
         // rect(x, y, rad * micLevel*10, rad * micLevel*20);
-        push();
-        for(let a = 0; a < 360; a += rad) {
-          line(x, y, x + rad/2*sin(a)+ micLevel*20, y + rad/2*cos(a)+micLevel*30);
+        if(frameCount % 100 === 0) {
+          if (angle < 360) {
+            angle += 30;
+          } else {
+            angle = 0;
+          }
         }
-        pop();
+          let mapMic = map(micLevel, 0, 1, 0, 360);
+          line(x, y, x + rad/2*sin(mapMic), y + rad/2*cos(mapMic));
       }
     }
   }
@@ -83,7 +88,6 @@ function changeShape(){
 }
 
 function keyPressed() {
-  console.log(ind);
   if(keyCode === LEFT_ARROW){
     if(ind > 0) {
       ind--;
@@ -97,6 +101,5 @@ function keyPressed() {
       ind = 0;
     }
   }
-  console.log(ind);
   bgImg = imgs[ind];
 }
