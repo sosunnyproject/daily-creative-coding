@@ -9,6 +9,7 @@ let ellButton, rectButton;
 let col;
 let angle = 0;
 let spacing;
+let speed = 0.5;
 
 function preload() {
   for (let i = 0; i < 10; i++) {
@@ -36,7 +37,7 @@ function setup() {
   mic.start();
   getAudioContext().resume();
 
-  angleMode(DEGREES);
+  angleMode(RADIANS);
   spacing = 50;
 }
 
@@ -64,7 +65,8 @@ function draw() {
         col[3] = map(micLevel, 0, 1, 200, 255);
         noFill();
         stroke(col);
-        let thickness =  map(micLevel, 1, 0, 10, 1);
+        
+        let thickness =  map(micLevel, 1, 0, 20, 5);
         strokeWeight(thickness);
         //ellipse(x, y, rad * noise(micLevel)*1.5, rad * noise(micLevel)*1.5);
         // rect(x, y, rad * micLevel*10, rad * micLevel*20);
@@ -75,8 +77,12 @@ function draw() {
             angle = 0;
           }
         }
-          let mapMic = map(micLevel, 0, 1, 0, 360);
-          line(x, y, x + rad/2*sin(mapMic), y + rad/2*cos(mapMic));
+
+          // let mapMic = map(micLevel, 0, 1, 0, 360);
+
+          // angleMode: RADIANS. SIN, COS (FRAMECOUNT) --> ROTATE 360DEG
+          speed = map(micLevel, 0, 1, 0.7, 1.5);
+          line(x, y, x + rad*sin(frameCount*speed), y + rad*cos(frameCount*speed));
       }
     }
   }
