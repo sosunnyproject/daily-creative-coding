@@ -1,30 +1,39 @@
-var hex_size = 20;
-var map_radius = 4;
+var hex_size = 40;
+var map_radius = 3;
 // FIXME: This should be called map size,
 // but I started with hexagons, and refactoring would be too hard
 var origin;
 var padding = 0;
 var grid_type = "HEXAGON" // Change this value for different grid types (HEXAGON, TRIANGLE, PARRALELOGRAM, RECTANGLE)
 var intersections = [];
+let sizeSlider, sizeVal, radSlider, radVal;
 
 function setup() {
   createCanvas(700, 700);
 	angleMode(RADIANS);
 	origin = createVector(width/2, height/2); // CENTER of CANVAS
   console.log("setup origin: " + origin); // 350, 350, 0 ;
+  sizeSlider = createSlider(0, 100, 40);
+  radSlider = createSlider(0, 10, 2);
 }
 
+function mousePressed() {
+  console.log("hex_size: ", hex_size, ", map_radius: ", map_radius);
+}
 function draw() {
   background(32);
 	stroke(255);
 	strokeWeight(1);
 
+  hex_size = sizeSlider.value();
+  map_radius = radSlider.value();
+
 	//translate(300, 300);
 	if(grid_type == "HEXAGON"){
 		for (var q = -map_radius; q <= map_radius; q++) {
-				var r1 = max(-map_radius, -q - map_radius);
-				var r2 = min(map_radius, -q + map_radius);
-				for (var r = r1; r <= r2; r++) {
+				var r1 = max(-map_radius*2, -q - map_radius);
+				var r2 = min(map_radius*2, -q + map_radius);
+				for (var r = r1; r <= r2; r+= 1) {
           // hex_to_pixel(q, r) = CENTER of hexagon
 					draw_hexagon(hex_to_pixel(q, r), hex_size, q, r);
 				}
