@@ -1,5 +1,5 @@
 var hex_size = 20;
-var map_radius = 8;
+var map_radius = 4;
 // FIXME: This should be called map size,
 // but I started with hexagons, and refactoring would be too hard
 var origin;
@@ -43,11 +43,17 @@ function draw() {
 function hex_to_pixel(q, r) {
 	// This is basically a matrix multiplication between a hexagon orientation matrix
 	// and the vector {q; r}
-    var x = (sqrt(3) * q + sqrt(3)/2 * r) * (hex_size) ;
-    var y = (3/2 * r) * hex_size;
-    let resultVector = createVector(x + origin.x, y + origin.y);
-    // console.log(resultVector);
-    return resultVector;
+  // flat top
+  var x = hex_size * (3.0/2 * r);
+  var y = hex_size * (sqrt(3) / 2 * r + sqrt(3) * q);
+  /*
+  // original code - pointy top
+  var x = (sqrt(3) * q + sqrt(3)/2 * r) * (hex_size) ;
+  var y = (3/2 * r) * hex_size;
+  */
+  let resultVector = createVector(x + origin.x, y + origin.y);
+  // console.log(resultVector);
+  return resultVector;
 }
 
 
@@ -70,16 +76,18 @@ function draw_hexagon(center, size, q, r, drawCities = true){
 
     // point(points[i % 6].x, points[i % 6].y);
 		vertex(points[i % 6].x, points[i % 6].y);
-		line(points[i-1].x, points[i-1].y, points[i % 6].x, points[i % 6].y);
+		// line(points[i-1].x, points[i-1].y, points[i % 6].x, points[i % 6].y);
 	}
 	endShape();
 
   // text inside HEXAGON
+  /*
 	fill(255);
 	textSize(10);
 	textAlign(CENTER, CENTER);
 	text(q + " " + r + " \n" + (-q-r),   // text content
          center.x + 1, center.y + 2);  // text location
+  */
 }
 
 function intersections_includes(c){
@@ -102,7 +110,7 @@ function approx(a,b){
 }
 
 function hex_corner(center, size, i){
-    var angle_deg = 60 * i + 60 // 60, INSTEAD OF 30 MAKES HEXAGON I LIKE.
+    var angle_deg = 60 * i // 60, INSTEAD OF 30 MAKES HEXAGON I LIKE.
     var angle_rad = PI/180 * angle_deg;
     return createVector(center.x + size * cos(angle_rad),
                  center.y + size * sin(angle_rad));
