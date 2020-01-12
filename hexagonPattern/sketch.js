@@ -7,21 +7,22 @@ var padding = 0;
 var grid_type = "HEXAGON" // Change this value for different grid types (HEXAGON, TRIANGLE, PARRALELOGRAM, RECTANGLE)
 var intersections = [];
 let sizeSlider, sizeVal, radSlider, radVal;
+let textArray = ['B', 'e', 'e', 's', 'R', 'D', 'y', 'i', 'n', 'g', '!', '!', '!'];
 
 function setup() {
   createCanvas(700, 700);
 	angleMode(RADIANS);
 	origin = createVector(width/2, height/2); // CENTER of CANVAS
   console.log("setup origin: " + origin); // 350, 350, 0 ;
-  sizeSlider = createSlider(0, 100, 40);
-  radSlider = createSlider(0, 10, 2);
+  sizeSlider = createSlider(0, 100, 20);
+  radSlider = createSlider(0, 10, 5);
 }
 
 function mousePressed() {
   console.log("hex_size: ", hex_size, ", map_radius: ", map_radius);
 }
 function draw() {
-  background(32);
+  background(0);
 	stroke(255);
 	strokeWeight(1);
 
@@ -79,24 +80,39 @@ function draw_hexagon(center, size, q, r, drawCities = true){
 
 	beginShape();
 	for(i = 1; i <= 6; i++){
-		fill(map(-q-r, -map_radius, map_radius, 0, 255),
+    noFill();
+
+    colorMode(HSB);
+    strokeWeight(3);
+    stroke(map(sin(-q-r), 0, 1, 50, 70), 100, 100);
+
+    /* COLOR
+		fill( map(-q-r, -map_radius, map_radius, 0, 255),
 			map(r, -map_radius, map_radius, 0, 255),
 				map(q, -map_radius, map_radius, 0, 255));
+    */
 
     // point(points[i % 6].x, points[i % 6].y);
 		vertex(points[i % 6].x, points[i % 6].y);
-		// line(points[i-1].x, points[i-1].y, points[i % 6].x, points[i % 6].y);
+		line(points[i-1].x, points[i-1].y, points[i % 6].x, points[i % 6].y);
 	}
 	endShape();
 
   // text inside HEXAGON
-  /*
 	fill(255);
-	textSize(10);
+	textSize(15);
 	textAlign(CENTER, CENTER);
-	text(q + " " + r + " \n" + (-q-r),   // text content
+  // sample case
+  //5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5 ...
+  // hex size: 18 , map_radius: 5
+  let ind = abs((-q-r) - map_radius);
+  let letter = textArray[ind];
+  noStroke();
+  //q + " " + r + " \n" +
+  text(letter,   // text content
          center.x + 1, center.y + 2);  // text location
-  */
+
+
 }
 
 function intersections_includes(c){
