@@ -18,7 +18,10 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - Presentation @ modulabs conference @ seoul 2019
   - http://moducon.kr/creative-coding-learn-code-to-make-art/
 - Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.wordpress.com/portfolio/)
- 
+
+## Non-code Software Study
+- Touch Designer: https://www.notion.so/sunny1103/Touch-Designer-Tutorial-3f8a6862eb56465993da6413237e590d
+
 ## Inspiration 
 - Daniel Shiffman / NYU Professor
   - https://www.youtube.com/user/shiffman/videos
