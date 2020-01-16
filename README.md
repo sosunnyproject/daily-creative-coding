@@ -19,7 +19,7 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
   - http://moducon.kr/creative-coding-learn-code-to-make-art/
 - Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.wordpress.com/portfolio/)
 
-## Non-code Software Study
+## Software Study (less code-based)
 - Touch Designer: https://www.notion.so/sunny1103/Touch-Designer-Tutorial-3f8a6862eb56465993da6413237e590d
 
 ## Inspiration 
