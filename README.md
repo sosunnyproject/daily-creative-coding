@@ -20,7 +20,7 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.wordpress.com/portfolio/)
 
 ## Software Study (less code-based)
-- Touch Designer: https://www.notion.so/sunny1103/Touch-Designer-Tutorial-3f8a6862eb56465993da6413237e590d
+- Touch Designer: [tutorial lessons](https://www.notion.so/sunny1103/Touch-Designer-Tutorial-3f8a6862eb56465993da6413237e590d)
 
 ## Inspiration 
 - Daniel Shiffman / NYU Professor
