@@ -10,7 +10,7 @@ let sizeSlider, sizeVal, radSlider, radVal;
 let textArray = ['B', 'e', 'e', 's', 'R', 'D', 'y', 'i', 'n', 'g', '!', '!', '!'];
 
 function setup() {
-  createCanvas(700, 700);
+  createCanvas(2408, 3508);
 	angleMode(RADIANS);
 	origin = createVector(width/2, height/2); // CENTER of CANVAS
   console.log("setup origin: " + origin); // 350, 350, 0 ;
@@ -22,7 +22,7 @@ function mousePressed() {
   console.log("hex_size: ", hex_size, ", map_radius: ", map_radius);
 }
 function draw() {
-  background(0);
+  // background(0); // 지우면 trace 남아서 흥미로움 & transparent 배경위해서 comment
 	stroke(255);
 	strokeWeight(1);
 
@@ -84,7 +84,8 @@ function draw_hexagon(center, size, q, r, drawCities = true){
 
     colorMode(HSB);
     strokeWeight(3);
-    stroke(map(sin(-q-r), 0, 1, 50, 70), 100, 100);
+    // sin(value) --> changes which hexagon stroke
+    stroke(map(sin(q-r*10), 0, 1, 40, 60), 80, 90);
 
     /* COLOR
 		fill( map(-q-r, -map_radius, map_radius, 0, 255),
@@ -99,7 +100,7 @@ function draw_hexagon(center, size, q, r, drawCities = true){
 	endShape();
 
   // text inside HEXAGON
-	fill(255);
+	fill(0);
 	textSize(15);
 	textAlign(CENTER, CENTER);
   // sample case
@@ -109,9 +110,9 @@ function draw_hexagon(center, size, q, r, drawCities = true){
   let letter = textArray[ind];
   noStroke();
   //q + " " + r + " \n" +
-  text(letter,   // text content
-         center.x + 1, center.y + 2);  // text location
 
+  // text(letter,   // text content
+  //       center.x + 1, center.y + 2);  // text location
 
 }
 
