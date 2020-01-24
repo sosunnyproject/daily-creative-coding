@@ -8,9 +8,10 @@ var grid_type = "HEXAGON" // Change this value for different grid types (HEXAGON
 var intersections = [];
 let sizeSlider, sizeVal, radSlider, radVal;
 let textArray = ['B', 'e', 'e', 's', 'R', 'D', 'y', 'i', 'n', 'g', '!', '!', '!'];
+let randomG;
 
 function setup() {
-  createCanvas(2408, 3508);
+  createCanvas(2000, 1000);
 	angleMode(RADIANS);
 	origin = createVector(width/2, height/2); // CENTER of CANVAS
   console.log("setup origin: " + origin); // 350, 350, 0 ;
@@ -22,7 +23,8 @@ function mousePressed() {
   console.log("hex_size: ", hex_size, ", map_radius: ", map_radius);
 }
 function draw() {
-  // background(0); // 지우면 trace 남아서 흥미로움 & transparent 배경위해서 comment
+  // background(0);
+  // 지우면 trace 남아서 흥미로움 & transparent 배경위해서 comment
 	stroke(255);
 	strokeWeight(1);
 
@@ -47,6 +49,7 @@ function draw() {
 		//point(intersections[i].x, intersections[i].y);
 	}
 	intersections = [];
+
 }
 
 // DRAW BIG HEXAGON
@@ -79,19 +82,36 @@ function draw_hexagon(center, size, q, r, drawCities = true){
 	}
 
 	beginShape();
+  randomG = random(180, 230);
+
 	for(i = 1; i <= 6; i++){
     noFill();
 
-    colorMode(HSB);
+    colorMode(RGB);
     strokeWeight(3);
+    // stroke(255, random(180, 230), 0); //yellow
+    /*
+    if (i % 2 !== 0 ) {
+      strokeWeight(10);
+      stroke(255, 210, 0);
+    } else {
+      stroke(0, 0, 0); // black
+    }
+    */
+
+    colorMode(HSB);
     // sin(value) --> changes which hexagon stroke
-    stroke(map(sin(q-r*10), 0, 1, 40, 60), 80, 90);
+    // stroke(map(sin(q-r*10), 0, 1, 40, 60), 80, 100);
 
     /* COLOR
+
 		fill( map(-q-r, -map_radius, map_radius, 0, 255),
 			map(r, -map_radius, map_radius, 0, 255),
 				map(q, -map_radius, map_radius, 0, 255));
     */
+
+    fill( map(sin(q-r*10), 0, 1, 40, 60), 70, 100, 0.1);
+
 
     // point(points[i % 6].x, points[i % 6].y);
 		vertex(points[i % 6].x, points[i % 6].y);
@@ -111,8 +131,8 @@ function draw_hexagon(center, size, q, r, drawCities = true){
   noStroke();
   //q + " " + r + " \n" +
 
-  // text(letter,   // text content
-  //       center.x + 1, center.y + 2);  // text location
+  //text(letter,   // text content
+    //     center.x + 1, center.y + 2);  // text location
 
 }
 
