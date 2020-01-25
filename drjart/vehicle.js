@@ -29,7 +29,7 @@ class Vehicle {
   }
 
   // draw the Vehicle Sera Penguin
-  display() {
+  display(imgIndex) {
     var theta = this.vel.heading() + PI / 2;
     // fill(map(this.pos.x, 0, 640, 100, 255), 20, map(this.pos.y, 0, 640, 200, 0));
     // fill(127);
@@ -38,8 +38,7 @@ class Vehicle {
     push();
     translate(this.pos.x, this.pos.y);
     rotate(theta);
-    image(imgs[3], 0, 0);
-    image(imgs[4], 100, 100);
+    image(imgs[imgIndex], 0, 0);
     pop();
   }
 }

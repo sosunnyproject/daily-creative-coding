@@ -2,7 +2,7 @@ function Particle() {
   this.pos = createVector(random(width), random(height));
   this.vel = createVector(0, 0);
   this.acc = createVector(0, 0);
-  this.maxspeed = 4;
+  this.maxspeed = 2;
 
   this.prevPos = this.pos.copy();
 
@@ -39,19 +39,19 @@ function Particle() {
   // make sure particles come back when hit the walls
   this.edges = function() {
     if(this.pos.x > width) {
-      this.pos.x = 0;
+      this.pos.x = width/2;
       this.updatePrev();
     }
     if(this.pos.x < 0) {
-      this.pos.x = width;
+      this.pos.x = width/2;
       this.updatePrev();
     }
     if(this.pos.y > height) {
-      this.pos.y = 0;
+      this.pos.y = height/2;
       this.updatePrev();
     }
     if(this.pos.y < 0) {
-      this.pos.y = height;
+      this.pos.y = height/2;
       this.updatePrev();
     }
   }

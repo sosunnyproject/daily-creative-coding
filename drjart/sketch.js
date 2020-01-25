@@ -5,8 +5,12 @@ var zoff = 0;
 var fr; //framerate
 var particles = [];
 var flowfield;
+
+
 var imgs = [];
-var vehicle;
+var vehicle;  // 1 penguin
+var vehicles = [];  // penguinVectors
+var imgIndex = 0;
 
 // preload penguin img
 function preload() {
@@ -19,10 +23,9 @@ function setup(){
   createCanvas(600, 600);
 
   // vehicle
-  vehicle = new Vehicle(width/2, height/2);
-  // multiple vehicles
+  imgIndex++;
+  vehicles.push(new Vehicle(width/2, height/2));
 
-  console.log(vehicle);
   // flow field
   cols = floor(width/scl);
   rows = floor(height/scl);
@@ -36,6 +39,15 @@ function setup(){
   }
 }
 
+// penguinVectors
+function mouseClicked() {
+  console.log(imgIndex);
+    while(imgIndex < 5){
+      imgIndex++;
+    }
+    vehicles.push(new Vehicle(width/2, height/2));
+}
+
 function draw() {
   background('rgba(0%,0%,0%,0.7)');
   //penguin vehicles follow Mouse
@@ -43,10 +55,22 @@ function draw() {
   fill(map(mouseX, 0, 640, 100, 255), 20, map(mouseY, 0, 640, 200, 0));
   fill(250, 251, 0);
   noStroke();
+  // mouseVector
   ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
+
+  // penguinVectors
+  for (let i = 0; i < imgIndex; i++) {
+    vehicles[i].seek(mouse);
+    vehicles[i].update();
+    vehicles[i].display(i);
+  }
+
+  // 1 penguin
+  /*
   vehicle.seek(mouse);
   vehicle.update();
   vehicle.display();
+  */
 
   var yoff = 0;
   for (var y = 0; y < rows; y++) {
@@ -57,7 +81,7 @@ function draw() {
       var v = p5.Vector.fromAngle(angle);
       // "i want vector on every spot on the grid."05:10 youtube tutorial
 
-      v.setMag(2); // full units, no limit..need to set maximum limit
+      v.setMag(4); // full units, no limit..need to set maximum limit
       flowfield[index] = v;
       xoff += inc;
       // push();
