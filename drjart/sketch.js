@@ -1,4 +1,4 @@
-var inc = 0.1; //increment
+var inc = 0.01; //increment
 var scl = 10; //scale
 var cols, rows;
 var zoff = 0;
@@ -20,13 +20,14 @@ function preload() {
 }
 
 function setup(){
-  createCanvas(720, 720);
+  createCanvas(720, 720, WEBGL);
 
   // vehicle
   imgIndex++;
   vehicles.push(new Vehicle(0, 0));
 
   // flow field
+  console.log("width/height", width, height);
   cols = floor(width/scl);
   rows = floor(height/scl);
   // fr = createP(''); // creating Paragraph element
@@ -35,7 +36,7 @@ function setup(){
   flowfield = new Array(cols*rows); //preset the size of array // flowfield inside sketch.js
 
   // particles
-  for (var i = 0; i < 2000; i++) {
+  for (var i = 0; i < 500; i++) {
     particles[i] = new Particle();
   }
 
@@ -53,7 +54,7 @@ function draw() {
   background('rgba(0%,0%,0%,0.6)');
 
   //penguin vehicles follow Mouse
-  let mouse = createVector(mouseX, mouseY);
+  let mouse = createVector(mouseX - width/2, mouseY - height/2);
   // mouseVector
   // ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
 
@@ -66,25 +67,25 @@ function draw() {
 
   // FlowField
   var yoff = 0;
-  for (var y = 0; y < rows; y++) {
+  for (var y = 0; y < rows; y+= 2) {
     var xoff = 0;
-    for (var x = 0; x < cols; x++) {
+    for (var x = 0; x < cols; x+= 2) {
       var index = (x + y * cols);
       var angle = noise(xoff, yoff, zoff) * TWO_PI * 3;
       var v = p5.Vector.fromAngle(angle);
       // "i want vector on every spot on the grid."05:10 youtube tutorial
 
-      v.setMag(4); // full units, no limit..need to set maximum limit
+      v.setMag(2); // full units, no limit..need to set maximum limit
       flowfield[index] = v;
       xoff += inc;
       push();
-      translate(x * scl, y * scl);
+      translate(x * scl - width/2, y * scl - height/2);
       rotate(v.heading());
       // line(0, 0, scl, 0); // for every vector, rotate according to angle of that random vector
       pop();
     }
     yoff += inc;
-    zoff += 0.001;  // fixed flow field, if you comment this
+    zoff += 0.0001;  // fixed flow field, if you comment this
   }
 
 
