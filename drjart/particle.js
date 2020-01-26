@@ -38,19 +38,19 @@ function Particle() {
 
   // make sure particles come back when hit the walls
   this.edges = function() {
-    if(this.pos.x > width) {
+    if(this.pos.x > width - 20) {
       this.pos.x = width/2;
       this.updatePrev();
     }
-    if(this.pos.x < 0) {
+    if(this.pos.x < 20 ) {
       this.pos.x = width/2;
       this.updatePrev();
     }
-    if(this.pos.y > height) {
+    if(this.pos.y > height - 20) {
       this.pos.y = height/2;
       this.updatePrev();
     }
-    if(this.pos.y < 0) {
+    if(this.pos.y < 20 ) {
       this.pos.y = height/2;
       this.updatePrev();
     }

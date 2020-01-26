@@ -20,7 +20,7 @@ function preload() {
 }
 
 function setup(){
-  createCanvas(1080, 1080);
+  createCanvas(720, 720);
 
   // vehicle
   imgIndex++;
@@ -35,7 +35,7 @@ function setup(){
   flowfield = new Array(cols*rows); //preset the size of array // flowfield inside sketch.js
 
   // particles
-  for (var i = 0; i < 1000; i++) {
+  for (var i = 0; i < 2000; i++) {
     particles[i] = new Particle();
   }
 
@@ -50,13 +50,10 @@ function mouseClicked() {
 }
 
 function draw() {
-  background('rgba(0%,0%,0%,0.8)');
-  //penguin vehicles follow Mouse
-  let mouse = createVector(mouseX - width/2, mouseY - height/2);
+  background('rgba(0%,0%,0%,0.6)');
 
-  // fill(map(mouseX, 0, width, 100, 255), 20, map(mouseY, 0, height, 200, 0));
-  fill(250, 251, 0);
-  noStroke();
+  //penguin vehicles follow Mouse
+  let mouse = createVector(mouseX, mouseY);
   // mouseVector
   // ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
 
@@ -80,14 +77,14 @@ function draw() {
       v.setMag(4); // full units, no limit..need to set maximum limit
       flowfield[index] = v;
       xoff += inc;
-      // push();
-      // translate(x * scl, y * scl);
-      // rotate(v.heading());
+      push();
+      translate(x * scl, y * scl);
+      rotate(v.heading());
       // line(0, 0, scl, 0); // for every vector, rotate according to angle of that random vector
-      // pop();
+      pop();
     }
     yoff += inc;
-    zoff += 0.00004;  // fixed flow field, if you comment this
+    zoff += 0.001;  // fixed flow field, if you comment this
   }
 
 

@@ -28,7 +28,7 @@ class FlowField {
   }
 
   init() {
-    console.log('flowfield init');
+    console.log('flowfield init')
     // Reseed noise so we get a new flow field every time
     // Need to get noise working
     noiseSeed(Math.floor(random(10000)));
