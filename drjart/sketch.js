@@ -1,4 +1,4 @@
-var inc = 0.01; //increment
+var inc = 0.2; //increment
 var scl = 10; //scale
 var cols, rows;
 var zoff = 0;
@@ -20,7 +20,7 @@ function preload() {
 }
 
 function setup(){
-  createCanvas(720, 720, WEBGL);
+  createCanvas(720, 720);
 
   // vehicle
   imgIndex++;
@@ -51,10 +51,10 @@ function mouseClicked() {
 }
 
 function draw() {
-  background('rgba(0%,0%,0%,0.6)');
+  background('rgba(0%,0%,0%,0.7)');
 
   //penguin vehicles follow Mouse
-  let mouse = createVector(mouseX - width/2, mouseY - height/2);
+  let mouse = createVector(mouseX, mouseY);
   // mouseVector
   // ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
 
@@ -67,9 +67,9 @@ function draw() {
 
   // FlowField
   var yoff = 0;
-  for (var y = 0; y < rows; y+= 2) {
+  for (var y = 0; y < rows; y++) {
     var xoff = 0;
-    for (var x = 0; x < cols; x+= 2) {
+    for (var x = 0; x < cols; x++) {
       var index = (x + y * cols);
       var angle = noise(xoff, yoff, zoff) * TWO_PI * 3;
       var v = p5.Vector.fromAngle(angle);
@@ -79,13 +79,13 @@ function draw() {
       flowfield[index] = v;
       xoff += inc;
       push();
-      translate(x * scl - width/2, y * scl - height/2);
+      translate(x * scl, y * scl);
       rotate(v.heading());
       // line(0, 0, scl, 0); // for every vector, rotate according to angle of that random vector
       pop();
     }
     yoff += inc;
-    zoff += 0.0001;  // fixed flow field, if you comment this
+    zoff += 0.001;  // fixed flow field, if you comment this
   }
 
 

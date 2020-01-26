@@ -1,5 +1,5 @@
 function Particle() {
-  this.pos = createVector(random(0, width), random(0, height));
+  this.pos = createVector(random(width), random(height));
   this.vel = createVector(0, 0);
   this.acc = createVector(0, 0);
   this.maxspeed = 4;
@@ -16,7 +16,7 @@ function Particle() {
     // yellow drjart RGB(250, 251, 0);
     // blue color of drjart img (0, 199, 188)
     // fill(0, col, 188);
-    stroke(0, col, 188);
+
     // ellipse(this.pos.x, this.pos.y, 5, 5);
     // stroke(map(sin(this.vel.x), -1, 1, 100, 255), col, map(sin(this.vel.y), -1, 1, 200, 0)); //color
   }
@@ -29,10 +29,10 @@ function Particle() {
 
   this.show = function(col) {
     // stroke(map(sin(this.vel.x), -1, 1, 100, 255), map(sin(this.acc.y), -1, 1, 50, 200), col); //color
-    strokeWeight(10);
-
+    strokeWeight(3);
+    stroke(0, col, 188);
     // point(this.pos.x, this.pos.y);
-    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y); //draw line from current to previous pos
+    line(this.pos.x, this.pos.y, this.prevPos.x + 2, this.prevPos.y+ 2); //draw line from current to previous pos
     this.updatePrev();
   }
 
@@ -43,20 +43,20 @@ function Particle() {
 
   // make sure particles come back when hit the walls
   this.edges = function() {
-    if(this.pos.x > width/2) {
-      this.pos.x = - width/2;
+    if(this.pos.x > width) {
+      this.pos.x = 0 ;
       this.updatePrev();
     }
-    if(this.pos.x < -width/2 ) {
-      this.pos.x = width/2;
+    if(this.pos.x < 0) {
+      this.pos.x = width;
       this.updatePrev();
     }
-    if(this.pos.y > height/2) {
-      this.pos.y = - height/2;
+    if(this.pos.y > height) {
+      this.pos.y = 0;
       this.updatePrev();
     }
-    if(this.pos.y < -height/2) {
-      this.pos.y = height/2;
+    if(this.pos.y < 0) {
+      this.pos.y = height;
       this.updatePrev();
     }
   }
