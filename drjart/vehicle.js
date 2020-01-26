@@ -36,7 +36,7 @@ class Vehicle {
     // noStroke();
     // strokeWeight(1);
     push();
-    translate(this.pos.x, this.pos.y);
+    translate(this.pos.x + 20, this.pos.y + 20);
     rotate(theta);
     image(imgs[imgIndex], 0, 0);
     pop();

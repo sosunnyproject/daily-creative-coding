@@ -3,13 +3,13 @@ var scl = 10; //scale
 var cols, rows;
 var zoff = 0;
 var fr; //framerate
-var particles = [];
-var flowfield;
 
+let particles = [];
+let flowfield;
 
 var imgs = [];
 var vehicle;  // 1 penguin
-var vehicles = [];  // penguinVectors
+let vehicles = [];  // penguinVectors
 var imgIndex = 0;
 
 // preload penguin img
@@ -20,28 +20,29 @@ function preload() {
 }
 
 function setup(){
-  createCanvas(600, 600);
+  createCanvas(1080, 1080);
 
   // vehicle
   imgIndex++;
-  vehicles.push(new Vehicle(width/2, height/2));
+  vehicles.push(new Vehicle(0, 0));
 
   // flow field
   cols = floor(width/scl);
   rows = floor(height/scl);
-  fr = createP(''); // creating Paragraph element
+  // fr = createP(''); // creating Paragraph element
 
-  flowfield = new Array(cols*rows); //preset the size of array
+  // flowfield = new FlowField(20);  // flowfield.js
+  flowfield = new Array(cols*rows); //preset the size of array // flowfield inside sketch.js
 
   // particles
-  for (var i = 0; i < 2000; i++) {
+  for (var i = 0; i < 1000; i++) {
     particles[i] = new Particle();
   }
+
 }
 
 // penguinVectors
 function mouseClicked() {
-  console.log(imgIndex);
     while(imgIndex < 5){
       imgIndex++;
     }
@@ -49,29 +50,24 @@ function mouseClicked() {
 }
 
 function draw() {
-  background('rgba(0%,0%,0%,0.7)');
+  background('rgba(0%,0%,0%,0.8)');
   //penguin vehicles follow Mouse
-  let mouse = createVector(mouseX, mouseY);
-  fill(map(mouseX, 0, 640, 100, 255), 20, map(mouseY, 0, 640, 200, 0));
+  let mouse = createVector(mouseX - width/2, mouseY - height/2);
+
+  // fill(map(mouseX, 0, width, 100, 255), 20, map(mouseY, 0, height, 200, 0));
   fill(250, 251, 0);
   noStroke();
   // mouseVector
-  ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
+  // ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
 
   // penguinVectors
-  for (let i = 0; i < imgIndex; i++) {
+  for (let i = 0; i < vehicles.length; i++) {
     vehicles[i].seek(mouse);
     vehicles[i].update();
     vehicles[i].display(i);
   }
 
-  // 1 penguin
-  /*
-  vehicle.seek(mouse);
-  vehicle.update();
-  vehicle.display();
-  */
-
+  // FlowField
   var yoff = 0;
   for (var y = 0; y < rows; y++) {
     var xoff = 0;
@@ -94,6 +90,8 @@ function draw() {
     zoff += 0.00004;  // fixed flow field, if you comment this
   }
 
+
+  // particles following flowfield
   for (var i = 0; i < particles.length; i++) {
     let col = random(100, 255);
     // stroke(100, col, map(sin(angle), -1, 1, 100, 255), ); //color

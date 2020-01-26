@@ -13,7 +13,7 @@ function Particle() {
     this.pos.add(this.vel);
     this.acc.mult(0);
     // yellow drjart RGB(250, 251, 0);
-    stroke(0, map(noise(frameCount * 0.1), 0, 1, 170, 199), 188); // blue color of drjart img (0, 199, 188)
+    stroke(0, col, 188); // blue color of drjart img (0, 199, 188)
     // stroke(map(sin(this.vel.x), -1, 1, 100, 255), col, map(sin(this.vel.y), -1, 1, 200, 0)); //color
   }
 
@@ -24,7 +24,7 @@ function Particle() {
   }
   this.show = function(col) {
     // stroke(map(sin(this.vel.x), -1, 1, 100, 255), map(sin(this.acc.y), -1, 1, 50, 200), col); //color
-    strokeWeight(0.7);
+    strokeWeight(5);
     // point(this.pos.x, this.pos.y);
     line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y); //draw line from current to previous pos
 
