@@ -6,6 +6,7 @@ var fr; //framerate
 
 let particles = [];
 let flowfield;
+let diverImg;
 
 var imgs = [];
 var vehicle;  // 1 penguin
@@ -14,9 +15,10 @@ var imgIndex = 0;
 
 // preload penguin img
 function preload() {
-  for (let i = 0; i < 5; i++) {
-    imgs[i] = loadImage("assets/p" + i + ".PNG");
+  for (let i = 0; i < 6; i++) {
+    imgs[i] = loadImage("assets/ppcopy" + i + ".PNG");
   }
+  diverImg = loadImage("assets/diver.PNG");
 }
 
 function setup(){
@@ -39,12 +41,11 @@ function setup(){
   for (var i = 0; i < 500; i++) {
     particles[i] = new Particle();
   }
-
 }
 
 // penguinVectors
 function mouseClicked() {
-    while(imgIndex < 5){
+    while(imgIndex < 6){
       imgIndex++;
     }
     vehicles.push(new Vehicle(width/2, height/2));
@@ -56,6 +57,8 @@ function draw() {
   //penguin vehicles follow Mouse
   let mouse = createVector(mouseX, mouseY);
   // mouseVector
+
+  image(diverImg, mouse.x, mouse.y);
   // ellipse(mouse.x, mouse.y, 20 * (mouseX+mouseY)/2 * 0.005, 20 * (mouseX+mouseY)/2 * 0.005 );
 
   // penguinVectors
@@ -63,6 +66,7 @@ function draw() {
     vehicles[i].seek(mouse);
     vehicles[i].update();
     vehicles[i].display(i);
+    // vehicles[i].applyForce(vehicles[i].pos.)
   }
 
   // FlowField
