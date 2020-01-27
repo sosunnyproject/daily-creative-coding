@@ -4,8 +4,8 @@ class Vehicle {
     this.pos = createVector(x, y);
     this.acc = createVector(random(-1, 1), random(-1, 1));
     this.vel = createVector(random(2, -1), random(-2, 1));
-    this.maxspeed = random(8, 12);
-    this.maxforce = random(0.1, 0.5);
+    this.maxspeed = random(10, 12);
+    this.maxforce = random(0.3, 0.6);
     this.r = 6;
   }
 
