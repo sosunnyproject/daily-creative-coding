@@ -7,7 +7,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  // background(220);
   let radius = radiusSlider.value();
 
   push();
@@ -17,15 +17,15 @@ function draw() {
   // rotate(PI/2);
 
   let drawAngle = TWO_PI/6;
-  drawHexagon(0, 0, radius);
+  // drawHexagon(0, 0, radius);
 
-  /*
+  // 여러 육각형
   for (let i = 0; i < TWO_PI; i += drawAngle) {
-    let xPos = cos(i) * 120;
-    let yPos = sin(i) * 120;
-    drawHexagon( xPos, yPos, radius);
+    let xPos = cos(i) * 30;
+    let yPos = sin(i) * 30;
+
+    drawHexagon(xPos, yPos, radius);
   }
-  */
 
   pop();
 }
@@ -46,10 +46,13 @@ function drawHexagon(x, y, radius) {
       extraLen = 10;
     }
 
+    /*
+    // 꼭짓점마다 각도값 표시
     fill(255, 0, 0);
     textSize(10);
     textAlign(CENTER, CENTER);
     text( ind + " ," + degrees(a), x + cos(a) * radius,  y + sin(a) * radius );  // text location
+    */
 
     let sx = x + cos(a) * (radius + extraLen);
     let sy = y + sin(a) * (radius + extraLen);
