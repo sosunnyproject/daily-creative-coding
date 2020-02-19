@@ -5,9 +5,9 @@ function preload() {
 
 let points;
 let bounds;
-let count = 0;
+let count = 0, count2 = 0;
 function setup() {
-  createCanvas(800, 500);
+  createCanvas(700, 500);
   fill(255, 104, 204);
 
   points1 = font.textToPoints('BULGOGI', 0, 0, 100, {
@@ -37,6 +37,7 @@ function draw() {
       count = 0;
     }
   }
+
 /*
   beginShape();
   for (let i = 0; i < points1.length; i++) {
@@ -45,14 +46,15 @@ function draw() {
   }
   endShape(CLOSE);
   */
-  stroke(255);
 
-  beginShape();
   translate(100, 200);
-  strokeWeight(5);
-  for (let i = 0; i < points2.length; i++) {
-    let p = points2[i];
-    point(p.x, p.y);
+  stroke(255);
+  for (let i = 0; i < 10; i++) {
+    let p2 = points2[count2];
+    point(p2.x, p2.y);
+    count2++;
+    if (count2 > points2.length-1) {
+      count2 = 0;
+    }
   }
-  endShape(CLOSE);
 }
