@@ -13,7 +13,7 @@ class Particle {
   }
 
   update() {
-    this.applyForce(new p5.Vector(0, 0.3));
+    this.applyForce(new p5.Vector(0, 0.01)); // gravity
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.mult(0);
@@ -22,6 +22,8 @@ class Particle {
   }
 
   display() {
+    noStroke();
+    fill(255, this.life);
     ellipse(this.pos.x, this.pos.y, this.size, this.size);
   }
 }
