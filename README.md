@@ -1,6 +1,5 @@
 # daily-creative-coding 👩‍🎨 👩‍💻
 ### Daily works on creative coding. Using P5.js mostly.
-
 As I am currently participating private lab / study group on creative technology, 
 I am compiling most of my codes here, and visual outputs on my Instagram [@sosunny1103](https://www.instagram.com/sosunny1103/)
   
