@@ -1,3 +1,5 @@
+// main final sketch 
+
 var hex_size = 40;
 var map_radius = 3;
 // FIXME: This should be called map size,
