@@ -1,7 +1,8 @@
 // https://editor.p5js.org/sosunnyproject/sketches/T71iLSf6
 let counter = 0.00;
 let radius = 80;
-let slider;
+let slider, s2, btn;
+let btnVal = 0;
 let c1, c2;
 let Y_AXIS = 1;
 
@@ -13,7 +14,9 @@ function setup() {
 
   // the slider make move the light from behind (1) to front (1);
    slider = createSlider(4, 10, 6, 0.05);
-
+   s2 = createSlider(0.005, 0.03, 0.015, 0.005);
+   btn = createButton('breathe');
+   btn.mousePressed(drawGradient);
    // https://p5js.org/examples/color-linear-gradient.html
    c1 = color(255,128,0); // color(204, 102, 0);
    c2 = color(0, 102, 153);
@@ -29,8 +32,7 @@ function draw() {
 
   // for the rotation of light colors
   counter++;
-  let spd = 0.01;   // If you want accelerate or slow dow the rotation
-  // let spd = noise(frameCount%40)/ slider.value();
+  let spd = s2.value();   // If you want accelerate or slow dow the rotation
   let colArray = [ color(204, 102, 0), color(0,30, 71), color(204,93,0), color(0,57,135)]
   // [color(236,130,39) , color(250,128,4), color(186,57,4)];
 
@@ -42,29 +44,24 @@ function draw() {
   for(i=0;i<colArray.length;i++){
     let lightPosx = sin(counter*spd+((TWO_PI/colArray.length)*i));
     let lightPosy = cos(counter*spd+((TWO_PI/colArray.length)*i));
-
     directionalLight(colArray[i], lightPosx*slider.value()/2,lightPosy, lightPosx*lightPosy*slider.value());
   }
 
   // 고정된 directional Light
-  // directionalLight(color('#CC6600'), 0, 0, -50);
-  // directionalLight(color('#004099'), width/2, height/2, 0);
-
-  // directionalLight(color('#7D7AEB'), -width/2, height/2, 0); // bottom left
-  // directionalLight(color('#0904B8'), width/2, -height/2, 0); // top right
-  // directionalLight(color('#6E00C8'), 0, 0, -50);
-  // directionalLight(color('#916436'),width/2, height/2, -20);
-  // directionalLight(color('#FA8072'), -width/2,-height/2, -20);
+  /*
+  directionalLight(color('#7D7AEB'), -width/2, height/2, 0); // bottom left
+  directionalLight(color('#0904B8'), width/2, -height/2, 0); // top right
+  directionalLight(color('#6E00C8'), 0, 0, -50);
+  directionalLight(color('#916436'),width/2, height/2, -20);
+  directionalLight(color('#FA8072'), -width/2,-height/2, -20);
+  */
 
   // Materials: Sphere
-  // ambientMaterial(10);
   // ambientMaterial(map(sin(frameCount*0.05),-1, 1, 100, 255)); 
   specularMaterial(0);
   // specularMaterial(204, 102, 0);
-  // specularMaterial(map(sin(frameCount*0.005), -1, 1,0, 100));
 
-  setGradient(-width/2, -height/2, width, height, c1, c2, Y_AXIS);
-
+  // setGradient(-width/2, -height/2, width, height, c1, c2, Y_AXIS);
   // normalMaterial(); // 디폴트 색깔이 있음.
   noStroke();
   sphere(180);
@@ -73,12 +70,20 @@ function draw() {
 
 function setGradient(x, y, w, h, c1, c2, axis){
   // noFill();
-  if(axis === Y_AXIS) {
-    for(let i = y; i <= y+h; i++){
-      let inter = map(i, y, y+h, 0, 1);
-      let c = lerpColor(c1, c2, inter);
-      stroke(c);
-      line(x, i, x+w, i);
-    }
+  for(let i = y; i <= y+h; i++){ // 0 ~ height
+    let inter = map(i, y, y+h, 0, 1);
+    let c = lerpColor(c1, c2, inter*(frameCount*s2.value()*0.5));
+    stroke(c);
+    line(x, i, x+w, i);
   }
+}
+
+function drawGradient(){
+  btnVal += 10;
+  let inter = -height/2 + btnVal;
+  // let inter = map(i, -height/2, height, 0, 1);
+  console.log(btnVal);
+  let c = lerpColor(c1, c2, inter);
+  stroke(c);
+  line(-width/2, btnVal, width, btnVal);
 }
