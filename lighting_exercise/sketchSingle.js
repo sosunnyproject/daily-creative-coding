@@ -89,16 +89,6 @@ function drawGradient(){
     stroke(c);
     line(-width/2, i, -width/2 + width, i);
   }
-  // btnVal += 10;
-  // let inter = map(btnVal, 0, height, 0, 1);
-  // // let inter = map(i, -height/2, height, 0, 1);
-  // console.log(btnVal);
-  // let c = lerpColor(c2, c1, inter);
-  // // stroke(c);
-  // // line(-width/2, btnVal, width, btnVal);
-  // fill(c);
-  // line(-width/2, -height/2 + btnVal, width/2, height/2);
-
-  // // rect(-width/2, -height/2, width, btnVal);
+  // rect(-width/2, -height/2, width, btnVal);
 
 }
