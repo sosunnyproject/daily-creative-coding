@@ -15,12 +15,13 @@ function setup() {
   // the slider make move the light from behind (1) to front (1);
    slider = createSlider(4, 10, 6, 0.05);
    s2 = createSlider(0.005, 0.03, 0.015, 0.005);
+  // https://p5js.org/examples/color-linear-gradient.html
+  c1 = color(255,128,0); // color(204, 102, 0);
+  c2 = color(0, 102, 153);
+  
    btn = createButton('breathe');
    btn.mousePressed(drawGradient);
-   // https://p5js.org/examples/color-linear-gradient.html
-   c1 = color(255,128,0); // color(204, 102, 0);
-   c2 = color(0, 102, 153);
-
+ 
 }
 
 function draw() {
@@ -72,6 +73,7 @@ function setGradient(x, y, w, h, c1, c2, axis){
   // noFill();
   for(let i = y; i <= y+h; i++){ // 0 ~ height
     let inter = map(i, y, y+h, 0, 1);
+    // console.log(i, y, y+h); // i : -300 ~ 300, 
     let c = lerpColor(c1, c2, inter*(frameCount*s2.value()*0.5));
     stroke(c);
     line(x, i, x+w, i);
@@ -79,11 +81,24 @@ function setGradient(x, y, w, h, c1, c2, axis){
 }
 
 function drawGradient(){
-  btnVal += 10;
-  let inter = -height/2 + btnVal;
-  // let inter = map(i, -height/2, height, 0, 1);
-  console.log(btnVal);
-  let c = lerpColor(c1, c2, inter);
-  stroke(c);
-  line(-width/2, btnVal, width, btnVal);
+  btnVal += 1;
+  for(let i = -height/2; i <= -height/2+height; i++){ // 0 ~ height
+    let inter = map(i, -height/2, -height/2+height, 0, 1);
+    console.log("inter var", btnVal*0.05);
+    let c = lerpColor(c2, c1, inter*(btnVal*0.05));
+    stroke(c);
+    line(-width/2, i, -width/2 + width, i);
+  }
+  // btnVal += 10;
+  // let inter = map(btnVal, 0, height, 0, 1);
+  // // let inter = map(i, -height/2, height, 0, 1);
+  // console.log(btnVal);
+  // let c = lerpColor(c2, c1, inter);
+  // // stroke(c);
+  // // line(-width/2, btnVal, width, btnVal);
+  // fill(c);
+  // line(-width/2, -height/2 + btnVal, width/2, height/2);
+
+  // // rect(-width/2, -height/2, width, btnVal);
+
 }
