@@ -2,10 +2,11 @@
 Leap.loop(function(frame) {
   phand = hand.copy();
   frame.hands.forEach(function(handData, index) {
-    // console.log(
-    //   parseInt(handData.screenPosition()[0]),
-    //   parseInt(handData.screenPosition()[1])
-    // );
+    console.log(
+      // parseInt(handData.screenPosition()[0]),
+      parseInt(handData.screenPosition()[1]),
+      parseInt(handData.palmPosition[1])
+    );
     let x = map(handData.screenPosition()[0], 0, 500, -width/2,width/2);
     let y = map(handData.screenPosition()[1], -400, 400, -height/2 ,height/2);
 
