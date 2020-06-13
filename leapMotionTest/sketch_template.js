@@ -5,7 +5,6 @@ controller.use('handEntry').on('handFound', function(hand){
 });
 controller.connect();
 
-
 controller.loop(function(frame) {
     phand = hand.copy();
     frame.hands.forEach(drawThumb);
