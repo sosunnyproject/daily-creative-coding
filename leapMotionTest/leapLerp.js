@@ -50,7 +50,7 @@ function setup() {
 }
 
 function draw() {
-//   drawYGradient()
+  drawYGradient()
 }
 
 
@@ -63,4 +63,27 @@ function drawHandPos(){
     fill(0, 0, 255)
     ellipse(leftHand.x, leftHand.y, 20);
 
+}
+
+function drawYGradient(){
+  for(let i = -height/2; i <= height/2; i++){ // -height/2 ~ height/2
+    const interY = map(i, -height/2, height/2, 0, 1)  // 0 ~ 1 : blue at top, 1 ~ 0: orange at top
+    const coordY = (height - Math.abs(phand.Y)) + 100
+    const ratioY =  interY*coordY*0.005 
+    const borderY = lerpColor(c2, c1, ratioY)
+    stroke(borderY)
+    // x1, y1, x2, y2
+    line(rightHand.x, rightHand.y, leftHand.x, leftHand.y);
+  }
+}
+
+function drawXGradient(){
+  for(let j = -width/2; j <= width/2; j++){ 
+    const interX = map(j, -width/2, width/2, 0, 1)
+    const coordX = width - Math.abs(mouseX)
+    const ratioX = interX*coordX*0.005
+    const borderX = lerpColor(c2, c1, ratioX)
+    stroke(borderX)
+    line(j, -height/2, j, height/2)
+  }
 }
