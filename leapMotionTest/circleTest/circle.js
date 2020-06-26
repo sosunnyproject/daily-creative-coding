@@ -1,11 +1,12 @@
 class Circle {
-  constructor(x, y) {
+  constructor(x, y, radius ) {
     this.pos = createVector(x, y);
-
+    this.radius = radius
+    // this.speed = speed
   }
 
-  singleEllipse(){
-    ellipse(this.pos.x, this.pos.y, sin(frameCount*0.01)*200, sin(frameCount*0.01)*200)
+  singleEllipse(x, y, speed){
+    ellipse(x, y, sin(frameCount*speed)*this.radius, sin(frameCount*speed)*this.radius)
   }
   
   rippleEllipse() {
