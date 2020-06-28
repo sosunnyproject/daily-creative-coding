@@ -1,10 +1,9 @@
 let slider;
 let speedVal;
-let circles = []
 
 function setup() {
   createCanvas(400, 400);
-  slider = createSlider(0, 10, 5);
+  slider = createSlider(0, width, width/2);
 }
 
 function draw() {
@@ -12,7 +11,7 @@ function draw() {
   noFill();
   stroke(255,128,0);
   strokeWeight(2);
-  speedVal = map(slider.value(), 0, 10, 0, 0.01);
+  speedVal = slider.value();
 
   singleEllipse();
   // rippleEllipse();
@@ -20,7 +19,7 @@ function draw() {
 }
 
 function singleEllipse(){
-  ellipse(mouseX || width/2, mouseY || height/2, sin(frameCount*0.01)*200, sin(frameCount*0.01)*200)
+  ellipse(width/2, height/2, sin(frameCount*0.01)*speedVal, sin(frameCount*0.01)*speedVal)
 }
 
 function rippleEllipse() {
