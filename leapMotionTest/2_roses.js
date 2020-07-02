@@ -87,8 +87,8 @@ function draw() {
   text(angle, 50, 270)
 
   let k = (n / d)
-  translate(width/2, height/2);
   push()
+  translate(width/2, height/2);
   for(let i=0; i<TWO_PI; i+= TWO_PI/count){
     rotate(TWO_PI/count);
     push();
