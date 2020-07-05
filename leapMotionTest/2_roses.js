@@ -1,12 +1,10 @@
 //Leap Motion
 // https://developer-archive.leapmotion.com/getting-started/javascript
-let hand = new p5.Vector(), phand = new p5.Vector()
 let leftHand = new p5.Vector(), rightHand = new p5.Vector();
 var controller = new Leap.Controller()
 let handRad = {}
 
 controller.loop(function(frame) {
-    phand = hand.copy()
     frame.hands.forEach(function(handData, ind) {
   
       let x = map(handData.screenPosition()[0], -700, 1400, 0, width)
@@ -19,61 +17,64 @@ controller.loop(function(frame) {
         rightHand.set(x, y)
         handRad.right = -handData.roll()
       }
-      drawHandPos()
-      hand.set(x, y)
   })
+ 
+  // swipe
+  if (frame.gestures.length > 0) {
+    for (var i = 0; i < frame.gestures.length; i++) {
+      var gesture = frame.gestures[i];
+      if(gesture.type == "swipe") {
+          //Classify swipe as either horizontal or vertical
+          var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+          //Classify as right-left or up-down
+          if(isHorizontal){
+              if(gesture.direction[0] > 0){
+                  swipeDirection = "right";
+              } else {
+                  swipeDirection = "left";
+              }
+          } else { //vertical
+              if(gesture.direction[1] > 0){
+                  swipeDirection = "up";
+              } else {
+                  swipeDirection = "down";
+              }                  
+          }
+          console.log(swipeDirection)
+       }
+     }
+  }
 }).use('screenPosition', { scale: 1 });   
 
-let d = 9;
+let d = 5;
 let n = 4;
-let hue1, hue2, strokeW, distance, angle, diff;
+let distance = 20;
+let hue1, hue2, strokeW, angle, diff;
 let sliderD, sliderN, sliderH, sliderW, sliderDistance, sliderA;
 
 function setup() {
   createCanvas(800, 800);
   colorMode(HSB);
-
-  // sliderD = createSlider(1, 18, 5, 1);
-  // sliderD.position(10, 40)
-  // sliderN = createSlider(5, 14, 5, 1);
-  // sliderN.position(10, 70)
-
-  // combined counts of roses + distance (translate origin)
-  // sliderDistance = createSlider(0, 200, 0, 1)
-  // sliderDistance.position(10, 200)
-
-  // fixed
-  // sliderH =  createSlider(0, 360, 5, 0.5);
-  // sliderH.position(10, 100)
-  // sliderW =  createSlider(0.5, 5, 1, 0.5);
-  // sliderW.position(10, 130)
-  // sliderA = createSlider(0.1, 3, 2, 0.05);
-  // sliderA.position(10, 280)
+  leftHand = new p5.Vector(width/2 - 50, height/2 - 50)
+  rightHand = new p5.Vector(width/2 + 50, height/2 + 50)
 }
 
 function draw() {
   background(hue1, 70, 10)
 
-  // mark position 
-  /*
-  strokeWeight(2);
-  fill(0, 100, 100)
-  ellipse(rightHand.x + width/2, rightHand.y, 100);
-  fill(100,  100, 100)
-  ellipse(leftHand.x + width/2 , leftHand.y, 50);
-  */
-
   // motion values
-  d = map(handRad.left, -4, 4, 1, 18)
-  n = map(handRad.right, -4, 4, 1, 14)
+  d = map(handRad.left, -4, 4, 1, 18) || 1
+  n = map(handRad.right, -4, 4, 1, 14) || 4
   distance = map(Math.abs(rightHand.x - leftHand.x), 20, width, 5, 80);
   count = map(Math.floor(distance), 0, 200, 1, 30);
+
+  drawHandPos()
 
   // fixed values
   hue1 = Math.abs(cos(frameCount*0.003)*360)
   hue2 = (hue1+180)%360
   strokeW = 1
-  angle = map(sin(frameCount*0.00008), 1, -1, 0.1, 2.5)
+  angle = map(sin(frameCount*0.0008), 1, -1, 0.0, 1.5)
 
   textSize(12);
   fill(200);
@@ -111,5 +112,19 @@ function draw() {
 }
 
 function drawHandPos(){
+  // mark hand coordinates 
+  noStroke();
+  push()
+  fill(200, 20, 20)
+  translate(rightHand.x, rightHand.y);
+  rotate(n);
+  rect(0, 0, 10, 50);
+  pop()
 
+  push()
+  fill(200,  20, 20)
+  translate(leftHand.x, leftHand.y);
+  rotate(d);
+  rect(0, 0, 10, 50);
+  pop()
 }
