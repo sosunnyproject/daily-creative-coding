@@ -6,6 +6,9 @@ let btnVal = 0;
 let c1, c2;
 let Y_AXIS = 1;
 
+let sliderX, sliderY, sliderZ;
+let x, y, z;
+
 function setup() {
   createCanvas(600, 600, WEBGL);
   setAttributes('antialias',true);
@@ -22,6 +25,11 @@ function setup() {
    btn = createButton('breathe');
    btn.mousePressed(drawGradient);
  
+    // the slider make move the light from behind (1) to front (1);
+    sliderX = createSlider(-10, 10, 1);
+    sliderY = createSlider(-10, 10, 1);
+    sliderZ = createSlider(-10, 10, 1);
+  
 }
 
 function draw() {
@@ -30,6 +38,10 @@ function draw() {
   // https://colorpalette.org/reflection-nature-sunset-color-palette/
 
   orbitControl();
+
+  x = map(sliderX.value(), -10, 10, -0.1, 0.1)
+  y = map(sliderY.value(), -10, 10, -0.1, 0.1)
+  z = map(sliderZ.value(), -10, 10, -0.1, 0.1)
 
   // for the rotation of light colors
   counter++;
@@ -43,9 +55,10 @@ function draw() {
   // and we add the position of all colors already calculated
   // 조명이 이동하는 것.
   for(i=0;i<colArray.length;i++){
-    let lightPosx = sin(counter*spd+((TWO_PI/colArray.length)*i));
-    let lightPosy = cos(counter*spd+((TWO_PI/colArray.length)*i));
-    directionalLight(colArray[i], lightPosx*slider.value()/2,lightPosy, lightPosx*lightPosy*slider.value());
+    let lightPosx = sin(counter*0.01+((TWO_PI/colArray.length)*i));
+    let lightPosy = cos(counter*0.01+((TWO_PI/colArray.length)*i));
+    directionalLight(colArray[i], 
+      lightPosx*x/2,lightPosy, lightPosx*lightPosy*z);
   }
 
   // 고정된 directional Light
