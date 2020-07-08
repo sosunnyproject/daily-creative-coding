@@ -3,13 +3,15 @@
 let leftHand = new p5.Vector(), rightHand = new p5.Vector();
 var controller = new Leap.Controller()
 let handRad = {}
+let hand3d = new p5.Vector()
 
 controller.loop(function(frame) {
     frame.hands.forEach(function(handData, ind) {
   
-      let x = map(handData.screenPosition()[0], -700, 1400, 0, width)
-      let y = map(-handData.screenPosition()[1], 0, 1000, height , 0)
-    
+      let x = map(handData.screenPosition()[0], -700, 1400, -width/2, width/2)
+      let y = map(-handData.screenPosition()[1], 0, 1000, height/2 , -height/2)
+      let z = map(handData.screenPosition()[2], -400, 800, -width/2, width/2)
+
       if(handData.type === "left") {
         leftHand.set(x, y)
         handRad.left = -handData.roll()
@@ -17,9 +19,11 @@ controller.loop(function(frame) {
         rightHand.set(x, y)
         handRad.right = -handData.roll()
       }
+      hand3d.set(x, y, z)
   })
  
   // swipe
+  /*
   if (frame.gestures.length > 0) {
     for (var i = 0; i < frame.gestures.length; i++) {
       var gesture = frame.gestures[i];
@@ -37,13 +41,14 @@ controller.loop(function(frame) {
               if(gesture.direction[1] > 0){
                   swipeDirection = "up";
               } else {
-                  swipeDirection = "down";
-              }                  
+                swipeDirection = "down";
+            }               
           }
-          console.log(swipeDirection)
+          // console.log(swipeDirection)
        }
      }
   }
+  */
 }).use('screenPosition', { scale: 1 });   
 
 let d = 5;
@@ -52,60 +57,80 @@ let distance = 20;
 let hue1, hue2, strokeW, angle, diff;
 let sliderD, sliderN, sliderH, sliderW, sliderDistance, sliderA;
 let sceneNum = 1;
+let pg;
 
 function setup() {
-  createCanvas(800, 800);
-  leftHand = new p5.Vector(width/2 - 50, height/2 - 50)
-  rightHand = new p5.Vector(width/2 + 50, height/2 + 50)
+  createCanvas(windowHeight, windowHeight, WEBGL);
+  leftHand = new p5.Vector(50,  50)
+  rightHand = new p5.Vector(50, 50)
+  pg = createGraphics(width, height);
+  setAttributes('antialias',true);
+  setAttributes('perPixelLighting',true);
 }
 
 function draw() {
-    switch(sceneNum){
-      case 1:
-        drawCircle();
-        break;
-      case 2:
-        drawRose();
-        break;
-    }
+
+  switch(sceneNum){
+    case 1:
+      clear()
+      drawCircle();
+      break;
+    case 2:
+      clear()
+      drawRose();
+      break;
+    case 3:
+      clear()
+      drawTorus();
+      break;
+  }
 }
 
+function mouseClicked() {
+  if(sceneNum === 3) {
+    sceneNum = 0
+  }
+  sceneNum++
+
+}
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    sceneNum = 1;
-  } else if (keyCode === RIGHT_ARROW) {
-    sceneNum = 2;
+  if (keyCode === 49) {
+    sceneNum = 1
+  } else if (keyCode === 50) {
+    sceneNum = 2
+  } else if (keyCode === 51) {
+    sceneNum = 3
   }
 }
 
 // circle
-
 function drawCircle() {
-  background(0, 10);
-  noFill();
+  pg.background(0, 10);
+  pg.noFill();
   let rand = sin(frameCount*0.01)*100
-  stroke(148+rand,0+rand,211-rand);
-  strokeWeight(Math.abs(rand)/3);
-  singleEllipse();
+  pg.stroke(148+rand,0+rand,211-rand)
+  pg.strokeWeight(Math.abs(rand)/10)
+  singleEllipse()
   colorMode(RGB)
+  drawHandPos()
+  image(pg, -width/2, -height/2)
 }
 
 function singleEllipse(){
-  ellipse(width/2, height/2, rightHand.x-leftHand.x, rightHand.y - leftHand.y)
+  pg.ellipse(width/2, height/2, rightHand.x-leftHand.x, rightHand.y - leftHand.y)
 }
 
 function drawHandPos(){
-  strokeWeight(2);
-  fill(255, 0, 0)
-  ellipse(rightHand.x, rightHand.y, 10);
-  fill(0, 0, 255)
-  ellipse(leftHand.x, leftHand.y, 10);
+  pg.strokeWeight(1)
+  pg.stroke(255)
+  pg.ellipse(rightHand.x+width/2, rightHand.y+height/2, 10);
+  pg.ellipse(leftHand.x+width/2, leftHand.y+height/2, 10);
 }
 
 // Rose
 
 function drawRose() {
-  background(hue1, 70, 10)
+  background(0)
   colorMode(HSB);
   // motion values
   d = map(handRad.left, -4, 4, 1, 18) || 1
@@ -115,31 +140,19 @@ function drawRose() {
   drawRectHandPos()
 
   // fixed values
-  hue1 = Math.abs(cos(frameCount*0.003)*360)
-  hue2 = (hue1+180)%360
-  strokeW = 1
-  angle = map(sin(frameCount*0.0008), 1, -1, 0.0, 1.5)
-
-  textSize(12);
-  fill(200);
-  text('d:', 10, 30)
-  text(d, 50, 30)
-  text('n:', 10, 60)
-  text(n, 50, 60)
-  text('distance:', 10, 190)
-  text(distance, 100, 190)
-  text('angle', 10, 270)
-  text(angle, 50, 270)
+  hue1 = Math.abs(cos(frameCount*0.003)*200)
+  strokeW = 1.25
+  angle = map(sin(frameCount*0.0008), 1, -1, 0.0, 2.5)
 
   let k = (n / d)
   push()
-  translate(width/2, height/2);
+  translate(0, 0);
   for(let i=0; i<TWO_PI; i+= TWO_PI/count){
     rotate(TWO_PI/count);
     push();
     translate(distance, distance);
     beginShape(LINES);
-    stroke(hue2, 100, 100);
+    stroke(hue1, 100, 100);
     noFill();
     strokeWeight(strokeW);
     for (let a = 0; a < TWO_PI * d; a += angle) {
@@ -170,5 +183,35 @@ function drawRectHandPos(){
   translate(leftHand.x, leftHand.y);
   rotate(d);
   rect(0, 0, 10, 50);
+  pop()
+}
+
+function drawTorus() {  
+
+  colorMode(RGB)
+
+  background(0)
+  let colArray = [ color(204, 102, 0),  color(0,57,135)]
+
+  x = map(hand3d.x, 0, width, -1.0, 1.0)
+  y = map(hand3d.y, height, 0, -1.0, 1.0)
+  z = map(hand3d.z, -width, width, -1.0, 1.0)
+
+  for(i=0;i<colArray.length;i++){
+    let lightPosx = sin((TWO_PI/colArray.length)*i)
+    let lightPosy = cos((TWO_PI/colArray.length)*i)
+
+    directionalLight(colArray[i], 
+      lightPosx*x*10,
+      lightPosy*y*10, 
+      z*10);
+  }
+  noStroke()
+  specularMaterial(100);
+  push()
+  rotateX(frameCount * 0.005)
+  rotateY(frameCount * 0.005)
+  rotateZ(frameCount * 0.005)
+  torus(width/4, 100)
   pop()
 }

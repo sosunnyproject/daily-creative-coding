@@ -9,7 +9,7 @@ controller.loop(function(frame) {
   
       let x = map(handData.screenPosition()[0], -700, 1400, 0, width)
       let y = map(-handData.screenPosition()[1], 0, 1000, height , 0)
-    
+
       if(handData.type === "left") {
         leftHand.set(x, y)
         handRad.left = -handData.roll()
