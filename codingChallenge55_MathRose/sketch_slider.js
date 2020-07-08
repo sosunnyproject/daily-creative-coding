@@ -8,7 +8,7 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
 
   sliderD = createSlider(1, 10, 5, 0.2);
   sliderN = createSlider(5, 15, 5, 0.2);
-  sliderH =  createSlider(0, 360, 5, 0.5);
+  sliderH =  createSlider(0, 360, 100, 1);
   sliderW =  createSlider(0.5, 5, 1, 0.5);
   sliderC = createSlider(1, 10, 3, 1);
 
@@ -21,13 +21,13 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
  }
  function keyTyped() {
   if (key === 's') {
-    saveCanvas('myCanvas', 'png');
+    saveCanvas('rose', 'png');
   }
 }
 
  function draw() {
-  background(255, 1.0);
-  clear()
+  background(0);
+  // clear()
 
   d = sliderD.value();
   n = sliderN.value();
@@ -54,7 +54,7 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
   // text('angle', 0, 70);
   // text(angle, 40, 70);
 
-   let k = n / d;
+  let k = n / d;
   translate(width/2, height/2);
   diff = 0;
   for(let i=0; i<TWO_PI; i+= TWO_PI/count){
@@ -62,7 +62,7 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
     push();
     translate(newX, newY);
     beginShape(LINES);
-    stroke(0);
+    stroke(255);
     noFill();
     strokeWeight(strokeW);
     // k += diff;
