@@ -4,7 +4,7 @@ let hue1, hue2, strokeW, count, newX, newY, angle, diff;
 let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
 
  function setup() {
-  createCanvas(750, 750);
+  createCanvas(500, 500);
 
   sliderD = createSlider(1, 10, 5, 0.2);
   sliderN = createSlider(5, 15, 5, 0.2);
@@ -21,13 +21,13 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
  }
  function keyTyped() {
   if (key === 's') {
-    saveCanvas('rose', 'png');
+    saveCanvas('tattoo', 'png');
   }
 }
 
  function draw() {
-  background(0);
-  // clear()
+  background(255);
+  clear()
 
   d = sliderD.value();
   n = sliderN.value();
@@ -62,7 +62,7 @@ let sliderD, sliderN, sliderH, sliderW, sliderC, sliderX, sliderY, sliderA;
     push();
     translate(newX, newY);
     beginShape(LINES);
-    stroke(255);
+    stroke(0);
     noFill();
     strokeWeight(strokeW);
     // k += diff;
