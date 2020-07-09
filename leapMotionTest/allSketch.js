@@ -4,51 +4,28 @@ let leftHand = new p5.Vector(), rightHand = new p5.Vector();
 var controller = new Leap.Controller()
 let handRad = {}
 let hand3d = new p5.Vector()
+let noHand = 0
 
 controller.loop(function(frame) {
-    frame.hands.forEach(function(handData, ind) {
-  
-      let x = map(handData.screenPosition()[0], -700, 1400, -width/2, width/2)
-      let y = map(-handData.screenPosition()[1], 0, 1000, height/2 , -height/2)
-      let z = map(handData.screenPosition()[2], -400, 800, -width/2, width/2)
+  if(!frame.hands.length) {
+    noHand += 1
+  }
+  frame.hands.forEach(function(handData, ind) {
+    
+    let x = map(handData.screenPosition()[0], -700, 1400, -width/2, width/2)
+    let y = map(-handData.screenPosition()[1], 0, 1000, height/2 , -height/2)
+    let z = map(handData.screenPosition()[2], -400, 800, -width/2, width/2)
 
-      if(handData.type === "left") {
-        leftHand.set(x, y)
-        handRad.left = -handData.roll()
-      } else {
-        rightHand.set(x, y)
-        handRad.right = -handData.roll()
-      }
-      hand3d.set(x, y, z)
+    if(handData.type === "left") {
+      leftHand.set(x, y)
+      handRad.left = -handData.roll()
+    } else {
+      rightHand.set(x, y)
+      handRad.right = -handData.roll()
+    }
+    hand3d.set(x, y, z)
   })
  
-  // swipe
-  /*
-  if (frame.gestures.length > 0) {
-    for (var i = 0; i < frame.gestures.length; i++) {
-      var gesture = frame.gestures[i];
-      if(gesture.type == "swipe") {
-          //Classify swipe as either horizontal or vertical
-          var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
-          //Classify as right-left or up-down
-          if(isHorizontal){
-              if(gesture.direction[0] > 0){
-                  swipeDirection = "right";
-              } else {
-                  swipeDirection = "left";
-              }
-          } else { //vertical
-              if(gesture.direction[1] > 0){
-                  swipeDirection = "up";
-              } else {
-                swipeDirection = "down";
-            }               
-          }
-          // console.log(swipeDirection)
-       }
-     }
-  }
-  */
 }).use('screenPosition', { scale: 1 });   
 
 let d = 5;
@@ -60,7 +37,7 @@ let sceneNum = 1;
 let pg;
 
 function setup() {
-  createCanvas(windowHeight, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   leftHand = new p5.Vector(50,  50)
   rightHand = new p5.Vector(50, 50)
   pg = createGraphics(width, height);
@@ -69,7 +46,12 @@ function setup() {
 }
 
 function draw() {
-
+  if(frameCount % 2400 === 0) {
+    changeScene()
+  }
+  if(noHand === 120) {
+    changeScene()
+  }
   switch(sceneNum){
     case 1:
       clear()
@@ -86,21 +68,12 @@ function draw() {
   }
 }
 
-function mouseClicked() {
+function changeScene() {
+  noHand = 0
   if(sceneNum === 3) {
     sceneNum = 0
   }
   sceneNum++
-
-}
-function keyPressed() {
-  if (keyCode === 49) {
-    sceneNum = 1
-  } else if (keyCode === 50) {
-    sceneNum = 2
-  } else if (keyCode === 51) {
-    sceneNum = 3
-  }
 }
 
 // circle
@@ -135,14 +108,14 @@ function drawRose() {
   // motion values
   d = map(handRad.left, -4, 4, 1, 18) || 1
   n = map(handRad.right, -4, 4, 1, 14) || 4
-  distance = map(Math.abs(rightHand.x - leftHand.x), 20, width, 5, 80);
+  distance = map(Math.abs(rightHand.x - leftHand.x), 20, width, 5, 200);
   count = map(Math.floor(distance), 0, 200, 1, 30);
   drawRectHandPos()
 
   // fixed values
   hue1 = Math.abs(cos(frameCount*0.003)*200)
   strokeW = 1.25
-  angle = map(sin(frameCount*0.0008), 1, -1, 0.0, 2.5)
+  angle = map(sin(frameCount*0.0008), 1, -1, 0.3, 2.0)
 
   let k = (n / d)
   push()
@@ -212,6 +185,6 @@ function drawTorus() {
   rotateX(frameCount * 0.005)
   rotateY(frameCount * 0.005)
   rotateZ(frameCount * 0.005)
-  torus(width/4, 100)
+  torus(height/4,150)
   pop()
 }
