@@ -11,9 +11,9 @@ controller.loop(function(frame) {
     noHand += 1
   }
   frame.hands.forEach(function(handData, ind) {
-    
+    // console.log(-handData.screenPosition()[1])
     let x = map(handData.screenPosition()[0], -700, 1400, -width/2, width/2)
-    let y = map(-handData.screenPosition()[1], 0, 1000, height/2 , -height/2)
+    let y = map(-handData.screenPosition()[1], -500, 1000, height/2 , -height/2)
     let z = map(handData.screenPosition()[2], -400, 800, -width/2, width/2)
 
     if(handData.type === "left") {
@@ -46,7 +46,7 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount % 2400 === 0) {
+  if(frameCount % 1800 === 0) {
     changeScene()
   }
   if(noHand === 120) {
@@ -145,14 +145,14 @@ function drawRectHandPos(){
   // mark hand coordinates 
   noStroke();
   push()
-  fill(200, 20, 20)
+  fill(255, 20, 100)
   translate(rightHand.x, rightHand.y);
   rotate(n);
   rect(0, 0, 10, 50);
   pop()
 
   push()
-  fill(200,  20, 20)
+  fill(255,  20, 100)
   translate(leftHand.x, leftHand.y);
   rotate(d);
   rect(0, 0, 10, 50);
