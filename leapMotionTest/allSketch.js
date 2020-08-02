@@ -46,10 +46,10 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount % 1800 === 0) {
+  if(frameCount % 6000 === 0) {
     changeScene()
   }
-  if(noHand === 120) {
+  if(noHand === 480) {
     changeScene()
   }
   switch(sceneNum){
@@ -82,7 +82,7 @@ function drawCircle() {
   pg.noFill();
   let rand = sin(frameCount*0.01)*100
   pg.stroke(148+rand,0+rand,211-rand)
-  pg.strokeWeight(Math.abs(rand)/10)
+  pg.strokeWeight(Math.abs(rand)/2)
   singleEllipse()
   colorMode(RGB)
   drawHandPos()
@@ -115,7 +115,7 @@ function drawRose() {
   // fixed values
   hue1 = Math.abs(cos(frameCount*0.003)*200)
   strokeW = 1.25
-  angle = map(sin(frameCount*0.0008), 1, -1, 0.3, 2.0)
+  angle = map(sin(frameCount*0.0004), 1, -1, 0.3, 2.0)
 
   let k = (n / d)
   push()
@@ -185,6 +185,6 @@ function drawTorus() {
   rotateX(frameCount * 0.005)
   rotateY(frameCount * 0.005)
   rotateZ(frameCount * 0.005)
-  torus(height/4,150)
+  torus(height/6,100)
   pop()
 }
