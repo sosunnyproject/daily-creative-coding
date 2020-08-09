@@ -35,6 +35,8 @@ let hue1, hue2, strokeW, angle, diff;
 let sliderD, sliderN, sliderH, sliderW, sliderDistance, sliderA;
 let sceneNum = 1;
 let pg;
+let fade = 0
+let fadeAmount = 1
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -46,10 +48,11 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount % 1800 === 0) {
+  if(frameCount % 6000 === 0) {
+    // fadeText()
     changeScene()
   }
-  if(noHand === 120) {
+  if(noHand === 240) {
     changeScene()
   }
   switch(sceneNum){
@@ -76,13 +79,25 @@ function changeScene() {
   sceneNum++
 }
 
+function fadeText() {
+  textSize(50)
+  fill(255, fade)
+  text('센서 위에서 손을 자유롭게 움직이세요', 0 , height/2)  
+  let fadeAmount = 1;
+  // if (fade>255) fadeAmount=1;  
+  // if (fade>255) fadeAmount=-5; 
+ 
+  fade += fadeAmount; 
+  // print(fade)
+}
 // circle
 function drawCircle() {
+  fadeText()
   pg.background(0, 10);
   pg.noFill();
   let rand = sin(frameCount*0.01)*100
   pg.stroke(148+rand,0+rand,211-rand)
-  pg.strokeWeight(Math.abs(rand)/10)
+  pg.strokeWeight(Math.abs(rand)/2)
   singleEllipse()
   colorMode(RGB)
   drawHandPos()
@@ -90,6 +105,7 @@ function drawCircle() {
 }
 
 function singleEllipse(){
+  pg.noFill()
   pg.ellipse(width/2, height/2, rightHand.x-leftHand.x, rightHand.y - leftHand.y)
 }
 
@@ -185,6 +201,6 @@ function drawTorus() {
   rotateX(frameCount * 0.005)
   rotateY(frameCount * 0.005)
   rotateZ(frameCount * 0.005)
-  torus(height/4,150)
+  torus(height/6,100)
   pop()
 }
