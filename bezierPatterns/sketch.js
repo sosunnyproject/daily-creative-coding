@@ -3,22 +3,21 @@
 let points = []
 let anchors = []
 let t;
-let capture;
+let capture, c;
 let xoff = 0.1
 // let stepSize = 30;
 
 function setup() {
-  createCanvas(1000, 1000);
+  c = createCanvas(800, 800);
   setPoints()
   // capture = createCapture(VIDEO);
   // capture.size(320, 240)
-  // capture.hide()
 
   let constraints = {
     video: {
       mandatory: {
-        minWidth: 1280,
-        minHeight: 720
+        minWidth: 720,
+        minHeight: 480
       },
       optional: [{ maxFrameRate: 10 }]
     },
@@ -26,7 +25,7 @@ function setup() {
   capture = createCapture(constraints, function(stream) {
     console.log(stream);
   });
-  // capture.hide()
+  capture.hide()
 }
 
 function setPoints(x, y, off) {
@@ -59,13 +58,9 @@ function draw() {
   background(255)
   
   noFill()
-  // for (let i = 0; i < points.length; i += 2) {
-  //   strokeWeight(random(20))
-  //   drawBezier(points[i], anchors[i], anchors[i + 1], points[i + 1])    
-  // }
   
   capture.loadPixels()
-  const stepSize = round(constrain(width / 8, 24, 32));
+  const stepSize = round(constrain(width / 8, 12, 32));
   // const stepSize = 30;
   for (let y = 50; y < height; y += stepSize) {
     for (let x = 50; x < width; x += stepSize) {
@@ -82,14 +77,7 @@ function draw() {
       }
     }
   }
-  
-  // if((frameCount % 100) === 0 ) {
-  //   background(0)
-  //   points = []
-  //   anchors = []
-  //   setPoints()
-  //   redraw()
-  // }
+
 }
 
 function drawBezier(pointS, anchorS, anchorE, pointE) {
@@ -102,4 +90,8 @@ function drawBezier(pointS, anchorS, anchorE, pointE) {
 function mouseClicked() {
   console.log(mouseX, mouseY)
 
+}
+
+function keyPressed() {
+  saveCanvas(c, 'bezierCam', 'png');
 }
