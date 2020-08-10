@@ -119,7 +119,7 @@ function draw_hexagon(center, size, q, r, drawCities = true){
   let ind = abs((-q-r) - map_radius);
   let letter = textArray[ind];
   textFont('Uncial Antiqua');
-  text(letter, center.x + 1, center.y + 2);  // text location
+  // text(letter, center.x + 1, center.y + 2);  // text location
 
 }
 

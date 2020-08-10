@@ -131,7 +131,7 @@ function drawRose() {
   // fixed values
   hue1 = Math.abs(cos(frameCount*0.003)*200)
   strokeW = 1.25
-  angle = map(sin(frameCount*0.0008), 1, -1, 0.3, 2.0)
+  angle = map(sin(frameCount*0.0004), 1, -1, 0.3, 2.0)
 
   let k = (n / d)
   push()
