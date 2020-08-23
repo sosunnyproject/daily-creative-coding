@@ -68,21 +68,21 @@ function draw() {
         push();
         translate(x * scl, y * scl);
         rotate(v.heading());
-        // noStroke()
-        // strokeWeight(1)
-        // stroke(255, 100, 100)
-        // line(0, 0, scl, 0);
+        noStroke()
+        strokeWeight(1)
+        stroke(255, 100, 100)
+        line(0, 0, scl, 0);
         pop();
 
         for (var i = 0; i < particles.length; i++) {
 
           // let col = random(frameCount%360);
-          stroke(map(sin(i), -1, 1, 0, 360), 100, 100 ); 
-          particles[i].follow(flowfield);
-          // find appropriate, nearby vector
-          particles[i].update();
-          particles[i].show(flowfield);
-          particles[i].edges();
+          // stroke(map(sin(i), -1, 1, 0, 360), 100, 100 ); 
+          // particles[i].follow(flowfield);
+          // // find appropriate, nearby vector
+          // particles[i].update();
+          // particles[i].show(flowfield);
+          // particles[i].edges();
         }
       }
     }
