@@ -18,19 +18,19 @@ function setup() {
 function setPoints(x, y) {
       let pointS = { x: x, y: y}
       let pointE = {
-        x: pointS.x + random(-10, 10),
-        y: pointS.y + random(-10, 10)
+        x: pointS.x + random(-20, 20),
+        y: pointS.y + random(-20, 20)
       }
       points.push(pointS)
       points.push(pointE)
 
       let anchorS = {
-        x: pointS.x + random(20, 30),
-        y: pointS.y + random(-50, 50),
+        x: pointS.x + random(20, 20),
+        y: pointS.y + random(-70, 70),
       }
       let anchorE = {
-        x: pointE.x + random(-20, -30),
-        y: pointE.y + random(-50, 50),
+        x: pointE.x + random(-20, -20),
+        y: pointE.y + random(-70, 70),
       }
       anchors.push(anchorS)
       anchors.push(anchorE)
@@ -43,10 +43,11 @@ function draw() {
   noFill()
   // stroke(0)
   // stroke(sin(t)*300, 40, 80)
-  strokeWeight(5)
+  strokeWeight(2)
+  stroke(0)
   
   for (let i = 0; i < points.length; i += 2) {
-    stroke(colors[i], 100, 100)
+    // stroke(colors[i], 100, 100)
     drawBezier(points[i], anchors[i], anchors[i + 1], points[i + 1])    
   }
 }
