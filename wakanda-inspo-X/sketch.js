@@ -1,5 +1,5 @@
 let gap = 20
-let n = 20
+let n = 10 //* tan(frameCount/10)
 
 function setup() {
   createCanvas(700, 700);
