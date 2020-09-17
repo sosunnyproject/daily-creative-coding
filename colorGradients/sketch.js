@@ -1,7 +1,10 @@
 // ref: https://www.openprocessing.org/sketch/942270
 
 // let palette = ['#3399CC', '#67B8DE', '#91C9E8', '#B4DCED','#E8F8FF' ]
-let palette = ["#EDF7F5", "#B7D7D8", "#FF8984", "#204E5F", "#FFC6A8"];
+// let palette = ["#EDF7F5", "#B7D7D8", "#FF8984", "#204E5F", "#FFC6A8"];
+// let palette = ["#B34E4B", "#FFA19E", "#FF8985", "#39B363", "#85FFAF"]
+// let palette = ["#814BB3", "#FFD99E", '#C485FF', '#85FFAF', '#39B363']
+let palette = [ '#BFA3D9', '#D9B4A3', '#080D42', '#D7D9A3', '#ADD9D5']
 
 
 
@@ -14,7 +17,7 @@ function setup() {
 }
 
 function draw() {
-  background(0, 0, 90, 50)
+  background(0, 0, 30, 70)
 
   
   drawingContext.shadowColor = color(0, 0, 0,60)
@@ -26,7 +29,7 @@ function draw() {
 
   for (let i = 0; i < width+20; i+= 50) {
     for (let j = 0; j < height+20; j+= 50) {
-      let linearGrad = drawingContext.createLinearGradient(i+random(-10, 20), j+random(-10, 30), i+random(-30, 50), j+random(-50, 40))
+      let linearGrad = drawingContext.createLinearGradient(i+random(-40, 20), j+random(-40, 30), i+random(100), j+random(100))
 //       let radialGrad = drawingContext.createRadialGradient(i+random(-10, -1), j+random(-10, -1), 3 , i+random(-3,6), j+random(-3,7), 6)
       noStroke()
       
@@ -59,25 +62,25 @@ function drawShape(rand, i, j){
            random(i-30, i+50), random(j-20, j+40), 
            i+random(-30,60), j+random(-30,60))
   } else if (rand === 1){
-    // ellipse(i+10, j+10, 30, 30) 
-    bezier(
-      i+random(-40,40), j+random(-30,30),
-      i+random(10, 60), j+random(10, 60), 
-    random(i-30, i+60), random(j-40, j+50),  
-    random(i-60, i+60), random(j-20, j+40), 
-    )
+    ellipse(i+10, j+10, 40, 40) 
+    // bezier(
+    //   i+random(-40,40), j+random(-30,30),
+    //   i+random(10, 60), j+random(10, 60), 
+    // random(i-30, i+60), random(j-40, j+50),  
+    // random(i-60, i+60), random(j-20, j+40), 
+    // )
   } else if(rand === 2){
-    bezier(i+random(10, 60), j+random(10, 60), 
-           random(i-30, i+60), random(j-40, j+50),  
-           random(i-60, i+60), random(j-20, j+60), 
-           i+random(-40,40), j+random(-30,30))
-    // rect(i+10, j, 20, 20, 5) 
+    // bezier(i+random(10, 60), j+random(10, 60), 
+    //        random(i-30, i+60), random(j-40, j+50),  
+    //        random(i-60, i+60), random(j-20, j+60), 
+    //        i+random(-40,40), j+random(-30,30))
+    rect(i+10, j, 40, 40, 5) 
   } else if(rand===3){
-    bezier(i+random(-40,40), j+random(-30,30), i+random(10, 60), j+random(10, 60), 
-    random(i-30, i+60), random(j-40, j+50),  
-    random(i-60, i+60), random(j-20, j+40), 
-    )
-    // triangle(i, j+20, i+10, j, i+20, j+20)
+    // bezier(i+random(-40,40), j+random(-30,30), i+random(10, 60), j+random(10, 60), 
+    // random(i-30, i+60), random(j-40, j+50),  
+    // random(i-60, i+60), random(j-20, j+40), 
+    // )
+    triangle(i, j+30, i+15, j, i+30, j+30)
   }
   
 }
