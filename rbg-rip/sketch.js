@@ -1,7 +1,7 @@
 let img;
 let pixels = []
 function preload() {
-  img = loadImage('rbg-pic.jpg');
+  img = loadImage('rbg-photo-whitebg.jpg');
 
 }
 
@@ -12,7 +12,7 @@ function setup() {
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
       let c = img.get(i, j)
-      if (c[2] < 150) {
+      if (c[2] < 150 && c[1] < 150) {
         pixels.push({x: i, y: j})
       }
     }
@@ -28,7 +28,8 @@ function setup() {
 function draw() {
 
 
-//   console.log(mouseX, mouseY)
+    let c = img.get(mouseX, mouseY);
+    console.log(c)
 
   
 }
