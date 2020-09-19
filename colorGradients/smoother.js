@@ -79,6 +79,15 @@ function draw() {
            i+off*40, j+noise(offset)*off*4, 
            i+off*8, j+noise(offset)*off*-100, 
            i+100, j )
+
+      /** wave bezier 
+      * 
+      bezier(i, j, 
+      i+off*80, j+noise(offset)*off*-50, 
+      i+off*-8, j+noise(offset)*off*-80, 
+      i+100, j )
+      * 
+      */
     }
   }
   frameRate(4)
