@@ -29,7 +29,7 @@ function draw() {
 
 
     let c = img.get(mouseX, mouseY);
-    console.log(c)
+    console.log(mouseX, mouseY)
 
   
 }
