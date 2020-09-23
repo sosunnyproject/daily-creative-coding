@@ -1,7 +1,7 @@
 let bouncers = []
 let edges = []
 // 바운스 볼(원)의 개수, 변 (벽)의 개수
-let boc_num = 10, edgs_num = 10
+let boc_num = 1, edgs_num = 5
 
 function setup() {
   createCanvas(400, 400);
@@ -15,20 +15,21 @@ function setup() {
   
   // 변의 개수만큼, 클래스 오브젝트 생성, 배열에 추가
   for(let i=0; i < edgs_num; i++){
-    edges.push(new Edge())
+    edges.push(new Edge(random(width), random(height), random(width), random(height)))
   }
 }
 
 function draw() {
   background(220)
   strokeWeight(20)
-  for(let i = 0;i < boc_num; i++){
-    bouncers[i].update() 
-  }
+  bouncers[0].checkEdges()
+  // for(let i = 0;i < boc_num; i++){
+  //   bouncers[i].update() 
+  // }
 
   // 원에서 뻗어나가는 선분  그려주기
-  strokeWeight(20)
-  for(let i=0; i<edgs_num; i++){
-    line(edges[i].x_1, edges[i].y_1, edges[i].x_2, edges[i].y_2) // API: line(x1, y1, x2, y2)
-  }
+  // strokeWeight(20)
+  // for(let i=0; i<edgs_num; i++){
+  //   line(edges[i].x_1, edges[i].y_1, edges[i].x_2, edges[i].y_2) // API: line(x1, y1, x2, y2)
+  // }
 }
