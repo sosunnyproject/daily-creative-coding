@@ -9,6 +9,7 @@ class Bouncer {
     this.vel_mag = random(1,4)                     // 속력의 크기 - 랜덤한 값
     this.vel_angle = random(2 * PI)                // 원의 각도  - 랜덤한 값
     this.vel = createVector(cos(this.vel_angle)*this.vel_mag, sin(this.vel_angle)*this.vel_mag)
+    this.collided = false
     // 원의 이동 속도 = 사인함수(각도) * 크기 
   }
 
@@ -32,20 +33,20 @@ class Bouncer {
       // 현재 원의 위치
       let xPos = this.pos.x
       let yPos = this.pos.y
-      noStroke()
-      fill(50)
-      ellipse(xPos, yPos, 20)
+      // noStroke()
+      // fill(50)
+      // ellipse(xPos, yPos, 20)
 
       let a2b = createVector(bx - ax, by - ay)
       let a2p = createVector(xPos - ax, yPos - ay)
-      strokeWeight(2)
-      noFill()
-      stroke(255, 0, 0) // edge
-      line(ax, ay, bx, by)
-      stroke(0, 0, 255) // blue
-      ellipse(a2b.x, a2b.y, 10)
-      stroke(0, 255, 0) // green
-      ellipse(a2p.x, a2p.y, 10)
+      // strokeWeight(2)
+      // noFill()
+      // stroke(255, 0, 0) // edge
+      // line(ax, ay, bx, by)
+      // stroke(0, 0, 255) // blue
+      // ellipse(a2b.x, a2b.y, 10)
+      // stroke(0, 255, 0) // green
+      // ellipse(a2p.x, a2p.y, 10)
 
 
       a2b.normalize()  // AB 선분의 길이가 1이 되었다
@@ -53,51 +54,60 @@ class Bouncer {
 
       let coordA = createVector(ax, ay) // a 좌표
       let a2x = a2b.mult(lineAXlen)  // AX 선분
-      let coordX = coordA.add(a2b.mult(lineAXlen)) // AB 선상에 있는 x 의 좌표
-      stroke(255, 0, 255) // purple
-      ellipse(coordA.x, coordA.y, 10)
-      ellipse(coordX.x, coordX.y, 30)
+      let coordX = coordA.add(a2x) // AB 선상에 있는 x 의 좌표
+      // stroke(255, 0, 255) // purple
+      // ellipse(coordA.x, coordA.y, 10)
+      // ellipse(coordX.x, coordX.y, 30)
 
       // 공과 x좌표 사이
       let XtoBall = createVector(xPos - coordX.x, yPos - coordX.y)
       XtoBall.normalize() //  크기가 1인 수직벡터
 
-      let velVector = createVector(this.vel.x, this.vel.y) 
-      let reflectVector = velVector.add(XtoBall.mult(-2 * (XtoBall.dot(velVector)))) 
+      let reflectVector = this.vel.add(XtoBall.mult(-2 * (XtoBall.dot(this.vel)))) 
       // lineAB.dot(velVector) 선분ab와 속력 벡터의내적
       // 반사되는 속도벡터
 
       // https://p5js.org/reference/#/p5.Vector/dist
-      if(dist(ax, ay, coordX.x, coordX.y) < dist(ax, ay, bx, by) + radius * 0.5  && 
-        dist(bx, by, coordX.x, coordX.y) < dist(ax, ay,bx, by) + radius * 0.5) {
+      if(dist(ax, ay, coordX.x, coordX.y) < dist(ax, ay, bx, by) + this.radius * 0.5  && 
+        dist(bx, by, coordX.x, coordX.y) < dist(ax, ay,bx, by) + this.radius * 0.5) {
 
           if(minDistance > dist(coordX.x, coordX.y, xPos, yPos) ) {
             minDistance = dist(coordX.x, coordX.y, xPos, yPos)
             minX = coordX.x
             minY = coordX.y
           }
-          if(dist(coordX.x, coordX.y, xPos, yPos) < radius * 0.5){
-            if(!collided) {
-              collided = true
+          if(dist(coordX.x, coordX.y, xPos, yPos) < this.radius * 0.5){
+            if(!this.collided) {
+              this.collided = true
               this.vel.x = reflectVector.x
               this.vel.y = reflectVector.y
             }
           } else {
-            collided = false
+            this.collided = false
           }
 
           }
         }
 
-    strokeWeight(10);
+    strokeWeight(10)
     stroke(0, 0, 255)
     if(minX !== 0 && minY !== 0) {
-      line(minX, minY, xPos, yPos)
+      line(minX, minY, this.pos.x, this.pos.y)
     }
   }
 
   update() {
 
+    this.checkEdges()
+    this.pos.add(this.vel)
+    strokeWeight(10)
+    
+    // 속도 그려주는 선
+    stroke(255, 0, 0)
+    line(this.pos.x, this.pos.y, this.pos.x + this.vel.x*20, this.pos.y + this.vel.y*20)
+    // 바운스 볼 원  그리기
+    stroke(0)
+    ellipse(this.pos.x, this.pos.y, this.radius, this.radius)
   }
 
 

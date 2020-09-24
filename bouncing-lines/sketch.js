@@ -1,5 +1,7 @@
 let bouncers = []
-let edges = []
+let edges = [] 
+let edgesRadius = [] // 랜덤한 반지름을 선택해서, 다각형을 그리고, 그 다각형의 변들이 엣지가 된다.
+
 // 바운스 볼(원)의 개수, 변 (벽)의 개수
 let boc_num = 1, edgs_num = 5
 
@@ -13,23 +15,47 @@ function setup() {
     bouncers.push(new Bouncer())
   }
   
-  // 변의 개수만큼, 클래스 오브젝트 생성, 배열에 추가
+  // 다각형의 변 반지름 선정
   for(let i=0; i < edgs_num; i++){
-    edges.push(new Edge(random(width), random(height), random(width), random(height)))
+    edgesRadius.push(random(80, width*0.5))
+  }
+
+  //닫힌 다각형을 그리기
+  for(let i = 0; i < edgs_num; i++) {
+    let angle = i * 2 * PI / edgs_num
+
+    let r1 = edgesRadius[i]
+    let r2 = i===edgs_num-1 ? edgesRadius[0] : edgesRadius[i+1]
+
+    // 각 변의 첫번째 좌표
+    let x1 = width * 0.5 + r1 * cos(angle)
+    let y1 = height * 0.5 + r1 * sin(angle)
+
+    // second coord
+    let x2 = width * 0.5 + r2 * cos(angle + 2* PI / edgs_num)
+    let y2 = height * 0.5 + r2 * sin(angle + 2 * PI / edgs_num)
+
+    console.log('convert radians to degree  value')
+    console.log(angle * 180 / PI, (angle +2*PI/edgs_num) * 180 / PI)
+
+    edges.push(new Edge(x1, y1, x2, y2))
+
   }
 }
 
 function draw() {
   background(220)
   strokeWeight(20)
-  bouncers[0].checkEdges()
-  // for(let i = 0;i < boc_num; i++){
-  //   bouncers[i].update() 
-  // }
 
-  // 원에서 뻗어나가는 선분  그려주기
-  // strokeWeight(20)
-  // for(let i=0; i<edgs_num; i++){
-  //   line(edges[i].x_1, edges[i].y_1, edges[i].x_2, edges[i].y_2) // API: line(x1, y1, x2, y2)
-  // }
+  for(let i = 0;i < boc_num; i++){
+    bouncers[i].update() 
+  }
+
+  // 다각형 바운더리 선분 그리기
+  strokeWeight(20)
+  stroke(255, 0, 255) // purple
+
+  for(let i=0; i<edgs_num; i++){
+    line(edges[i].x_1, edges[i].y_1, edges[i].x_2, edges[i].y_2) // API: line(x1, y1, x2, y2)
+  }
 }
