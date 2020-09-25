@@ -3,7 +3,7 @@ let edges = []
 let edgesRadius = [] // 랜덤한 반지름을 선택해서, 다각형을 그리고, 그 다각형의 변들이 엣지가 된다.
 
 // 바운스 볼(원)의 개수, 변 (벽)의 개수
-let boc_num = 1, edgs_num = 5
+let boc_num = 1, edgs_num = 10
 
 function setup() {
   createCanvas(400, 400);
@@ -39,8 +39,11 @@ function setup() {
     console.log(angle * 180 / PI, (angle +2*PI/edgs_num) * 180 / PI)
 
     edges.push(new Edge(x1, y1, x2, y2))
-
   }
+  edges[edgs_num - 1] = new Edge(0, 0, width, 0)
+  edges[edgs_num - 2] = new Edge(width, height, width, 0)
+  edges[edgs_num - 3] = new Edge(0, 0, 0, height)
+  edges[edgs_num - 4] = new Edge(width, 0, width, height)
 }
 
 function draw() {

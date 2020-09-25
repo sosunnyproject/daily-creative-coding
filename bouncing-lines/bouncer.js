@@ -11,6 +11,10 @@ class Bouncer {
     this.vel = createVector(cos(this.vel_angle)*this.vel_mag, sin(this.vel_angle)*this.vel_mag)
     this.collided = false
     // 원의 이동 속도 = 사인함수(각도) * 크기 
+
+    // this.acc = createVector(0, 0.1)  // gravity
+    this.acc = createVector(this.vel.x, this.vel.y)
+    this.acc.mult(0.1)
   }
 
   // 모든 변들의 위치와 원 자신의  위치를 비교한다. 
@@ -63,7 +67,8 @@ class Bouncer {
       let XtoBall = createVector(xPos - coordX.x, yPos - coordX.y)
       XtoBall.normalize() //  크기가 1인 수직벡터
 
-      let reflectVector = this.vel.add(XtoBall.mult(-2 * (XtoBall.dot(this.vel)))) 
+      let copyVel = createVector(this.vel.x, this.vel.y)
+      let reflectVector = copyVel.add(XtoBall.mult(-2 * (XtoBall.dot(copyVel)))) 
       // lineAB.dot(velVector) 선분ab와 속력 벡터의내적
       // 반사되는 속도벡터
 
@@ -99,7 +104,9 @@ class Bouncer {
   update() {
 
     this.checkEdges()
+    this.vel.add(this.acc)
     this.pos.add(this.vel)
+    this.vel.limit(5)
     strokeWeight(10)
     
     // 속도 그려주는 선
