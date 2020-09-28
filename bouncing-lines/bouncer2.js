@@ -1,6 +1,4 @@
-//https://github.com/Coding-Pool/processing/blob/master/bouncer_line/bouncer_line.pde
-
-// https://github.com/Coding-Pool/processing/blob/master/bouncing_in_spiky_polygon/Bouncer.pde
+// 삼각함수로 x 좌표 구하는 버전
 
 class Bouncer {
   constructor() {
@@ -41,11 +39,16 @@ class Bouncer {
       let a2b = createVector(bx - ax, by - ay)
       let a2p = createVector(ballX - ax, ballY - ay)
 
-      a2b.normalize()  // AB 선분의 길이 1이라고 가정
+      a2b.normalize()
 
-      let a2xMag = a2p.dot(a2b) // 내적의 결과: AX 선분의 길이
+      //cos() = a2b / a2p
+      let theta = acos(a2b.mag() / a2p.mag())
+      // x2p = sin()*a2p
+      let x2pMag = sin(theta) * a2p.mag()
+      // a2x = x2p / tan()
+      let a2xMag = x2pMag / tan(theta)
 
-      let coordA = createVector(ax, ay) // a 좌표
+      let coordA = createVector(ax, ay) // a 좌표      
       let a2x = a2b.mult(a2xMag)  // a2x 벡터 = 길이가 1인 a2b vector (방향) * a2x 선분실제길이
       let coordX = coordA.add(a2x) // x 좌표 = a 좌표 + a2x 벡터 
       
@@ -55,9 +58,10 @@ class Bouncer {
       ellipse(coordA.x, coordA.y, 20, 20)
 
       let XtoBall = createVector(ballX - coordX.x, ballY - coordX.y)  // 공과 x좌표 사이
-      XtoBall.normalize()         // 크기가 1인 수직벡터
+      XtoBall.normalize()         
+      // ball 부터 수선의 발 좌표 x 까지 벡터, 크기는 1
 
-      let copyVel = createVector(this.vel.x, this.vel.y)
+      let copyVel = this.vel.copy()
       let reflectVector = copyVel.add(XtoBall.mult(-2 * (XtoBall.dot(copyVel)))) 
       // lineAB.dot(velVector) 선분ab와 속력 벡터의내적
       // 반사되는 속도벡터
