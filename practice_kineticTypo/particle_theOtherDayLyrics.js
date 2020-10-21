@@ -31,6 +31,6 @@ class Particle {
     fill(this.color)
     noStroke()
     ellipse(moveX, moveY, this.size, this.size)
-    // ellipse(tempX, tempY, this.size/2, this.size/2)
+    ellipse(tempX, tempY, this.size/2, this.size/2)  // 주변 흩뿌리는 파티클 효과
   }
 }
