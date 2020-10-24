@@ -6,8 +6,8 @@ class Particle {
     this.color = color
   }
 
-  display(ind) {
-    let n = sin(frameCount/40) * width
+  display(ind, size) {
+    let n = sin(frameCount/20) * width
     
     /* 1st
     
@@ -26,11 +26,14 @@ class Particle {
     let tempX = moveX + random(n, -1 * n)
     let tempY = moveY + random(n, -1 * n)
 
-    this.size = 1+ sin(1 / dist(moveX, moveY, this.x, this.y)) * 5
+    let scatterSize = 1 + sin(1 / dist(moveX, moveY, this.x, this.y)) * 5
+    let letterSize = size - sin(1 / dist(moveX, moveY, this.x, this.y)) * 5
 
-    fill(this.color)
+    let letterCol = this.color
+    letterCol.setAlpha(128 + 128 * sin(millis() / 1000))
+    fill(letterCol)
     noStroke()
-    ellipse(moveX, moveY, this.size, this.size)
-    ellipse(tempX, tempY, this.size/2, this.size/2)  // 주변 흩뿌리는 파티클 효과
+    ellipse(moveX, moveY, letterSize, letterSize)
+    ellipse(tempX, tempY, scatterSize/2, scatterSize/2)  // 주변 흩뿌리는 파티클 효과
   }
 }
