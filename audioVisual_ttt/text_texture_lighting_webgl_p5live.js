@@ -14,7 +14,10 @@ function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
 	pg = createGraphics(200, 200)
 	textFont(font)
-	colArray = [color(204, 102, 0),color(0,30, 71), color(204,93,0), color(0,57,135)]
+	colArray = [color(14, random(frameCount%255), 0), 
+	  color(random(100),30, 71), 
+	  color(20,193,random(25)), 
+	  color(0,random(255),135)]
 	
 	// audio
 	mic = new p5.AudioIn()
@@ -28,10 +31,10 @@ function setup() {
 }
 function resetShapes(){
 	shapes = []
-	for(let i = 0; i < 20; i++){
-	    let x = random(-width/4, width/4)
-	    let y = random(-height/3, height/3)
-	    let z = random(-500, 500)
+	for(let i = 0; i < 10; i++){
+	    let x = random(-width/2, width/2)
+	    let y = random(-height/2, height/2)
+	    let z = random(-300, 300)
     
     	let axis = {x : x, y : y, z: z}
     	shapes.push(axis)
@@ -41,32 +44,42 @@ function draw() {
 	background(0)
 	orbitControl()
 	micLevel = map(mic.getLevel(), 0.0, 1.0, 20, 80)
-	
-	rotateX(angle * 10)
+    angle = ((micLevel*0.1) % 360) * 0.01
+
+	// camera
+	let u = sin(micLevel)*10
+	let v = cos(micLevel)*10
+	camera(10 + u * 2, u * 2, v * 2, // position
+      0, 0, 0,  // center XYZ
+      sin(micLevel*0.1),
+      sin(micLevel*0.1), 
+      sin(micLevel*0.1));   // up
+      
+	// rotateX(angle * 10)
 	rotateY(angle)
-	rotateZ(angle * 0.7)
+	rotateZ(angle * 10)
     
-    pg.background(0, 100)
+    pg.background(10, 10)
     pg.textAlign(CENTER)
-	pg.textSize(30)
-	pg.strokeWeight(10)
-	pg.stroke(micLevel*10, micLevel, 255)
+	pg.textSize(50)
+	pg.strokeWeight(5)
+	// pg.fill(micLevel+200, random(100), random(255))
+	pg.stroke(micLevel%25, micLevel%200, micLevel*100)
 	
-	pg.text('love love love love', 100, 50)
-	pg.text('death death death', 100, 100)
+	pg.text('no', 100, 40)
+	pg.text('more', 100, 80)
+	pg.text('answers', 100, 120)
 	texture(pg)
 
-	ambientLight(200)
-	directionalLight(255, 255, 255, 0, 1, 1)
+	ambientLight(255)
+	directionalLight(micLevel%255, 255, 255, 0, 0, 0)
 	
-	angle = (micLevel % 360) * 0.01
-
 	applyLighting()
-    specularMaterial(0)
+    // specularMaterial(0)
 	noStroke()
 	Shapes3d()
 	
-	if(frameCount % 200 === 0) {
+	if(frameCount % 500 === 0) {
 	  resetShapes()
 	}
 }
@@ -76,14 +89,15 @@ function Shapes3d() {
 	for(let i = 0; i < shapes.length; i++) {
       push()
       translate(shapes[i].x, shapes[i].y, shapes[i].z)
-      sphere(10+tan(((frameCount*0.01)%100)*i))
+      //box(50)
+      box(100*sin(((micLevel*0.01)%10)*i))
       pop()
 	}
 }
 
 function applyLighting() {
-	let spd = map(sin(frameCount%100), -1, 1, 0.001, 0.005)
-    counter += 0.1
+	let spd = 0.04 //map(sin(micLevel%100), -1, 1, 0.001, 0.005)
+    counter += 0.001
     
 	// lighting
 	 for(i=0;i<colArray.length;i++){
