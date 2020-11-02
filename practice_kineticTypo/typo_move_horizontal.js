@@ -1,3 +1,7 @@
+// http://designfever.org/generative-typography/
+// https://www.creativeapplications.net/
+// https://www.creativeapplications.net/processing/generative-typography-processing-tutorial/
+// https://github.com/AmnonOwed/CAN_GenerativeTypography
 let palette = ['#0511F2', '#5E90F2', '#0477BF', '#032619', '#F2B705']
 
 let pg // 캔버스 위에 그리는 (그래픽) 레이어
@@ -21,7 +25,6 @@ function preload() {
 
 function setup() {
   createCanvas(500, 500);
-
   pg = createGraphics(width, height)
   pg.textFont(fonts[0])
   // pg.textSize(302)
@@ -38,8 +41,12 @@ function textGraphic(){
   pg.textAlign(CENTER, CENTER)
   
   pg.textSize(400)
-  
-  pg.fill('rgba(166, 128, 250, 0.9)')
+  // pg.colorMode(HSB)
+  // pg.fill(150+(sin(frameCount)*260), 100, 100)
+  const from = color(255, 100, 0)
+  const to = color(0, 100, 255)
+  let lerp = lerpColor(from, to, sin(frameCount/100)*0.4)
+  pg.fill(lerp)
   pg.text('가', width/2, height/2)
 }
 function draw() {
@@ -65,12 +72,12 @@ function draw() {
       
       // x, y 값이 곧 좌표값
       // 원래 텍스트
-      const sx = x*tileSize + distortionX
-      const sy = y*tileSize + distortionY
+      const sx = x*tileSize
+      const sy = y*tileSize
       const sw = tileSize 
       const sh = tileSize 
       
-      const mapX = map(x, 0, tiles, 10, 100)
+      const mapX = map(x, 0, tiles, 1, 10)
       const mapY = map(y, 0, tiles, 1, 10)
       
       // pg 그래픽 레이어에 올릴 텍스트
