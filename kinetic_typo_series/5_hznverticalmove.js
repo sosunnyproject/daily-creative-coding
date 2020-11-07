@@ -8,7 +8,7 @@ let direction = false // true: vertical, false: horizontal
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('Arita-buriM.otf')
+  font = loadFont('nationalMuseumL.otf')
 }
 
 function setup() {
@@ -22,15 +22,15 @@ function setup() {
   pg.blendMode(BLEND)
   pg.textAlign(CENTER, CENTER)
 
-  pg.textSize(300)
+  pg.textSize(400)
   pg.fill('rgba(166, 128, 250, 0.9)')
-  pg.text('창', width / 2.1, height / 2.1)
-  pg.textSize(300)
-  pg.fill('rgba(110, 186, 250, 0.9)')
-  pg.text('창', width / 2, height / 2.4)
-  pg.textSize(300)
-  pg.fill('rgba(166, 186, 250, 0.9)')
-  pg.text('창', width / 2, height / 2.2)
+  pg.text('숨', width / 2.1, height / 2.1)
+  pg.textSize(400)
+  pg.fill('rgba(110, 186, 250, 0.6)')
+  pg.text('숨', width / 2, height / 2.0)
+  // pg.textSize(400)
+  // pg.fill('rgba(166, 186, 250, 0.9)')
+  // pg.text('숨', width / 2, height / 2.2)
 }
 
 function draw() {
@@ -65,8 +65,8 @@ function draw() {
       //   distX = 1
       // }
 
-      const dx = x * tileSize - tan(frameCount / 50) * distX // left right
-      const dy = y * tileSize - tan(frameCount / 50) * distX // up down
+      const dx = x * tileSize - sin(frameCount / 50)  // left right
+      const dy = y * tileSize - sin(frameCount / 50) * distY // up down
       const dist = 0
 
       if (dy < 0) { // went vertical
