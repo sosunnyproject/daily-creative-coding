@@ -3,16 +3,16 @@ let palette = ['#0511F2', '#5E90F2', '#0477BF', '#032619', '#F2B705']
 
 let pg // 캔버스 위에 그리는 (그래픽) 레이어
 let font // 텍스트의 폰트
-const tiles = 40
+const tiles = 30
 let direction = false // true: vertical, false: horizontal
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('nationalMuseumL.otf')
+  font = loadFont('BMEuljiro.ttf')
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   background(0)
 
   pg = createGraphics(width, height)
@@ -22,12 +22,12 @@ function setup() {
   pg.blendMode(BLEND)
   pg.textAlign(CENTER, CENTER)
 
-  pg.textSize(400)
-  pg.fill('rgba(166, 128, 250, 0.9)')
-  pg.text('숨', width / 2.1, height / 2.1)
-  pg.textSize(400)
-  pg.fill('rgba(110, 186, 250, 0.6)')
-  pg.text('숨', width / 2, height / 2.0)
+  pg.textSize(150)
+  pg.fill('rgba(255, 93, 5, 0.9)')
+  pg.text('BREATH', width / 2.0, height / 2.1)
+  pg.textSize(150)
+  pg.fill('rgba(255, 184, 3, 0.9)')
+  pg.text('BREATH', width / 2, height / 2.0)
   // pg.textSize(400)
   // pg.fill('rgba(166, 186, 250, 0.9)')
   // pg.text('숨', width / 2, height / 2.2)
@@ -65,8 +65,8 @@ function draw() {
       //   distX = 1
       // }
 
-      const dx = x * tileSize - sin(frameCount / 50)  // left right
-      const dy = y * tileSize - sin(frameCount / 50) * distY // up down
+      const dx = x * tileSize - sin(frameCount / 40)  // left right
+      const dy = y * tileSize - sin(frameCount / 40) * distY // up down
       const dist = 0
 
       if (dy < 0) { // went vertical

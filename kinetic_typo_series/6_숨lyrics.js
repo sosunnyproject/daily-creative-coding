@@ -8,7 +8,7 @@ let direction = false // true: vertical, false: horizontal
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('nationalMuseumL.otf')
+  font = loadFont('BMEuljiro.ttf')
 }
 
 function setup() {
@@ -25,35 +25,39 @@ function setup() {
   pg.blendMode(BLEND)
   pg.textAlign(LEFT, TOP)
 
-  pg.textSize(100)
-  pg.fill('rgba(166, 128, 250, 0.9)')
-  pg.text('침대밑에', 10, 0)
+  pg.textSize(120)
+  // pg.fill('rgba(57, 23, 232, 0.9)')
+  pg.fill('rgba(255, 93, 5, 0.9)')
+
+  pg.text('다시오는', 10, 0)
 
   pg2.background(0)
   pg2.textFont(font)
   pg2.blendMode(BLEND)
   pg2.textAlign(LEFT, TOP)
   
-  pg2.textSize(100)
-  pg2.fill('rgba(126, 128, 250, 0.9)')
-  pg2.text('놓아둔', 10, 0)
+  pg2.textSize(120)
+  // pg2.fill('rgba(131, 37, 255, 0.9)')
+  pg2.fill('rgba(235, 109, 2, 0.9)')
+
+  pg2.text('아침에', 10, 0)
 
   pg3.background(0)
   pg3.textFont(font)
   pg3.blendMode(BLEND)
   pg3.textAlign(LEFT, TOP)
 
-  pg3.textSize(100)
-  pg3.fill('rgba(166, 128, 250, 0.9)')
-  pg3.text('지난밤에', 10, 0)
+  pg3.textSize(120)
+  pg3.fill('rgba(255, 149, 9, 0.9)')
+  pg3.text('눈을뜨며', 10, 0)
 
   pg4.background(0)
   pg4.textFont(font)
   pg4.blendMode(BLEND)
   pg4.textAlign(LEFT, TOP)
-  pg4.textSize(100)
-  pg4.fill('rgba(126, 128, 250, 0.9)')
-  pg4.text('꾼꿈이', 10, 0)
+  pg4.textSize(120)
+  pg4.fill('rgba(255, 184, 3, 0.9)')
+  pg4.text('웃고프다', 10, 0)
 }
 
 function draw() {
@@ -88,11 +92,11 @@ function draw() {
       //   distX = 1
       // }
 
-      const dx = x * tileSize - sin(frameCount / 30)  // left right
-      const dy = y * tileSize - sin(frameCount / 30) * distY/2// up down
+      const dx = x * tileSize + sin(frameCount / 20) // left right
+      const dy = y * tileSize + sin(frameCount / 20) * distY/2 // up down
 
-      const dx2 = x * tileSize + sin(frameCount / 30)  // left right
-      const dy2 = y * tileSize + sin(frameCount / 30) * distY/2// up down
+      const dx2 = x * tileSize - sin(frameCount / 20) // left right
+      const dy2 = y * tileSize - sin(frameCount / 20) * distY/2 // up down
 
 
       if (dy < 0) { // went vertical
