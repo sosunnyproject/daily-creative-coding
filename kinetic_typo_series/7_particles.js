@@ -73,11 +73,14 @@ class Particle {
     let motion = tan(v) * random(ind, width) * noise(frameCount / 1000)
 
     let col = this.color
-    let size = sin(v) * this.size
+    // let size = sin((motion+0.5)) * this.size
+    let size = sin(v) * this.size/2
 
     fill(col)
     noStroke()
-    let a = atan2(mouseX - width / 2, mouseY - height / 2);
+    // let a = atan2(mouseX - width / 2, mouseY - height / 2);
+    let t = tan(frameCount/100)
+    let a = map(t, -1, 1, 0, TWO_PI*2) 
 
     push()
     translate(this.x, this.y)
