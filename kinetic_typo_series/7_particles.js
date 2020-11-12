@@ -78,9 +78,10 @@ class Particle {
 
     fill(col)
     noStroke()
-    // let a = atan2(mouseX - width / 2, mouseY - height / 2);
     let t = tan(frameCount/100)
-    let a = map(t, -1, 1, 0, TWO_PI*2) 
+    let a = map(n, 0, 1000, 0, TWO_PI * 2)
+    // let a = map(t, -1, 1, 0, TWO_PI*2) 
+    // let a = atan2(mouseX - width / 2, mouseY - height / 2);
 
     push()
     translate(this.x, this.y)
