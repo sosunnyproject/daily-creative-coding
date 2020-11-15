@@ -5,7 +5,7 @@ let particleNum = 0 // 생성될 파티클의 개수, 가장처음에는 0개이
 let pg // 캔버스 위에 그리는 (그래픽) 레이어
 let font // 텍스트의 폰트
 let tileSize = 8
-let tileGap = 10
+let tileGap = 1
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
@@ -22,24 +22,36 @@ function setup() {
   pg.textSize(400)
   pg.fill(255)
   pg.textAlign(LEFT, TOP)
-  pg.text("별", 100, 50)
+  pg.text("꿈", 100, 50)
 
+
+}
+
+function draw() {
+  background(1, 4, 63, 50)
+  noFill()
+  stroke(255)
+
+  setParticles()
   
+  for (let i = 0; i < particles.length; i++) {
+    let v = particles[i]
+    setTimeout( drawBezier(v[0], v[1], v[2], v[3]) , 20000)
+  }
+}
+
+function setParticles(){
+  particles = []
+  tileGap += 1
   for (let x = 0; x < width; x += tileGap ) {
     for (let y = 0; y < height; y += tileGap ) {
       let isTEXT = JSON.stringify(pg.get(x, y)) !== JSON.stringify([0, 0, 0, 255])
       if (isTEXT) {
-        particles.push(new Particle(x, y, tileSize, '#F2B705'))
+        // particles.push(new Particle(x, y, tileSize, '#F2B705'))
+        let v = setPoints(x, y, random(0.01, 0.1))
+        particles.push(v)
       }
     }
-  }
-}
-
-function draw() {
-  background(1, 4, 63, 10)
-
-  for (let i = 0; i < particles.length; i++) {
-    particles[i].display(i)
   }
 }
 
@@ -54,7 +66,7 @@ function setPoints(x, y, off) {
 
       let anchorS = {
         x: pointS.x + random(-25, 25), //(off)*25,
-        y: pointS.y + random(-50, 100),
+        y: pointS.y + random(-30, 80),
       }
       let anchorE = {
         x: pointE.x + sin(off)*25,
@@ -69,6 +81,22 @@ function setPoints(x, y, off) {
 }
 
 function drawBezier(pointS, anchorS, anchorE, pointE) {
+  
+  // anchorE = {
+  //       x: pointE.x + sin(frameCount/10)*25,
+  //       y: pointE.y + sin(frameCount/10)*100,
+  //     }
+
+  anchorS = {
+        x: pointS.x + random(-25, 25), //(off)*25,
+        y: pointS.y + random(-25, 25),
+      }
+  
+  pointE = {
+        x: pointS.x +  tan(frameCount/10)*5,
+        y: pointS.y +  tan(frameCount/10)*5
+      }
+  
   bezier(pointS.x, pointS.y,
     anchorS.x, anchorS.y,
     anchorE.x, anchorE.y,
