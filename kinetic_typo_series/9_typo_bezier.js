@@ -9,7 +9,7 @@ let tileGap = 1
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('Arita-buriM.otf')
+  font = loadFont('BMEuljiro.ttf')
 }
 function setup() {
   // angleMode(DEGREES)
