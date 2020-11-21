@@ -9,7 +9,7 @@ let tileGap = 13
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('Arita-buriM.otf')
+  font = loadFont('BinggraeSamanco.ttf')
 }
 
 function setup() {
@@ -21,10 +21,10 @@ function setup() {
   pg = createGraphics(width, height)
   pg.background(0)
   pg.textFont(font)
-  pg.textSize(500)
+  pg.textSize(550)
   pg.fill(255)
   pg.textAlign(LEFT, TOP)
-  pg.text("꿈", 50, 50)
+  pg.text("꿈", 150, 0)
 
 
   for (let x = 0; x < width; x += tileGap) {
