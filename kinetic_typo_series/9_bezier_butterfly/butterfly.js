@@ -5,7 +5,7 @@ class Butterfly {
     this.topY = y
     this.bottomY = y + (size/2)
     this.size = size
-    this.range = 25
+    this.range = random(25)
   }
 
   display() {
@@ -31,7 +31,7 @@ class Butterfly {
     // off: 1 or -1 
     // determining the direction of control end point
 
-    let speed = sin(frameCount/10)
+    let speed = sin(frameCount/200*range)
 
     let pointS = {
       x: x, //+ sin(frameCount/10)*range,

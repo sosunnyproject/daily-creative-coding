@@ -26,7 +26,7 @@ class Particle {
       console.log('go to second Target or random')
       this.target = createVector(x  || this.start.x, y || this.start.y)
     } else {
-      this.target = createVector(this.start.x, this.start.y)
+      this.target = createVector(this.origin.x, this.origin.y)
 
     }
   }
@@ -73,7 +73,7 @@ class Particle {
   display() {
     this.seek()
     this.update()
-    stroke((this.size*360)%360, 100, 100)
+    stroke((this.size*360)%360, 60, 100)
     let b =new Butterfly(this.pos.x, this.pos.y, this.size)
     b.display()
     // particle vehicle rendering
