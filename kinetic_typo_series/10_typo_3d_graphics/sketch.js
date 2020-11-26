@@ -26,8 +26,8 @@ function draw() {
   background(0)
   orbitControl()
 
-  let dirX = (mouseX / width - 0.5) * 2;
-  let dirY = (mouseY / height - 0.5) * 2;
+  let dirX = ((mouseX / width) - 0.5) * 2;
+  let dirY = ((mouseY / height) - 0.5) * 2;
 
   pointLight(0, 0, 250, -width/2, -height/2, 50);  //topleft
   pointLight(250, 0, 250, -width/2, height/2, 50); //bottomleft
