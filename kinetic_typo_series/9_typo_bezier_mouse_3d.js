@@ -14,8 +14,8 @@ function preload() {
 
 function setup() {
   // angleMode(DEGREES)
-  createCanvas(600, 600, WEBGL);
-  background(0)
+  createCanvas(1000, 1000, WEBGL);
+  background(255, 100, 100)
   specularMaterial(255);
   colorMode(HSB)
 
@@ -25,8 +25,8 @@ function setup() {
   pg.textFont(font)
   pg.textSize(400)
   pg.fill(255)
-  pg.textAlign(LEFT, TOP)
-  pg.text("는", 100, 50)
+  pg.textAlign(CENTER, CENTER)
+  pg.text("는", width/2, 50)
 
   setParticles()
 }
@@ -56,11 +56,12 @@ function draw() {
   }
 
   texture(pg2)
+  box(600)
   for(let z = 0; z < 1000; z += 100){
-    push()
-    translate(0, 0, -z)
-    plane(100 * (z/50))
-    pop()
+    // push()
+    // translate(0, 0, -z)
+    // plane(100 * (z/50))
+    // pop()
   }
 }
 

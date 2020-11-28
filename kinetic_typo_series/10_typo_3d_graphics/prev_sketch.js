@@ -19,7 +19,7 @@ function setup() {
   pg.textSize(400)
   pg.fill(255)
   pg.textAlign(LEFT, TOP)
-  pg.text("A", 50, 50)
+  pg.text("는", 50, 50)
 
 }
 // 
