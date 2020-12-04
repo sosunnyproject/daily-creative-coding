@@ -1,28 +1,38 @@
 let size = 50;
 let len = 3;
-let colors = ['#00f3f1', '#b2ff00', '#fa1453']
+let staticColors = ['rgb(0,0,0)', 'rgba(0, 243, 241,0.5)', 'rgba(178,255,0,0.5)', 'rgba(250,20,83, 0.5)']
+let colors = ['rgb(0,0,0)', 'rgb(0, 243, 241)', 'rgb(178,255,0)', 'rgb(250,20,83)']
+let colorHSLA = ['hsl(0, 0%, 0%)', 'hsla(180, 100%, 48%, 0.5)', 'hsla(78, 100%, 50%, 0.5)', 'hsla(344, 96%, 53%, 0.5)']
+let colorHSL = ['hsl(0, 0%, 0%)', 'hsl(180, 100%, 48%)', 'hsl(78, 100%, 50%)', 'hsl(344, 96%, 53%)']
+
+
 function setup() {
-  createCanvas(400, 400);
-  angleMode(degrees)
+  createCanvas(windowWidth, windowHeight);
+  // angleMode(degrees)
 }
 
 function draw() {
-  background(0, 5);
-  translate(width/2, height/2)
-  noStroke()
-  // let frame = frameCount/10
   
-  for(let i = 0; i < len; i++){
+  background(0, 10);
+  let angle = cos(frameCount / 10)
+  
+  // static rings
+  for (let i = len+1; i > 0 ; i--) {  //4, 3, 2, 1
+    fill(colorHSLA[i-1])// 3, 2, 1, 0
+    ellipse(width/2, height/2, size*i*2)
+  }
+  
+  translate(width / 2, height / 2)
+  noStroke()
+  let frame = frameCount / 10
+  
+  for (let i = 0; i < len; i++) {
     push()
-    rotate(i + frameCount/20)
-    fill(colors[i])
-    ellipse(size+i*size, 0, size)
-    //ellipse(x, y, size, size)
-    // try: add frameCount variables to x/y params in ellipse
-    // try: variating x, y depends on mouse positions
-    // try: variating size
-    // try: variating colors
+    rotate(i + frameCount / 20)
+    fill(colorHSL[i+1])
+    ellipse(size + size/2 + i * size, 0, size ) // size * sin(frame)
+    // ellipse(x, y, size, size)
     pop()
-    
+
   }
 }
