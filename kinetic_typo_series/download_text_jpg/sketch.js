@@ -2,7 +2,7 @@ let font
 let canvas
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('MapleStory Bold.ttf')
+  font = loadFont('BMEuljiro.ttf')
 }
 
 function setup() {
@@ -12,9 +12,9 @@ function setup() {
   textSize(500)
   fill(255)
   textAlign(CENTER, CENTER)
-  text('며', width/2, height/2-30);
+  text('밤', width/2, height/2-30);
 }
 
 function mouseClicked(){
-  saveCanvas(canvas, 'text', 'jpg');
+  saveCanvas(canvas, 'typo', 'png');
 }

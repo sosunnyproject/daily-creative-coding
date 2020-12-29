@@ -1,3 +1,5 @@
+// editor: https://editor.p5js.org/sosunnyproject/sketches/hxYeOoT3a
+
 let size = 50;
 let len = 3;
 let staticColors = ['rgb(0,0,0)', 'rgba(0, 243, 241,0.5)', 'rgba(178,255,0,0.5)', 'rgba(250,20,83, 0.5)']
@@ -12,8 +14,9 @@ function setup() {
 }
 
 function draw() {
-  background(0, 10);
-  // let angle = cos(frameCount / 100)
+  
+  background(0, 5);
+  let angle = cos(frameCount / 10)
   
   // static rings
   for (let i = len+1; i > 0 ; i--) {  //4, 3, 2, 1
@@ -21,7 +24,6 @@ function draw() {
     // ellipse(width/2, height/2, size*i*2)
   }
   
-
   translate(width / 2, height / 2)
   noStroke()
   let frame = frameCount / 10
@@ -31,14 +33,14 @@ function draw() {
     rotate(i + frameCount / 20)
     fill(colorHSL[i+1])
     let x = size + size/2 + i * size
-    // ellipse(x, 0, size)
-    ellipse(x, 0, size * sin(frame), size * sin((i+1)) ) // size * sin(frame)
-    // ellipse(x, 60, size * cos(frame), size * cos(frame) ) // size * sin(frame)
-    // ellipse(x, 90, size * cos(frame), size * sin(frame) ) // size * sin(frame)
 
-    // ellipse(x, y, size, size)
-    stroke(255)
-    // line(size + size/2 + i * size, 0, size + size/2 + i * size, -20)
+    ellipse(x, 0, 
+            size )
+
+    // stroke(255)
+    // line(x, 0, x, 20)
+    // size * sin(frame)
+   // api: ellipse(x, y, size, size)
     pop()
 
   }

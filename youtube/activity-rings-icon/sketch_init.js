@@ -1,3 +1,5 @@
+// live: https://editor.p5js.org/sosunnyproject/sketches/VnJbqaghC6
+
 let size = 50;
 let len = 3;
 let colors = ['#00f3f1', '#b2ff00', '#fa1453']
