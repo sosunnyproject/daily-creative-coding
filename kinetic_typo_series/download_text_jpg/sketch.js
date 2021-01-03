@@ -2,17 +2,17 @@ let font
 let canvas
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('koreaNationalMuseumClassic_L.ttf')
+  font = loadFont('Maplestory Bold.ttf')
 }
 
 function setup() {
   canvas = createCanvas(600, 600);
   background(0);
   textFont(font)
-  textSize(500)
+  textSize(550)
   fill(255)
   textAlign(CENTER, CENTER)
-  text('은', width/2, height/2-50);
+  text('깊', width/2, height/2-50);
 }
 
 function mouseClicked(){
