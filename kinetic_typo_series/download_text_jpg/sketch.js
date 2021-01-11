@@ -2,17 +2,17 @@ let font
 let canvas
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('BMEuljiro.ttf')
+  font = loadFont('BinggraeSamanco.ttf')
 }
 
 function setup() {
   canvas = createCanvas(600, 600);
   background(255);
   textFont(font)
-  textSize(550)
+  textSize(600)
   fill(0)
   textAlign(CENTER, CENTER)
-  text('밤', width/2, height/2-50);
+  text('헤', width/2, height/2-100);
 }
 
 function mouseClicked(){
