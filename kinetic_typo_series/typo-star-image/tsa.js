@@ -1,8 +1,9 @@
 // travelling salesperson #1 : https://www.youtube.com/watch?v=BAejnwN4Ccw
 
 let stars = []
-totalStars = 200
-let recordDistance, bestStars
+let stars1 = [], stars2 = [], stars3= []
+totalStars = 100
+let recordDistance = [], bestStars = []
 
 let particles = [] // 생성할 파티클들을 담을 리스트
 let particleNum = 0 // 생성될 파티클의 개수, 가장처음에는 0개이므로 0.
@@ -12,6 +13,7 @@ let tileSize = 5
 let tileGap = 5
 let off = 0
 // let first = Math.floor(totalStars/3), second = Math.floor(totalStars/3*2), third = totalStars
+let drawStart = false
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
@@ -20,67 +22,71 @@ function preload() {
 
 function setup() {
   createCanvas(600, 600)
-  // angleMode(DEGREES)
-   background(0)
- 
-   pg = createGraphics(width, height)
-   pg.background(0)
-   pg.textFont(font)
-   pg.textSize(400)
-   pg.fill(255)
-   pg.textAlign(LEFT, TOP)
-   pg.text("별", 100, 50)
- 
-   
-   for (let x = 0; x < width; x += tileGap ) {
-     for (let y = 0; y < height; y += tileGap ) {
-       let isTEXT = JSON.stringify(pg.get(x, y)) !== JSON.stringify([0, 0, 0, 255])
-       if (isTEXT) {
-         particles.push({x: x, y: y})
-       }
-     }
-   }
-  setStars()
-  recordDistance = calcDistance(stars)
-  bestStars = stars.slice()
+  background(0)
+  colorMode(HSB, 100)
+  particles = font.textToPoints('별', 0, 500, 600, {
+    sampleFactor: 5,  //higher, the more precise
+    simplifyThreshold: 0
+  });
+
+  for(let i = 0; i < 3; i++) {
+    setStars(i)
+  }
+  for(let i = 0; i < 3; i++) {
+    recordDistance.push(calcDistance(stars[i]))
+    bestStars.push(stars[i].slice())
+  }
+  // recordDistance = calcDistance(stars)
+  // bestStars = stars.slice()
 }
 
 
 function draw() {
-  background(0)
+  background(0, 100)
   stroke(255)
   noFill()
-  if(frameCount%20==0){
-    setStars()
+  if(frameCount%40==0){
+    for(let i = 0; i < 3; i++) {
+      setStars(i)
+    }
   }
 
-  beginShape()
-  for(let i = 0; i < stars.length; i++){
-    ellipse(stars[i].x, stars[i].y, 6, 6)
-    strokeWeight(0.4)
-    vertex(stars[i].x, stars[i].y)
+  for(let j = 0; j < 3; j++){
+
+    beginShape()
+      for(let i = 0; i < stars[j].length; i++){
+        strokeWeight(1)
+        stroke(12, 100, 100)
+        drawStart && ellipse(stars[j][i].x, stars[j][i].y, 6, 6)
+        drawStart ? strokeWeight(0.25) : strokeWeight(0.5)
+        let m = map(stars[j][i].y*stars[j][i].x, 0, 1000000, 0, 360) 
+        stroke(m, 80, 100)
+        vertex(stars[j][i].x, stars[j][i].y)
+      }
+    endShape()
   }
-  endShape()
+  
 
   // draw recordDistance lines, points
-  /**
+ /**
   beginShape()
-  stroke(255, 0, 0)
+  // stroke(255, 0, 0)
   for(let i = 0; i < bestStars.length; i++){
     vertex(bestStars[i].x, bestStars[i].y)
   }
   endShape()
 
 
-  let i = floor(random(stars.length))
-  let j = floor(random(stars.length))
-  swap(stars, i, j)
+  let i = floor(random(stars1.length))
+  let j = floor(random(stars1.length))
+  swap(stars1, i, j)
 
-  let distance = calcDistance(stars)
+  let distance = calcDistance(stars1)
+
   if(distance < recordDistance){
     recordDistance = distance
-    console.log(recordDistance)
-    bestStars = stars.slice()
+    // console.log(recordDistance)
+    bestStars = stars1.slice()
 
   }
    */
@@ -106,12 +112,39 @@ function calcDistance(arr){
 }
 
 
-function setStars() {
+// sampleFactor: 5
+// ㅂ : 0, particles.length/4,
+// ㄹ: particles.length/4, 2* particles.length/3
+// ㅕ : 2 * particles.length/3, particles.length-25
+// 나머지는 ㅂ 안의 ㅁ 구역.
+function setStars(n) {
+
+  let startInd = 0, endInd = particles.length/4
+  if(n == 1){
+    startInd = particles.length/4
+    endInd = 2 * particles.length/3
+  } else if(n == 2){
+    startInd = 2 * particles.length/3
+    endInd = particles.length
+  }
+
   for (let i = 0; i < totalStars; i++){
-    let ind = floor(random(0, particles.length/3))  // ㅂ 좌표
-    // console.log(particles.length, ind)
+    let ind = floor(random(startInd, endInd))  // ㅂ 좌표
     let p = particles[ind]
     let v = createVector(p.x, p.y)
-    stars[i] = v;
+    if(n == 0) stars1[i] = v
+    if(n == 1) stars2[i] = v
+    if(n == 2) stars3[i] = v
+    // stars[i] = v;
   }
+  stars.push(stars1, stars2, stars3)
+}
+
+function touchStarted(e){
+  // console.log(e)
+  drawStart = true
+  
+}
+function touchEnded(){
+  drawStart = false
 }
