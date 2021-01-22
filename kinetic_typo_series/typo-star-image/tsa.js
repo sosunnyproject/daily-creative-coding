@@ -1,8 +1,8 @@
 // travelling salesperson #1 : https://www.youtube.com/watch?v=BAejnwN4Ccw
 
 let stars = []
-let stars1 = [], stars2 = [], stars3= []
-totalStars = 100
+totalStars = 50
+const arrNum = 20 // number of small array groups inside big 'stars' total array
 let recordDistance = [], bestStars = []
 
 let particles = [] // 생성할 파티클들을 담을 리스트
@@ -29,13 +29,12 @@ function setup() {
     simplifyThreshold: 0
   });
 
-  for(let i = 0; i < 3; i++) {
+  for(let i = 0; i < arrNum; i++) {
     setStars(i)
-  }
-  for(let i = 0; i < 3; i++) {
     recordDistance.push(calcDistance(stars[i]))
     bestStars.push(stars[i].slice())
   }
+  console.log(stars)
   // recordDistance = calcDistance(stars)
   // bestStars = stars.slice()
 }
@@ -46,13 +45,12 @@ function draw() {
   stroke(255)
   noFill()
   if(frameCount%40==0){
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < arrNum; i++) {
       setStars(i)
     }
   }
 
-  for(let j = 0; j < 3; j++){
-
+  for(let j = 0; j < arrNum; j++){
     beginShape()
       for(let i = 0; i < stars[j].length; i++){
         strokeWeight(1)
@@ -68,28 +66,35 @@ function draw() {
   
 
   // draw recordDistance lines, points
- /**
-  beginShape()
-  // stroke(255, 0, 0)
-  for(let i = 0; i < bestStars.length; i++){
-    vertex(bestStars[i].x, bestStars[i].y)
+ 
+  /*
+  for(let a = 0; a < 3; a++){
+    beginShape()
+    // stroke(255, 0, 0)
+    for(let i = 0; i < bestStars[a].length; i++){
+      vertex(bestStars[a][i].x, bestStars[a][i].y)
+    }
+    endShape()
   }
-  endShape()
+  */
 
+  for(let a = 0; a < arrNum; a++){
 
-  let i = floor(random(stars1.length))
-  let j = floor(random(stars1.length))
-  swap(stars1, i, j)
+    let i = floor(random(stars[a].length))
+    let j = floor(random(stars[a].length))
+    swap(stars[a], i, j)
 
-  let distance = calcDistance(stars1)
+    let distance = calcDistance(stars[a])
 
-  if(distance < recordDistance){
-    recordDistance = distance
-    // console.log(recordDistance)
-    bestStars = stars1.slice()
-
+    if(distance < recordDistance[a]){
+      recordDistance[a] = distance
+      // console.log(recordDistance)
+      bestStars[a] = stars[a].slice()
+    }
   }
-   */
+
+
+   
 }
 
 // swap array's element i and element j
@@ -118,7 +123,10 @@ function calcDistance(arr){
 // ㅕ : 2 * particles.length/3, particles.length-25
 // 나머지는 ㅂ 안의 ㅁ 구역.
 function setStars(n) {
-
+  if(stars.length === arrNum){
+    stars = []
+  }
+  /*
   let startInd = 0, endInd = particles.length/4
   if(n == 1){
     startInd = particles.length/4
@@ -127,17 +135,19 @@ function setStars(n) {
     startInd = 2 * particles.length/3
     endInd = particles.length
   }
-
+  */
+  const divider = (particles.length)/arrNum
+  let smallStars = []
   for (let i = 0; i < totalStars; i++){
+    const startInd = n * divider
+    const endInd = (n+1) * divider
     let ind = floor(random(startInd, endInd))  // ㅂ 좌표
     let p = particles[ind]
     let v = createVector(p.x, p.y)
-    if(n == 0) stars1[i] = v
-    if(n == 1) stars2[i] = v
-    if(n == 2) stars3[i] = v
+    smallStars.push(v)
     // stars[i] = v;
   }
-  stars.push(stars1, stars2, stars3)
+  stars.push(smallStars)
 }
 
 function touchStarted(e){
