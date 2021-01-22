@@ -2,8 +2,9 @@
 
 let stars = []
 totalStars = 50
-const arrNum = 20 // number of small array groups inside big 'stars' total array
+const arrNum = 40 // number of small array groups inside big 'stars' total array
 let recordDistance = [], bestStars = []
+let off = 0.01 //var for noise
 
 let particles = [] // 생성할 파티클들을 담을 리스트
 let particleNum = 0 // 생성될 파티클의 개수, 가장처음에는 0개이므로 0.
@@ -11,7 +12,6 @@ let pg // 캔버스 위에 그리는 (그래픽) 레이어
 let font // 텍스트의 폰트
 let tileSize = 5
 let tileGap = 5
-let off = 0
 // let first = Math.floor(totalStars/3), second = Math.floor(totalStars/3*2), third = totalStars
 let drawStart = false
 
@@ -44,9 +44,14 @@ function draw() {
   background(0, 100)
   stroke(255)
   noFill()
-  if(frameCount%40==0){
-    for(let i = 0; i < arrNum; i++) {
-      setStars(i)
+  if(frameCount%20 == 0){
+    for(let a = 0; a < arrNum; a++) {
+      // for(let s = 0; s < totalStars; s++ ){
+        setStars(a)
+        // stars[a][s].x = sin(frameCount/50) * random(-2, 2) + stars[a][s].x
+        // stars[a][s].y = cos(frameCount/50) * random(-2, 2) - stars[a][s].y
+        // off += 0.2
+      // }
     }
   }
 
@@ -76,7 +81,7 @@ function draw() {
     }
     endShape()
   }
-  */
+
 
   for(let a = 0; a < arrNum; a++){
 
@@ -93,7 +98,7 @@ function draw() {
     }
   }
 
-
+  */
    
 }
 
