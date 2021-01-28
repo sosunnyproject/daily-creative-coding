@@ -1,33 +1,37 @@
-let love = 30
+let r = 30
 let arr = []
 let loop = 0
-let tears = love * 2
-let moons = {
+let diameter = r * 2
+let center = {
   x: 0,
   y: 0
 }
 // 외로운사람들의, 마음을열어줄거야
 // 메마른가슴속을, 적셔줄멜로디
+const love = r
+let distance = diameter
+
+let tears = distance
 const 외로운사람들의 = 50, 마음을열어줄거야 = 50
 const 메마른가슴속을 = 255, 적셔줄멜로디 = 255
 // 내마음을담아, 노래할거야, 너를위한노래를예에
 // 슬픔의기억들에, 기쁨을채워줄거야, 샤라리라히라_라리라
-const LETS = moons.x, WILL = moons.x
-const SING_A = moons.y, NEVER = moons.y
+const LETS = center.x, WILL = center.x
+const SING_A = center.y, NEVER = center.y
 const SONG = love * 2, END = love * 2
-const THIS = 0, DREAM = love * 2 + 5
+const THIS = 0, DREAM = r * 2 + 5
 
 function setup() {
   createCanvas(400, 800);
   background(255)
 
-  translate(외로운사람들의, 마음을열어줄거야)
-  fill(메마른가슴속을, 적셔줄멜로디)
-  circle(LETS, SING_A, SONG)
-  for (let moon = 0; moon < 5; moon++) {
-    tears -= 20
-    translate(THIS, DREAM)
-    circle(WILL, NEVER, END)
+  translate(50, 50)
+  fill(255, 255)
+  circle(center.x, center.y, diameter)
+  for (let i = 0; i < 5; i++) {
+    distance -= 20
+    translate(0, diameter + 5)
+    circle(center.x, center.y, diameter)
     FullMoonLove()
   }
 }
@@ -41,25 +45,25 @@ function FullMoonLove() {
 
   // second circle
   for (let i = 0; i < 360; i++) {
-    let x = love * cos(i) + tears
-    let y = love * sin(i)
+    let x = r * cos(i) + distance
+    let y = r * sin(i)
     stroke(0)
-    if (dist(moons.x, moons.y, x, y) < love) {
+    if (dist(center.x, center.y, x, y) < r) {
       ellipse(x, y, 0.1)
     }
 
     if (i === 120) {
       point(x, y)
       // console.log(cos(120)*r, sin(120)*r)
-      let ax = x - cos(120) * love
-      let ay = y - sin(120) * love
+      let ax = x - cos(120) * r
+      let ay = y - sin(120) * r
       let overlapCenter = {
         x: ax,
         y: ay
       }
       noStroke()
       fill(255)
-      ellipse(ax, ay, (love * 2))
+      ellipse(ax, ay, (r * 2))
     }
   }
 }
