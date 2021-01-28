@@ -1,7 +1,7 @@
 let r = 30
 let arr = []
 let loop = 0
-let diameter = r * 2
+const diameter = r * 2
 let center = {
   x: 0,
   y: 0
