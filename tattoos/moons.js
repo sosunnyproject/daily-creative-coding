@@ -1,5 +1,6 @@
 // https://editor.p5js.org/sosunnyproject/sketches/DBmCLxrud
-let r = 20
+
+let r = 40
 let arr = []
 let loop = 0
 const diameter = r * 2
@@ -13,8 +14,6 @@ let center = {
 // korean lyrics variables
 const 외로운사람들의 = 50, 마음을열어줄거야 = 50
 const 메마른가슴속을 = 255, 적셔줄멜로디 = 255
-// 내마음을담아, 노래할거야, 너를위한노래를예에
-// 슬픔의기억들에, 기쁨을채워줄거야, 샤라리라히라_라리라
 
 // english lyrics variables
 const love = r
@@ -22,10 +21,10 @@ let TEARS = diameter
 const LETS = center.x, WILL = center.x
 const SING = center.y, NEVER = center.y
 const A_SONG = love * 2, END = r * 2
-const THIS = 0, DREAM = r * 2 + 5
-const NEW = 100, FUTURE = 300
+const THIS = 2, DREAM = r * 2 + 10
+const NEW = 100, FUTURE = 800
 const MYSELF = 255
-const LOVE = 1, DEATH = 4
+const LOVE = 1, DEATH = 8
 
 function setup() {
   createCanvas(NEW, FUTURE);
@@ -35,7 +34,7 @@ function setup() {
   strokeWeight(LOVE)
   circle(LETS, SING, A_SONG)
   for (let moon = 0; moon < DEATH; moon++) {
-    TEARS -= 8
+    TEARS -= 12
     translate(THIS, DREAM)
     circle(WILL, NEVER, END)
     FullMoonLove()
@@ -44,13 +43,7 @@ function setup() {
 function mouseClicked(){
   saveCanvas('moonTattoo', 'png');
 }
-function draw() {
-  // background(220);
-
-}
-
 function FullMoonLove() {
-
   // second circle
   for (let i = 0; i < 360; i++) {
     let x = r * cos(i) + TEARS
