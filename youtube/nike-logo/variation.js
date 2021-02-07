@@ -6,12 +6,12 @@ let anchor1 = {
   y: 176
 }
 let control1 = {
-  x: 41,
-  y: 333
+  x: 110,
+  y: 300
 }
 let control2 = {
-  x: 270,
-  y: 235
+  x: 285,
+  y: 261
 }
 let anchor2 = {
   x: 570,
@@ -24,13 +24,13 @@ let b_anchor1 = {
 }
 
 let b_control1 = {
-  x: 41,
-  y: 533
+  x: 48,
+  y: 299
 }
 
 let b_control2 = {
-  x: 170,
-  y: 335
+  x: 76,
+  y: 379
 }
 
 let b_anchor2 = {
@@ -59,7 +59,7 @@ function draw() {
   */
 
   points = []
-  let f = frameCount / 30
+  let f = frameCount / 10
   if (mousePress) {
     if (checkRange(anchor1)) {
       anchor1.x = mouseX
@@ -91,18 +91,18 @@ function draw() {
   points.push(b_control2)
   points.push(b_anchor2)
   
-  stroke(255);
-  fill(255)
+  stroke(255)
+  noFill()
   beginShape()
-  vertex(anchor1.x + sin(f)*50, anchor1.y+ sin(f)*50)
+  vertex(anchor1.x + sin(f)*150, anchor1.y - cos(f)*100)
   bezierVertex(
-    control1.x + sin(f)*50, control1.y + sin(f)*50,
-    control2.x + sin(f)*50, control2.y + sin(f)*50,
-    anchor2.x + cos(f)*50, anchor2.y+ cos(f)*50)
+    control1.x + tan(f)*50, control1.y  + cos(f)*50,
+    control2.x  + sin(f)*50, control2.y - sin(f)*100,
+    anchor2.x - sin(f)*100, anchor2.y - sin(f)*100)
   bezierVertex(
-    b_control2.x+ cos(f)*50, b_control2.y+ cos(f)*50,
-    b_control1.x+ tan(f)*50, b_control1.y+ tan(f)*50,
-    anchor1.x+ sin(f)*50, anchor1.y+ sin(f)*50)
+    b_control2.x - sin(f)*100, b_control2.y - cos(f)*100,
+    b_control1.x - cos(f)*100, b_control1.y - sin(f)*100,
+    anchor1.x - sin(f)*100, anchor1.y - tan(f)*100)
   endShape()
   
   stroke(255, 102, 0);
