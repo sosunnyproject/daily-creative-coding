@@ -39,27 +39,17 @@ let b_anchor2 = {
 }
 
 function setup() {
-  createCanvas(600, 600);
-
+  createCanvas(600, 400);
+  // colorMode(HSB)
 }
 //bezier(x1, y1, x2, y2, x3, y3, x4, y4)
 // anchor1, control1, control2, anchor2
 function draw() {
-  background(0, 20);
+  background(0, 10);
   noFill()
-  /*
-  b_anchor1 = {
-    x: anchor1.x,
-    y: anchor1.y
-  }
-  b_anchor2 = {
-    x: anchor2.x,
-    y: anchor2.y
-  }
-  */
 
   points = []
-  let f = frameCount / 10
+  let f = frameCount / 100
   if (mousePress) {
     if (checkRange(anchor1)) {
       anchor1.x = mouseX
@@ -91,18 +81,18 @@ function draw() {
   points.push(b_control2)
   points.push(b_anchor2)
   
-  stroke(255)
   noFill()
+  stroke(`hsl(${frameCount}%360, 100%, 100%)`)
   beginShape()
-  vertex(anchor1.x + sin(f)*150, anchor1.y - cos(f)*100)
+  vertex(anchor1.x + sin(f)*200, anchor1.y + cos(f)*100 + 100)
   bezierVertex(
-    control1.x + tan(f)*50, control1.y  + cos(f)*50,
-    control2.x  + sin(f)*50, control2.y - sin(f)*100,
-    anchor2.x - sin(f)*100, anchor2.y - sin(f)*100)
+    control1.x + tan(f)*150, control1.y + cos(f)*10,
+    control2.x  + sin(f)*100, control2.y - atan(f)*100,
+    anchor2.x - atan(f)*200, anchor2.y - cos(f)*200)
   bezierVertex(
-    b_control2.x - sin(f)*100, b_control2.y - cos(f)*100,
-    b_control1.x - cos(f)*100, b_control1.y - sin(f)*100,
-    anchor1.x - sin(f)*100, anchor1.y - tan(f)*100)
+    b_control2.x + sin(f)*100, b_control2.y - sin(f)*100,
+    b_control1.x - cos(f)*50, b_control1.y + sin(f)*10,
+    anchor1.x + atan(f)*100, anchor1.y + tan(f)*100)
   endShape()
   
   stroke(255, 102, 0);
