@@ -42,7 +42,7 @@ function setup() {
   createCanvas(600, 400);
   // colorMode(HSB)
 }
-//bezier(x1, y1, x2, y2, x3, y3, x4, y4)
+// bezier(x1, y1, x2, y2, x3, y3, x4, y4)
 // anchor1, control1, control2, anchor2
 function draw() {
   background(0, 10);
@@ -50,6 +50,7 @@ function draw() {
 
   points = []
   let f = frameCount / 100
+  let colorFrame = frameCount % 360
   if (mousePress) {
     if (checkRange(anchor1)) {
       anchor1.x = mouseX
@@ -82,29 +83,38 @@ function draw() {
   points.push(b_anchor2)
   
   noFill()
-  stroke(`hsl(${frameCount}%360, 100%, 100%)`)
+  noStroke()
+  fill(`hsl(${colorFrame}, 100%, 80%)`)
   beginShape()
-  vertex(anchor1.x + sin(f)*200, anchor1.y + cos(f)*100 + 100)
+  vertex(anchor1.x + sin(f)*width, 
+         anchor1.y + cos(f)*height)
   bezierVertex(
-    control1.x + tan(f)*150, control1.y + cos(f)*10,
-    control2.x  + sin(f)*100, control2.y - atan(f)*100,
-    anchor2.x - atan(f)*200, anchor2.y - cos(f)*200)
+    control1.x + cos(f)*width,
+    control1.y + cos(f*mouseY/100)*height,
+    control2.x + sin(f)*width,
+    control2.y - sin(f)*height,
+    anchor2.x + tan(f*mouseX/100)*width,
+    anchor2.y - tan(f)*height)
   bezierVertex(
-    b_control2.x + sin(f)*100, b_control2.y - sin(f)*100,
-    b_control1.x - cos(f)*50, b_control1.y + sin(f)*10,
-    anchor1.x + atan(f)*100, anchor1.y + tan(f)*100)
+    b_control2.x + sin(f*mouseX/100)*width,
+    b_control2.y - atan(f)*height,
+    b_control1.x - cos(f)*width,
+    b_control1.y + atan(f)*height,
+    anchor1.x + tan(f)*width,
+    anchor1.y + atan(f*mouseY/100)*height
+  )
   endShape()
   
   stroke(255, 102, 0);
   strokeWeight(2)
   noFill()
-  if(!hideLines){
-    line(anchor1.x, anchor1.y, control1.x, control1.y)
-    line(control2.x, control2.y, anchor2.x, anchor2.y)
-    for(let i = 0; i < points.length; i++) {
-    ellipse(points[i].x, points[i].y, 10)
-    }
-  }
+  // if(!hideLines){
+  //   line(anchor1.x, anchor1.y, control1.x, control1.y)
+  //   line(control2.x, control2.y, anchor2.x, anchor2.y)
+  //   for(let i = 0; i < points.length; i++) {
+  //   ellipse(points[i].x, points[i].y, 10)
+  //   }
+  // }
   
   /*
   bezier(anchor1.x, anchor1.y,
@@ -162,7 +172,7 @@ function checkRange(point) {
 }
 
 function keyPressed(){
-  if(keyCode === 32){
-    hideLines = !hideLines
-  }
+  // if(keyCode === 32){
+  //   hideLines = !hideLines
+  // }
 }
