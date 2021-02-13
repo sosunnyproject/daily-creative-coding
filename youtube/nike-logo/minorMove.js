@@ -36,7 +36,7 @@ let b_anchor2 = {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 600);
 }
 // bezier(x1, y1, x2, y2, x3, y3, x4, y4)
 // anchor1, control1, control2, anchor2
@@ -80,27 +80,25 @@ function draw() {
 
   changePointCoords()
  
-  stroke(`hsl(${frameCount%360}, 90%, 80%)`);
+  fill(`hsl(${frameCount%360}, 90%, 80%)`);
   // fill(255)
-  noFill()
+  noStroke()
   drawBezierCurves()
 
   stroke(255, 102, 0);
   strokeWeight(2)
   noFill()
-  // drawPoints()
+  drawPoints()
 }
 function changePointCoords(){
-  anchor1.x += sin(frameCount / 20) * 10
-  anchor1.y += sin(frameCount / 20) * 10
-  control1.x += cos(frameCount / 50) * width/10
-  control1.y += sin(frameCount / 50) * height/10  
-  control2.x += cos(frameCount / 50) * width/10
-  control2.y += sin(frameCount / 50) * height/10  
-  b_control2.x += cos(frameCount / 100) * width/10
-  b_control2.y += cos(frameCount / 10) * height/10
-  b_control1.x += cos(frameCount / 50) * width/30
-  b_control1.y += sin(frameCount / 50) * height/30
+  // anchor1.x += tan(frameCount / 50)
+  // anchor1.y += tan(frameCount / 50)
+  control1.x += sin(frameCount / 10)
+  control1.y += sin(frameCount / 50)
+  b_control2.x += sin(frameCount / 30)
+  b_control2.y += cos(frameCount / 50)
+  b_control1.x += cos(frameCount / 10)
+  b_control1.y += sin(frameCount / 10)
   
 }
 function drawPoints() {
@@ -115,23 +113,20 @@ function drawPoints() {
 
 function drawBezierCurves() {
   beginShape()
-  vertex(anchor1.x , //+ sin(frameCount / 50) * width/4,
-    anchor1.y //+ sin(frameCount / 50) * height/4
-      )
+  vertex(anchor1.x + sin(frameCount / 50),
+    anchor1.y + sin(frameCount / 50))
   bezierVertex(
     control1.x,
     control1.y,
-    control2.x,
-    control2.y,
-    anchor2.x + cos(frameCount / 50) * width,
-    anchor2.y + cos(frameCount / 50) * height
-  )
+    control2.x + sin(frameCount / 120),
+    control2.y + sin(frameCount / 120),
+    anchor2.x + cos(frameCount / 50),
+    anchor2.y + cos(frameCount / 50))
   bezierVertex(
     b_control2.x, b_control2.y,
     b_control1.x, b_control1.y,
-    anchor1.x , //+ sin(frameCount / 50) * width,
-    anchor1.y //+ sin(frameCount / 50) * height
-  )
+    anchor1.x + cos(frameCount / 50),
+    anchor1.y + cos(frameCount / 50))
   endShape()
 }
 
