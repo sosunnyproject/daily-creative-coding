@@ -2,11 +2,11 @@ let points = []
 let mousePress = false
 let hideLines = false
 let blackhistoryWomenBdays = [ 
-  {x: '3', y: '10'},  // Harriet Tubman, activist
+  {x: '3', y: '10'}, // Harriet Tubman, activist
   {x: '7', y: '16'}, // Ida B. Wells, journalist
   {x: '1', y: '26'}, // Bessie Coleman, pilot
   {x: '9', y: '20'}, // Dorothy Vaughan, mathematician, Human Computer
-  {x: '4', y: '4'}, // Maya Angelou, poet, author
+  {x: '4', y: '4' }, // Maya Angelou, poet, author
   {x: '9', y: '26'}, // Serena Williams, tennis player
 ]
 let anchor1 = {
@@ -69,7 +69,7 @@ function setup() {
 function draw() {
   
   // renderPhotos()
-  background(255,100);
+  background(0,100);
   
   noFill()
   points = []
@@ -110,7 +110,7 @@ function draw() {
   // stroke(`hsl(${frameCount%360}, 90%, 80%)`);
   // fill(255)
   noFill()
-  stroke(0)
+  stroke(255)
   strokeWeight(6)
   drawBezierCurves()
 
@@ -140,12 +140,13 @@ function drawPoints() {
     // line(control2.x, control2.y, anchor2.x, anchor2.y)
     for (let i = 0; i < points.length; i++) {
       noFill()
-      ellipse(points[i].x, points[i].y, 10)
-      fill(0)
+      noStroke()
+      fill(255, 100, 0)
+      ellipse(points[i].x, points[i].y, 30)
 
-      text(`${blackhistoryWomenBdays[i].x}, ${blackhistoryWomenBdays[i].y}`, 
-           points[i].x-30-5*i, 
-           points[i].y+50+i*5)
+//       text(`${blackhistoryWomenBdays[i].x}, ${blackhistoryWomenBdays[i].y}`, 
+//            points[i].x-30-5*i, 
+//            points[i].y+50+i*5)
     }
   }
 }
