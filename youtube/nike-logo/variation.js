@@ -36,23 +36,22 @@ let b_anchor2 = {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 400);
+  // colorMode(HSB)
 }
 // bezier(x1, y1, x2, y2, x3, y3, x4, y4)
 // anchor1, control1, control2, anchor2
 function draw() {
-  background(0, 20);
+  background(0, 10);
   noFill()
+  
   points = []
-  let f = frameCount / 10
+  let f = frameCount / 100
+  let colorFrame = frameCount % 360
   if (mousePress) {
     if (checkRange(anchor1)) {
       anchor1.x = mouseX
       anchor1.y = mouseY
-    }
-    if (checkRange(anchor2)) {
-      anchor2.x = mouseX
-      anchor2.y = mouseY
     }
     if (checkRange(control1)) {
       control1.x = mouseX
@@ -72,70 +71,63 @@ function draw() {
     }
   }
   points.push(anchor1)
-  points.push(anchor2)
   points.push(control1)
   points.push(control2)
+  points.push(anchor2)
+  points.push(b_anchor1)
   points.push(b_control1)
   points.push(b_control2)
-
-  changePointCoords()
- 
-  stroke(`hsl(${frameCount%360}, 90%, 80%)`);
-  // fill(255)
+  points.push(b_anchor2)
+  
   noFill()
-  drawBezierCurves()
-
+  noStroke()
+  stroke(`hsl(${colorFrame}, 100%, 80%)`)
+  beginShape()
+  vertex(anchor1.x + sin(f) * width, 
+         anchor1.y + cos(f) * height)
+  bezierVertex(
+    control1.x + cos(f) * width,
+    control1.y + cos(f*2) * mouseY,
+    control2.x + sin(f) * width,
+    control2.y - sin(f) * height,
+    anchor2.x + tan(f*2) * width,
+    anchor2.y - tan(f) * height)
+  bezierVertex(
+    b_control2.x + sin(f) * mouseX,
+    b_control2.y - tan(f*2) * height,
+    b_control1.x - cos(f) * width,
+    b_control1.y + atan(f) * height,
+    anchor1.x + tan(f) * mouseX,
+    anchor1.y + tan(f) * height
+  )
+  endShape()
+  
   stroke(255, 102, 0);
   strokeWeight(2)
   noFill()
-  // drawPoints()
-}
-function changePointCoords(){
-  anchor1.x += sin(frameCount / 20) * 10
-  anchor1.y += sin(frameCount / 20) * 10
-  control1.x += cos(frameCount / 50) * width/10
-  control1.y += sin(frameCount / 50) * height/10  
-  control2.x += cos(frameCount / 50) * width/10
-  control2.y += sin(frameCount / 50) * height/10  
-  b_control2.x += cos(frameCount / 100) * width/10
-  b_control2.y += cos(frameCount / 10) * height/10
-  b_control1.x += cos(frameCount / 50) * width/30
-  b_control1.y += sin(frameCount / 50) * height/30
+  // if(!hideLines){
+  //   line(anchor1.x, anchor1.y, control1.x, control1.y)
+  //   line(control2.x, control2.y, anchor2.x, anchor2.y)
+  //   for(let i = 0; i < points.length; i++) {
+  //   ellipse(points[i].x, points[i].y, 10)
+  //   }
+  // }
   
-}
-function drawPoints() {
-  if (!hideLines) {
-    // line(anchor1.x, anchor1.y, control1.x, control1.y)
-    // line(control2.x, control2.y, anchor2.x, anchor2.y)
-    for (let i = 0; i < points.length; i++) {
-      ellipse(points[i].x, points[i].y, 30)
-    }
-  }
-}
-
-function drawBezierCurves() {
-  beginShape()
-  vertex(anchor1.x , //+ sin(frameCount / 50) * width/4,
-    anchor1.y //+ sin(frameCount / 50) * height/4
-      )
-  bezierVertex(
-    control1.x,
-    control1.y,
-    control2.x,
-    control2.y,
-    anchor2.x + cos(frameCount / 50) * width,
-    anchor2.y + cos(frameCount / 50) * height
-  )
-  bezierVertex(
-    b_control2.x, b_control2.y,
+  /*
+  bezier(anchor1.x, anchor1.y,
+    control1.x, control1.y,
+    control2.x, control2.y,
+    anchor2.x, anchor2.y);
+  bezier(b_anchor1.x, b_anchor1.y,
     b_control1.x, b_control1.y,
-    anchor1.x , //+ sin(frameCount / 50) * width,
-    anchor1.y //+ sin(frameCount / 50) * height
-  )
-  endShape()
+    b_control2.x, b_control2.y,
+    b_anchor2.x, b_anchor2.y);
+  
+  */
 }
 
 function mousePressed() {
+  console.log(mouseX, mouseY)
   mousePress = true
 }
 
@@ -167,17 +159,17 @@ function mouseReleased() {
 
 function checkRange(point) {
   if (
-    (point.x - 30 < mouseX) &&
-    (mouseX < point.x + 30) &&
-    (point.y - 30 < mouseY) &&
-    (mouseY < point.y + 30)) {
+    (point.x - 20 < mouseX) &&
+    (mouseX < point.x + 20) &&
+    (point.y - 20 < mouseY) &&
+    (mouseY < point.y + 20)) {
     return true
   }
   return false
 }
 
-function keyPressed() {
-  if (keyCode === 32) {
-    hideLines = !hideLines
-  }
+function keyPressed(){
+  // if(keyCode === 32){
+  //   hideLines = !hideLines
+  // }
 }

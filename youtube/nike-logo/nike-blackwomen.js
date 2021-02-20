@@ -1,6 +1,9 @@
+// https://editor.p5js.org/sosunnyproject/sketches/kPNRwIF0V
+
 let points = []
 let mousePress = false
 let hideLines = false
+let sliderA, sliderB, aVal, bVal, f
 let blackhistoryWomenBdays = [ 
   {x: '3', y: '10'}, // Harriet Tubman, activist
   {x: '7', y: '16'}, // Ida B. Wells, journalist
@@ -10,20 +13,20 @@ let blackhistoryWomenBdays = [
   {x: '9', y: '26'}, // Serena Williams, tennis player
 ]
 let anchor1 = {
-  x: 160,
-  y: 176
+  x: 160+200,
+  y: 176+150
 }
 let control1 = {
-  x: 110,
-  y: 300
+  x: 110+200,
+  y: 300+150
 }
 let control2 = {
-  x: 285,
-  y: 261
+  x: 285+200,
+  y: 261+150
 }
 let anchor2 = {
-  x: 570,
-  y: 226
+  x: 570+200,
+  y: 226+150
 }
 
 let b_anchor1 = {
@@ -31,12 +34,12 @@ let b_anchor1 = {
   y: anchor1.y
 }
 let b_control1 = {
-  x: 48,
-  y: 299
+  x: 48+200,
+  y: 299+150
 }
 let b_control2 = {
-  x: 76,
-  y: 379
+  x: 76+200,
+  y: 379+150
 }
 let b_anchor2 = {
   x: anchor2.x,
@@ -63,17 +66,23 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont('Benne')
+  
+  sliderA = createSlider(1, 40, 20)
+  sliderB = createSlider(1, 20, 10)
 }
 // bezier(x1, y1, x2, y2, x3, y3, x4, y4)
 // anchor1, control1, control2, anchor2
 function draw() {
   
-  // renderPhotos()
-  background(0,100);
+  renderPhotos()
+  background(0,20);
   
   noFill()
   points = []
-  let f = frameCount / 10
+  aVal = sliderA.value()/10
+  bVal = sliderB.value()/2
+  
+  f = frameCount / (10 * aVal)
   if (mousePress) {
     if (checkRange(anchor1)) {
       anchor1.x = mouseX
@@ -107,18 +116,16 @@ function draw() {
   points.push(b_control1)
   points.push(b_control2)
   // changePointCoords()
-  // stroke(`hsl(${frameCount%360}, 90%, 80%)`);
-  // fill(255)
+  stroke(`hsl(${frameCount%360}, 90%, 80%)`);
   noFill()
-  stroke(255)
-  strokeWeight(6)
+  strokeWeight(2)
   drawBezierCurves()
 
   // stroke(255, 102, 0);
   noFill()
   textSize(100)
   strokeWeight(0.5)
-  drawPoints()
+  // drawPoints()
 }
 function changePointCoords(){
   anchor1.x += sin(frameCount / 20) * 10
@@ -143,38 +150,42 @@ function drawPoints() {
       noStroke()
       fill(255, 100, 0)
       ellipse(points[i].x, points[i].y, 30)
-
-//       text(`${blackhistoryWomenBdays[i].x}, ${blackhistoryWomenBdays[i].y}`, 
-//            points[i].x-30-5*i, 
-//            points[i].y+50+i*5)
+      
+      // stroke(0)
+      // text(`${blackhistoryWomenBdays[i].x}, ${blackhistoryWomenBdays[i].y}`, 
+      //      points[i].x-30-5*i, 
+      //      points[i].y+50+i*5)
     }
   }
 }
 
 function drawBezierCurves() {
+  // bVal += random(10, 0.1)
   beginShape()
-  vertex(anchor1.x , //+ sin(frameCount / 50) * width/4,
-    anchor1.y //+ sin(frameCount / 50) * height/4
+  vertex(anchor1.x - sin(f) * width/6,
+    anchor1.y - cos(f) * height/6
       )
   bezierVertex(
-    control1.x,
-    control1.y,
-    control2.x,
-    control2.y,
-    anchor2.x, // + cos(frameCount / 50) * width,
-    anchor2.y //+ cos(frameCount / 50) * height
+    control1.x + cos(f)*width/bVal + 200,
+    control1.y - tan(f)*height/bVal + 100,
+    control2.x + sin(f)*width/6,
+    control2.y - tan(f)*height/6 + 400,
+    anchor2.x + sin(f) * width/bVal,
+    anchor2.y - tan(f)* height/bVal+400
   )
   bezierVertex(
-    b_control2.x, b_control2.y,
-    b_control1.x, b_control1.y,
-    anchor1.x , //+ sin(frameCount / 50) * width,
-    anchor1.y //+ sin(frameCount / 50) * height
+    b_control2.x  + noise(f) * width/bVal, 
+    b_control2.y  - noise(f) * height/bVal,
+    b_control1.x + cos(f) * width/bVal, 
+    b_control1.y - cos(f) * height/bVal,
+    anchor1.x + tan(f) * width/6 + random(width/2),
+    anchor1.y - tan(f) * height/6 + random(height/2)
   )
   endShape()
 }
 
 function mousePressed() {
-  console.log(mouseX, mouseY)
+  // console.log(mouseX, mouseY)
   mousePress = true
 }
 
