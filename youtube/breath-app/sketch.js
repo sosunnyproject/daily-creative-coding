@@ -16,6 +16,8 @@ function draw() {
   translate(width/2, height/2)
   
   for(let i=0; i<TWO_PI; i+= TWO_PI/count){
+    // 하나의 원 - 다른 i 값
+    // +TWO_PI / count
     rotate(TWO_PI/count);
     push()
     fill(173,217+(speed*10),215+(i*8), 50)

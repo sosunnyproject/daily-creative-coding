@@ -1,59 +1,56 @@
-// https://editor.p5js.org/sosunnyproject/sketches/sHbVRpHbb
+// https://editor.p5js.org/sosunnyproject/sketches/07I4GLAgF
 
 let points = []
 let mousePress = false
 let hideLines = false
+
+
 let anchor1 = {
-  x: 160,
-  y: 176
+  x: 179,
+  y: 166 
 }
 let control1 = {
-  x: 110,
+  x: 110, 
   y: 300
 }
 let control2 = {
-  x: 285,
-  y: 261
+  x: 221,
+  y: 278
 }
 let anchor2 = {
-  x: 570,
-  y: 226
+  x: 570, 
+  y: 191
 }
 
 let b_anchor1 = {
-  x: anchor1.x,
+ x: anchor1.x,
   y: anchor1.y
 }
-
 let b_control1 = {
-  x: 48,
-  y: 299
+  x: 42, 
+  y: 316
 }
-
 let b_control2 = {
-  x: 76,
-  y: 379
+  x: 79,
+  y: 421
 }
-
 let b_anchor2 = {
-  x: anchor2.x,
+ x: anchor2.x,
   y: anchor2.y
 }
 
 function setup() {
-  createCanvas(600, 600);
-
+  createCanvas(windowWidth, windowHeight);
 }
-// bezier(x1, y1, x2, y2, x3, y3, x4, y4)
-// anchor1, control1, control2, anchor2
-function draw() {
-  background(0, 20);
-  noFill()
 
+function draw() {
+  background(255);
   points = []
-  let f = frameCount / 30
-  if (mousePress) {
-    if (checkRange(anchor1)) {
+  
+  let f = frameCount/10
+  // if mouse click and drag, change coord
+  if(mousePress) {
+    if(checkRange(anchor1)) {
       anchor1.x = mouseX
       anchor1.y = mouseY
     }
@@ -78,69 +75,26 @@ function draw() {
       b_control2.y = mouseY
     }
   }
+  
   points.push(anchor1)
   points.push(anchor2)
   points.push(control1)
   points.push(control2)
   points.push(b_control1)
   points.push(b_control2)
-
-  // anchor1.x += sin(frameCount / 50)
-  // anchor1.y += sin(frameCount / 50)
-  // anchor2.x += sin(frameCount / 50)
-  // anchor2.y += sin(frameCount / 50)
-  control1.x += sin(frameCount / 10) * 10
-  control1.y += sin(frameCount / 10) * 10
-  control2.x += sin(frameCount / 50)
-  control2.y += sin(frameCount / 50)
-  b_control2.x += sin(frameCount / 50)
-  b_control2.y += sin(frameCount / 50)
-  b_control1.x += sin(frameCount / 50)
-  b_control1.y += sin(frameCount / 50)
   
-  stroke(255);
-  fill(255)
-  drawBezierCurves()
-
-  stroke(255, 102, 0);
+  stroke(255)
+  noStroke()
   strokeWeight(2)
   noFill()
-  drawPoints()
-
+  fill(0)
+  drawBezierCurves()
+  
+  drawPoints() 
 }
-
-function drawPoints() {
-  if (!hideLines) {
-    line(anchor1.x, anchor1.y, control1.x, control1.y)
-    line(control2.x, control2.y, anchor2.x, anchor2.y)
-    for (let i = 0; i < points.length; i++) {
-      ellipse(points[i].x, points[i].y, 30)
-    }
-  }
-}
-
-function drawBezierCurves() {
-  beginShape()
-  vertex(anchor1.x,
-    anchor1.y)
-  bezierVertex(
-    control1.x,
-    control1.y,
-    control2.x,
-    control2.y,
-    anchor2.x, anchor2.y)
-  bezierVertex(
-    b_control2.x, b_control2.y,
-    b_control1.x, b_control1.y,
-    anchor1.x, anchor1.y)
-  endShape()
-}
-
-function mousePressed() {
-  mousePress = true
-}
-
-function mouseReleased() {
+function mouseReleased(){
+  // save last mouse position as point's
+  // new coordinate
   if (checkRange(anchor1)) {
     anchor1.x = mouseX
     anchor1.y = mouseY
@@ -161,24 +115,50 @@ function mouseReleased() {
     b_control1.x = mouseX
     b_control1.y = mouseY
   }
-
+  
   mousePress = false
-  return false
+}
+function drawPoints() {
+  if (!hideLines) {
+    for (let i = 0; i < points.length; i++) {
+      noFill()
+      noStroke()
+      fill(255, 100, 0)
+      ellipse(points[i].x, points[i].y, 30)
+    }
+  }
 }
 
-function checkRange(point) {
+function checkRange(point){
   if (
-    (point.x - 30 < mouseX) &&
+    (point.x - 40 < mouseX) &&
     (mouseX < point.x + 30) &&
-    (point.y - 30 < mouseY) &&
+    (point.y - 40 < mouseY) &&
     (mouseY < point.y + 30)) {
     return true
   }
   return false
 }
 
+function mousePressed(){
+  console.log(mouseX, mouseY)
+  mousePress=true
+}
+
 function keyPressed() {
-  if (keyCode === 32) {
+  if(keyCode === 32) {
     hideLines = !hideLines
   }
+}
+
+function drawBezierCurves() {
+  beginShape()
+  vertex(anchor1.x, anchor1.y)
+  bezierVertex(control1.x, control1.y,
+              control2.x, control2.y,
+              anchor2.x, anchor2.y)
+  bezierVertex(b_control2.x, b_control2.y,
+              b_control1.x, b_control1.y,
+              anchor1.x, anchor1.y)
+  endShape()
 }
