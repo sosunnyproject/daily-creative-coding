@@ -9,7 +9,7 @@ function setup() {
   background(0);
 
   // Define and create an instance of kinectron
-  kinectron = new Kinectron("172.16.229.215");
+  kinectron = new Kinectron("441ee41c3782.ngrok.io");
 
   // CONNECT TO MIRCROSTUDIO
   //kinectron = new Kinectron("kinectron.itp.tsoa.nyu.edu");
