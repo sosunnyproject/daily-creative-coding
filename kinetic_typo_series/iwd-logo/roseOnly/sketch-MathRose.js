@@ -13,18 +13,30 @@ let tileSize = 6
 let tileGap = 4
 let doChange = false
 
+//math rose
+let d = 5;
+let n = 5;
+let hue1, hue2, strokeW = 2
+let newX = 0, newY = 0, angle = 0.01, diff;
+
+let sliderC;
+
 function setup() {
   createCanvas(1080/3, 1920/3) //800
   sliderX = createSlider(0, 100, 50)
   sliderY = createSlider(0, 100, 50)  
-  fontSize = round(map(width, 0, 1280, 14, 50))
+  fontSize = round(map(width, 0, 1280, 14, 20))
   tileGap = 1 //round(map(fontSize, 10, 50, 2, 4))
   tileSize = 2 //round(map(fontSize, 10, 50, 4, 4))
+  
+    // count
+  sliderC = createSlider(1, 10, 3, 1);
+  // sliderC.position(10, 160)
 }
 
 function draw() {
-  background(0, 20);
-  speed = frameCount/40
+  background(0, 100);
+  speed = frameCount/20
   speedX = map(sin(frameCount / 20), -1, 1, 0, 7)
   speedY = map(sin(frameCount / 10), -1, 1, 0, 7)
   roseX = map(sliderX.value(), 0, 100, 0.1, 1.0)
@@ -32,66 +44,16 @@ function draw() {
   darkness= map(speedX, 0, 7, 80, 0)
   opacity = map(speedX, 0, 7, 1.0, 0.0)
   
+  count = map(sin(speed)*10, -10, 10, 1, 8)
+  // count = sliderC.value();
+
   textSize(fontSize)
-  // staticText()
-  // movingText()
   
   stroke(`hsla(${frameCount%360}, 100%, 70%, 0.8)`)
   noFill()
   strokeWeight(3)
-  drawRose()
-}
-function staticText() {
-  const startX = width/2 - fontSize
-  const startY = height/3*2-30
-  const gap = fontSize
-  // let frameY = 500 + sin(speed)*height/3
-
-  let lightness = 70 + sin(frameCount/30) * 30
-  textSize(fontSize)
-
-  // same text in a row
-  noFill()
-  stroke(`hsla(${frameCount%360}, 80%, ${darkness}%, ${opacity})`)
-  textAlign(CENTER);
-  // text('March 8', startX, startY+gap)
-  // text('IWD', startX, startY)
-  // text('March 1', startX, startY + gap*2)
-  // text('KOR Independence', startX, startY + gap*3)
-  // text('Movement Day', startX,startY + gap*4)
-  // text('Women Fighters', startX, startY + gap*5)
-
-  for(let yPos=height/2; yPos < height; yPos+= fontSize){
-    let darker = map(yPos, height/2, height, 4, 1)
-    stroke(`hsla(${frameCount%360}, 80%, ${darkness/darker}%, ${opacity})`)
-
-    strokeWeight(2)
-    textAlign(CENTER);
-
-    text('I', startX, yPos)
-    text('W', startX+fontSize, yPos)
-    text('D', startX+fontSize*2, yPos)
-  }
-
-}
-
-function movingText() {
-  let posY = 0
-  let frameY = 500 + sin(speed)*height/3
-  let frameX = width/2 + sin(speed)*width/2
-  
-  const startX = width/2-50
-  const xGap = fontSize-10
-  text('I', startX, frameY)
-  text('W', startX+xGap-10, frameY)
-  text('D', startX+xGap*2, frameY)
-
-  const startY = height/3*2
-  const yGap = fontSize-5
-  text('2', frameX, startY+yGap)
-  text('0', frameX, startY+yGap*2)
-  text('2', frameX, startY+yGap*3)
-  text('1', frameX, startY+yGap*4)
+  // drawRose()
+  drawMathRose()
 }
 
 function drawRose() {
@@ -109,5 +71,31 @@ function drawRose() {
     ellipse(0, 0, 1400/count, 1400/ count)
     
     pop()
+  }
+}
+
+function drawMathRose() {
+  let k = n / d;
+  translate(width/2, height/2);
+  diff = 0;
+  for(let i=0; i<TWO_PI; i+= TWO_PI/count){
+    rotate(TWO_PI/count);
+    push();
+    translate(newX, newY);
+    beginShape(LINES);
+    // stroke(hue2, 50, 255);
+    // noFill();
+    strokeWeight(strokeW);
+    // k += diff;
+    // for loop
+    for (let a = 0; a < TWO_PI * d; a+= angle) {
+      let r = 100 * cos(k * a);
+      let x = r * cos(a);
+      let y = r * sin(a);
+      vertex(x, y);
+    }
+    endShape();
+    pop();
+    diff += 0.25
   }
 }
