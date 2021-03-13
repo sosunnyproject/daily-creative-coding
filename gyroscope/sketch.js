@@ -16,5 +16,14 @@ function draw() {
   let oyNum = Number.parseInt(Math.floor(oy))
   let oycoord = map(oyNum, -100, 100, 0, width)
 
-  ellipse(oycoord, oxcoord, 40)
+  // ellipse(oycoord, oxcoord, 40)
+  
+  // rotateY(millis() / 1000);
+  // noStroke()
+  fill(0, 255, 255)
+  rotateX(detailY.value())
+  rotateZ(66)
+  cone(30, 38, 16, 10);
+  translate(0, -height/2+160)
+  sphere(36, 10)
 }
