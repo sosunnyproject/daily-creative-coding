@@ -1,10 +1,11 @@
 // https://editor.p5js.org/sosunnyproject/sketches/sUwfE3ULT
-// no gyro integrated yet
+// https://editor.p5js.org/sosunnyproject/sketches/yzRFOVdXU
+
 // slide to see how detailY works
 let detailY, detailZ;
 
 function setup() {
-  createCanvas(400, 400, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   
   detailY = createSlider(-360, 360, 0);
   detailZ = createSlider(-360, 360, 0);
@@ -13,36 +14,40 @@ function setup() {
   detailY.style('width', '80px');
   // normalMaterial()
   specularMaterial(200)
+  background(255)
+  orbitControl()
+  fill(255)
+  
+  for(let i = 0; i< 5; i++) {
+    // drawWaterdrop(random(-width/2 +100, width/2 - 100), 
+                  // random(-height/2 + 100, height/2-100))
+  }
 }
 
 function draw() {
-  // background(205, 102, 94);
-  background(255)
-  orbitControl()
-  
-  // beta - x axis
-  let ox = document.getElementById('Orientation_b').innerText
-  let oxNum = Number.parseInt(Math.floor(ox))
-  let oxcoord = map(oxNum, -80, 80, 0, height)
-  
-  // gamma y-axis
-  let oy = document.getElementById('Orientation_g').innerText
-  let oyNum = Number.parseInt(Math.floor(oy))
-  let oycoord = map(oyNum, -100, 100, 0, width)
 
-  // ellipse(oycoord, oxcoord, 40)
-  
-  // rotateY(millis() / 1000);
-  // noStroke()
-  // fill(0, 255, 255, 100)
+}
+
+function drawWaterdrop(x, y) {
+  push()
+  translate(x, y)
   fill(255)
+  // map(frameCount, 0, 100000, 0, 255), 
+  // map(mouseY, -height/2, height/2, 0, 150), 
+
+  stroke(0, 
+         map(frameCount, 0, 1000, 0, 255),
+         255)
   rotateX(detailY.value())
   rotateZ(66)
-  cone(30, 38, 10, 4, false);
-  translate(0, -height/2+160)
-  fill(255)
+  cone(31, 46, 10, 4, false);
+  translate(0, -height/2 + 140)
   sphere(36, 10, 7)
+  pop()
+}
 
+function mouseClicked() {
+  drawWaterdrop(mouseX-width/2, mouseY-height/2)
 }
 
 function keyTyped(){
