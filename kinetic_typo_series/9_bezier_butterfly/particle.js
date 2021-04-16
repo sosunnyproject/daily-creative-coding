@@ -73,7 +73,7 @@ class Particle {
   display() {
     this.seek()
     this.update()
-    stroke((this.size*360)%360, 60, 100)
+    stroke((this.size*360)%360, 100, 100)
     let b =new Butterfly(this.pos.x, this.pos.y, this.size)
     b.display()
     // particle vehicle rendering

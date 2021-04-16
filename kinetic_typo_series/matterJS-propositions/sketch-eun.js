@@ -26,7 +26,7 @@ function setup() {
   rectMode(CENTER)
 
   // create boundary blocks
-  topCircle = Bodies.circle(width/4, 100, width/4);
+  topCircle = Bodies.circle(width/4, 100, width/4, {isStatic: true});
 
   groundMiddle = Bodies.rectangle(width/4+50, height/2, width/3+20, 30, {isStatic: true, angle: Math.PI * 0.06});
   var groundBottom = Bodies.rectangle(width/2, height, width/2+100, 80, {isStatic: true}), counter= -1;

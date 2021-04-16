@@ -12,7 +12,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(960, 960, WEBGL);
+  createCanvas(600, 600, WEBGL);
   rectMode(CENTER)
 
   let tiles = 30
@@ -70,6 +70,7 @@ function draw() {
       // ((p.x < width/3) && ind < 70) && fill(255, 0, 0);
       // ((p.x >= width/3) && ind < 70 ) && fill(0, 255, 0);
       (ind===firstArr[firstInd]) && fill(255);
+
       // (ind+1 === firstArr[firstInd] && (firstArr.includes(ind+1)) ) && fill(255);
       
       (ind===secondArr[secondInd]) && fill(255);

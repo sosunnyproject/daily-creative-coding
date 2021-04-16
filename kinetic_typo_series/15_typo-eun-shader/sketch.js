@@ -3,12 +3,12 @@
 // https://editor.p5js.org/sosunnyproject/sketches/st0EQxw31
 
 let font, currentShader 
-let graphic1, graphic2, graphic3, graphic4
-const words = ['극', '는', '듣', '를', '믐', '븝', '슷', '응', '즞', '츷','킄', '틑', '픞', '흫']
+let graphic1, graphic2, graphic3, graphic4;
+const words = ['깊', '깊', '깊', '깊', '깊']
 let ind = 1
 
 function preload() {
-  font = loadFont('CookieRun.otf')
+  font = loadFont('Ghanachocolate.otf')
   currentShader = loadShader('wave.vert', 'wave.frag')
 }
 function setup() {
@@ -23,14 +23,14 @@ function setup() {
 }
 
 function draw() {
-  if(frameCount%50 === 0) {
-    changeWord(ind)
-    if(ind === words.length - 1) {
-      ind = 0
-    } else{
-      ind++
-    }
-  } 
+  // if(frameCount%50 === 0) {
+  //   changeWord(ind)
+  //   if(ind === words.length - 1) {
+  //     ind = 0
+  //   } else{
+  //     ind++
+  //   }
+  // } 
   shader(currentShader)
   let freq = map(sin(frameCount/20), -10, 10, 0.0, 5.0)
   let amp = map(tan(frameCount/50), 0, 1, 0.1, 0.05)
@@ -53,7 +53,7 @@ function changeWord(i) {
 }
 
 function setGraphics(g, word) {
-  const size = 600
+  const size = 400
   const centerX = size/2
   const centerY = size/2 - 50
   

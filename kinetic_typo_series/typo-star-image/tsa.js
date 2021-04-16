@@ -23,10 +23,10 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowWidth)
+  createCanvas(800, 800)
   background(0)
   colorMode(HSB, 100)
-  particles = font.textToPoints('별', 0, windowWidth-100, windowWidth, {
+  particles = font.textToPoints('별', 0, width-150, width-150, {
     sampleFactor: 5,  //higher, the more precise
     simplifyThreshold: 0
   });
@@ -47,6 +47,7 @@ function draw() {
   background(0, 40)
   stroke(255)
   noFill()
+  translate(80,0)
   frameRate(7)
   // if(frameCount%2 == 0){
   // if(randOffs.length > arrNum){
@@ -71,9 +72,9 @@ function draw() {
         // 터치하면, 터치된 영역 근처만 별이 반짝거리도록.
         if(drawStart) { 
           let currentStar = stars[j][i]
-          if((mouseX-150 < currentStar.x) && (currentStar.x < mouseX+150)){
-            if((mouseY-150 < currentStar.y) && (currentStar.y < mouseY+150)){
-              ellipse(stars[j][i].x, stars[j][i].y, random(10, 20))
+          if((mouseX-100 < currentStar.x) && (currentStar.x < mouseX+100)){
+            if((mouseY-100 < currentStar.y) && (currentStar.y < mouseY+100)){
+              ellipse(stars[j][i].x, stars[j][i].y, random(7, 15))
             } else {
               stroke(0)
             }
@@ -158,7 +159,7 @@ function drawDistance(arr){
 // ㅕ : 2 * particles.length/3, particles.length-25
 // 나머지는 ㅂ 안의 ㅁ 구역.
 function setStars(n) {
-  arrNum = floor(map(mouseX, 0, width, 5, 40))
+  arrNum = floor(map(mouseX, 0, width, 5, 30))
   totalStars = floor(map(mouseY, 0, height, 5, 20))
   if(stars.length >= 100){
     stars = []
