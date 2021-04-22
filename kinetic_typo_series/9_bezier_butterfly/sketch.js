@@ -4,12 +4,12 @@ let particles = [], particles2 = [] // 생성할 파티클들을 담을 리스�
 let particleNum = 0 // 생성될 파티클의 개수, 가장처음에는 0개이므로 0.
 let pg // 캔버스 위에 그리는 (그래픽) 레이어
 let font // 텍스트의 폰트
-let tileSize = 8
-let tileGap = 13
+let tileSize = 12
+let tileGap = 14
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('BinggraeSamanco.ttf')
+  font = loadFont('../fontassets/SLEIGothicTTF.ttf')
 }
 
 function setup() {
@@ -24,7 +24,7 @@ function setup() {
   pg.textSize(550)
   pg.fill(255)
   pg.textAlign(LEFT, TOP)
-  pg.text("꿈", 150, 0)
+  pg.text("잠", 80, -80)
 
 
   for (let x = 0; x < width; x += tileGap) {
@@ -50,17 +50,6 @@ function draw() {
 }
 
 function mouseClicked() {
-
-//   pg.text('.', 10, 150)
-  
-//   for (let x = 0; x < width; x += tileGap) {
-//     for (let y = 0; y < height; y += tileGap) {
-//       let isTEXT = JSON.stringify(pg.get(x, y)) !== JSON.stringify([0, 0, 0, 255])
-//       if (isTEXT) {
-//         particles2.push({x: x, y: y})
-//       }
-//     }
-//   }
 
   for (let i = 0; i < particles.length; i++) {
     particles[i].changeTarget() //particles2[i].x, particles2[i].y

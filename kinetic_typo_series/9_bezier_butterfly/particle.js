@@ -7,13 +7,13 @@ class Particle {
   constructor(x, y) {
     this.origin = createVector(x, y)
     this.target = createVector(this.origin.x, this.origin.y)
-    this.acc = createVector(random(0.01), random(0.01))
+    this.acc = createVector(random(0.03), random(0.05))
     this.vel = createVector(0, 0)
     this.start = createVector(random(width), random(height))
     this.pos = createVector(this.start.x, this.start.y)
 
-    this.maxforce = 1
-    this.maxspeed = 4
+    this.maxforce = 2
+    this.maxspeed = 6
     this.size = random(4, 8)
   }
 
