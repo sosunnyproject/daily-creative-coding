@@ -1,8 +1,3 @@
-/*	_shader_warp // cc alainbrusch.xyz + teddavis.org 2020	*/
-
-
-// define global variables for a texture (tex) and shader (warp)
-let tex, warp;
 let font, currentShader;
 let graphic1, graphic2, graphic3, graphic4;
 const words = ['NEVER', 'SLEEP', 'SEOUL']
@@ -12,16 +7,13 @@ function preload() {
 	font = loadFont("includes/demos-data/fonts/RobotoMono-Regular.otf");
 }
 
+
 function setup() {
 	createCanvas(1000, 800, WEBGL); // Shaders require WEBGL
-	// background(0);
+	background(0);
 
 	pixelDensity(1); // fixes retina display offset
 	setAttributes('antialias', true); // toggle depending on display / performance
-
-	// create layer graphics for anything passed into shader
-	// tex = createGraphics(width, height);
-	// tex.background(0);
 
 	// load vert/frag defined below
 	currentShader = createShader(vertShader, fragShader);
@@ -34,9 +26,15 @@ function setup() {
 
 }
 
+function changeWord(i) {
+  setGraphics('graphic1', words[i])
+  setGraphics('graphic2', words[i])
+  setGraphics('graphic3', words[i])
+}
 
 function draw() {
-	if(frameCount%80 === 0) {
+  
+   if(frameCount%80 === 0) {
     changeWord(ind)
     if(ind === words.length - 1) {
       ind = 0
@@ -44,11 +42,12 @@ function draw() {
       ind++
     }
   }
-  
-    // version2: mouse interactive
+  shader(currentShader)
+
+  // version2: mouse interactive
   let freq = map(sin(frameCount/50), -10, 10, 0.0, 5.0)
   let amp = map(cos(frameCount/50), 0, 1, 0.1, 0.05)
-  let angle = map((frameCount/20)%0, 0, 100, 1, 10)
+  let angle = map((frameCount/20)%100, 0, 100, 1, 10)
   currentShader.setUniform('frequency', mouseX/10)
   currentShader.setUniform('amplitude', amp)
   currentShader.setUniform('speed', frameCount * 0.05)
@@ -56,21 +55,15 @@ function draw() {
   currentShader.setUniform('texture2', graphic2)
   currentShader.setUniform('texture3', graphic3)
   currentShader.setUniform('u_angle', PI/angle)
-   
-   shader(currentShader)
-   rect(0, 0, width, height); // display shader
+  
+  
+  rect(0,0,width,height);
 
 }
 
-function changeWord(i) {
-  setGraphics('graphic1', words[i])
-  setGraphics('graphic2', words[i])
-  setGraphics('graphic3', words[i])
-
-}
 
 function setGraphics(g, word) {
-  const size = height
+  const size = 800
   const centerX = size/2
   const centerY = size/2 - 50
   
@@ -102,7 +95,7 @@ function setGraphics(g, word) {
     graphic3.text(word, centerX+5,  centerY-20)
   }
 }
-/* SHADER DEFINITIONS */
+
 
 // standard p5js vertex shader
 let vertShader = `
@@ -172,12 +165,7 @@ let fragShader = `
 	  float cosWave = cos(uv.x*uv.y * frequency + speed) * amplitude;
 	  float tanWave = tan(uv.x*uv.x * frequency + speed) * amplitude;
 	
-	  // create vec2 with our sine
-	  // vec2 distort = vec2(sineWave*0.2, sineWave*0.2);
-	  // vec2 distort2 = vec2(sineWave*1.0, sineWave*1.0);
-	  // vec2 distort3 = vec2(sineWave*1.5, sineWave*1.5);
-	
-	  // create vec2 with our sine, cos, tan
+	  // create vec2 with sine, cos, tan
 	  vec2 distort = vec2(sineWave*1.0, sineWave*1.0);
 	  vec2 distort2 = vec2(cosWave*1.2, cosWave*1.5);
 	  vec2 distort3 = vec2(tanWave*1.5, tanWave*1.2);
