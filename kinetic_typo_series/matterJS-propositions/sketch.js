@@ -19,7 +19,7 @@ var boxA, boxB, groundRect;
 var boxes = [];
 var canvas; 
 function setup() {
-  canvas = createCanvas(500, 500);
+  canvas = createCanvas(900, 600);
   rectMode(CENTER)
   // create boundary blocks
   groundMiddle = Bodies.rectangle(width/2, height/2, width*2/3-50, 30, {isStatic: true});

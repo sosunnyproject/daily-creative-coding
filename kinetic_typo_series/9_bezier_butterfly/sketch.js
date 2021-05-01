@@ -5,16 +5,16 @@ let particleNum = 0 // 생성될 파티클의 개수, 가장처음에는 0개이
 let pg // 캔버스 위에 그리는 (그래픽) 레이어
 let font // 텍스트의 폰트
 let tileSize = 12
-let tileGap = 14
+let tileGap = 12
 
 // 폰트 타입을 미리 로딩해둔다.
 function preload() {
-  font = loadFont('../fontassets/SLEIGothicTTF.ttf')
+  font = loadFont('../fontassets/BinggraeSamanco.ttf')
 }
 
 function setup() {
   // angleMode(DEGREES)
-  createCanvas(600, 600);
+  createCanvas(900, 600);
   background(0)
   colorMode(HSB)
 
@@ -24,7 +24,7 @@ function setup() {
   pg.textSize(550)
   pg.fill(255)
   pg.textAlign(LEFT, TOP)
-  pg.text("잠", 80, -80)
+  pg.text("꿈", width/2-200, 0)
 
 
   for (let x = 0; x < width; x += tileGap) {

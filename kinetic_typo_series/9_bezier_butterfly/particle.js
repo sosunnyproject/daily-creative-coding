@@ -13,7 +13,7 @@ class Particle {
     this.pos = createVector(this.start.x, this.start.y)
 
     this.maxforce = 2
-    this.maxspeed = 6
+    this.maxspeed = 3
     this.size = random(4, 8)
   }
 
