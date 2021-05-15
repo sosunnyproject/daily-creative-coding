@@ -10,7 +10,9 @@ var prevFingers = 0
 controller.loop(function(frame) {
   if(frame.hands.length == 0) {
     noHands = true
-  }
+  } else {
+    noHands = false
+
     frame.hands.forEach(function(handData, ind) {
       // console.log("original coord", handData.screenPosition())
       let x = map(handData.screenPosition()[0], -700, 1400, 0, width)
@@ -60,6 +62,7 @@ controller.loop(function(frame) {
        }
      }
   }
+  }
 }).use('screenPosition', { scale: 1 });   
 
 
@@ -96,12 +99,8 @@ function draw() {
   background(0)
   // reachedEdge ? drawDownGradient() : drawUpGradient()
 
-  if(noHands) {
-    fill(255)
-    textFont(font)
-    textSize(100)
-    text('한 손을 기계 위에서 위아래로 움직여보세요', -width/2, 0)
-  }
+  // test 2d
+  ellipse(30, 30, 30, 0)
 
   // x = map(sliderX.value(), -10, 10, -0.1, 0.1)
   // y = map(sliderY.value(), -10, 10, -0.1, 0.1)
@@ -112,57 +111,79 @@ function draw() {
   
   counter++;
   let spd = 0.015;   // If you want accelerate or slow dow the rotation
-  let colSin = 154 + x*100
+  let colSin = 154 + sin(frameCount/200)*100
+  let colCos = 135 + cos(frameCount/200)*100
   // let colTan = 57 + tan(frameCount*0.04)/100
-  let colArray = [ color(colSin, 102, 255-colSin),  color(0,57,135)] // 0, 57, 135
+  let colArray = [ color(colSin, 102, 255-colSin),  color(colCos,107,255-colCos)] // 0, 57, 135
 
+  // if(currFingers === 0) {
+  //   colArray = [ color(0, 102, 255-colSin),  color(200,57,5)]
+  // }
   for(i=0;i<colArray.length;i++){
     lightPosx = tan(((TWO_PI/colArray.length)*i));
     lightPosy = cos(((TWO_PI/colArray.length)*i));
 
     directionalLight(colArray[i], 
-      lightPosx * x * 5,
-      lightPosy * y * 10, 
-      z*10);
+      lightPosx * x * 25,
+      lightPosy * y * 30, 
+      z*30);
   }
-  // console.log(lightPosx, lightPosy)
 
-  var size = 100 + sin(frameCount*0.005)*50
+  stroke(0)
+  strokeWeight(sin(frameCount/100)-0.3)
+  if(noHands) {
+    fill(255)
+    textFont(font)
+    textSize(100)
+    text('의식에 방에 온 것을 환영합니다.', -width/2, 0)
+    push()
+    specularMaterial(250);
+    rotateX(frameCount * 0.01)
+    rotateY(frameCount * 0.005)
+    rotateZ(frameCount * 0.07)
+    translate(0, 0, -300)
+    sphere(200)
+    pop()
+  } else {
+    yesHands()
+  }
+}
+
+function yesHands() {
   noStroke()
-  specularMaterial(100);
+  var size = 100 + sin(frameCount*0.005)*50
+  let detailX = 24
+  let detailY = 16
+  switch(currFingers) {
+    case 0: 
+      detailX = 24;
+      break;
+    case 1:
+      detailX = 3
+      detailY = 3
+      break;
+    case 2:
+      detailX = 4
+      detailY = 4
+      break;
+    case 3: 
+      detailX = 5
+      detailY = 8
+      break;
+    case 4:
+      detailX = 6
+      detailY = 10
+      break;
+    default:
+      detailX = 24
+  }
+  specularMaterial(250);
+  // normalMaterial()
   push()
   //frameCount * 0.005
-  rotateX(frameCount * 0.007)
-  rotateY(frameCount * 0.007)
+  rotateX(frameCount * 0.005)
+  rotateY(frameCount * 0.005)
   rotateZ(frameCount * 0.007)
-  torus(width/4, size)
+  torus(width/4, size, detailX, detailY)
   pop()
-
-}
-
-function drawUpGradient(){
-
-    for(let i = -height/2; i <= height/2; i++){ // 0 ~ height
-      let inter = map(i, -height/2, height/2, 0, 1);
-      let c = lerpColor(c2, c1, inter*(frameCount*0.005));
-      stroke(c);
-      line(-width/2, i, -width/2 + width, i);
-      if(c._array[0] === 1) {
-        console.log(c._array[0])
-        reachedEdge = true
-      }
-    }
-}
-
-function drawDownGradient(){
-
-    for(let i = height/2; i >= -height; i--){ // 0 ~ height
-      let inter = map(i, height/2, -height/2, 0, 1);
-      let c = lerpColor(c1, c2, inter*(frameCount*0.005));
-      stroke(c);
-      line(-width/2, i, -width/2 + width, i);
-      if(c._array[0] === 0) {
-        console.log(c._array[0])
-      }
-    }
 }
