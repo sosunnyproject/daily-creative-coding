@@ -76,7 +76,7 @@ let reachedEdge = false;
 let font;
 
 function preload() {
-  font = loadFont('./BMEuljiro.ttf')
+  font = loadFont('fonts/Sam3KRFont.ttf')
 }
 function setup() {
   createCanvas(windowHeight, windowHeight, WEBGL);
