@@ -1,12 +1,12 @@
-class ButterflyPS {
+class ParticleSystem {
   constructor(x, y) {
     this.origin = createVector(x, y);
     this.particles = [];
   }
 
   addParticle() {
-    if(this.particles.length < 5) {
-      this.particles.push(new ButterflyParticle(this.origin.x, this.origin.y));
+    if(this.particles.length < 1) {
+      this.particles.push(new Particle(this.origin.x, this.origin.y));
     }
   }
 
