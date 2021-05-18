@@ -5,10 +5,10 @@
 class Particle {
 
   constructor(x, y) {
-    this.acc = createVector(random(0), random(-0.1))
-    this.vel = createVector(0, random(-10, -5));
+    this.acc = createVector(random(0.01), random(-0.15))
+    this.vel = createVector(0, random(-1, -5));
     this.pos = createVector(random(x - width/2 - 100, x - width/2 + 100), 
-    random(y - height/2 - 100, y - height/2 - 150))
+    random(y - height/2 - 100, y - height/2 - 20))
 
     this.maxforce = 0.5
     this.maxspeed = 3
@@ -41,8 +41,8 @@ class Particle {
     noStroke();
     push();
     translate(this.pos.x, this.pos.y)
-    rotateX(cos(frameCount/30) * TWO_PI + this.randomOffset)
-    rotateZ(sin(frameCount/30) * PI + this.randomOffset)
+    rotateY(cos(frameCount/150) * TWO_PI + this.randomOffset)
+    rotateZ(sin(frameCount/200) * PI + this.randomOffset)
 
     cone(30, 38, 10, 4, false);
     translate(0, -40)
