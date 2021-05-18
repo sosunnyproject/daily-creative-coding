@@ -80,6 +80,7 @@ let enterHover = 0; // false
 let enterX, enterY;
 const enterBtnSize = 500
 let balls = []
+let repeller, repelBalls = []
 
 function preload() {
   font1 = loadFont('fonts/Sam3KRFont.ttf');
@@ -115,6 +116,10 @@ function setup() {
     let b = new Ball();
     balls.push(b);
   }
+  for(let i = 0; i < 60; i++) {
+    let b = new Ball(0, 0);
+    repelBalls.push(b);
+  }
 }
 
 let beginTime = 0;
@@ -130,7 +135,7 @@ function draw() {
       break;
     case '1':
       clear();
-      renderWaterdrop();
+      renderRepeller();
       image(rightImg, rightHand.x, rightHand.y);
       checkTime(500, 2);
       pressNext(width/2 - 350, height/2 - 250, 200, 2, 0, 0)
@@ -219,7 +224,40 @@ function renderIntro() {
 }
 
 // scene 1
-// 나는 하나이자 여럿입니다.
+// 나는 당신의 쌍둥이이자 모순입니다.
+function renderRepeller() {
+  repeller = new Repeller(rightHand.x , rightHand.y );
+  shininess(20)
+  pointLight(250, 114, 12, rightHand.x, rightHand.y, 200);
+  directionalLight(250, 114, 12, rightHand.x - 100, rightHand.y, 0);
+  directionalLight(250, 114, 12, rightHand.x - 100, rightHand.y, 0);
+
+  // directionalLight(50, 12, 254, rightHand.x - 100, rightHand.y, 0);
+  specularMaterial(125);
+
+  textSize(40);
+  textFont(font1);
+  fill(255);
+  text('당신은 나를 비춰볼 수 있지만, 잡을 수는 없습니다.', -width/2+50, height/2-150, width, 400);
+  text('You may ignite me but cannot hold me.', -width/2+50, height/2-100, width, 400);
+  textSize(50);
+  text('NEXT', width/2 - 300, height/2 - 100)
+
+  repeller.display();
+
+  for(let i = 0; i < repelBalls.length; i++){
+    push();
+    translate(repelBalls[i].loc.x, repelBalls[i].loc.y, repelBalls[i].loc.z);
+    repelBalls[i].display();
+    repelBalls[i].update();
+    repelBalls[i].bound();
+    // repeller
+    let repelForce = repeller.repel(repelBalls[i])
+    repelBalls[i].applyForce(repelForce)
+    pop();
+  }
+}
+
 
 // scene 2
 // 나는 심연이자 바람입니다.
@@ -244,7 +282,7 @@ function renderWaterdrop() {
       sin(frameCount/100) * 30);
   }
 
-  textSize(50);
+  textSize(40);
   textFont(font1);
   text('나는 심연이자 바람입니다. I am an abyss and a wind.', -width/2+50, height/2-250, width, 400);
   text('손을 접었다 펴보세요', -width/2+50, height/2-150, width, 400);
@@ -270,23 +308,20 @@ function renderWaterdrop() {
   }
 }
 
-// scene 2
-// 나는 당신의 쌍둥이이자 모순입니다.
-
 // scene 3
 // 조금 천천히 숨쉰다면, 내가 느껴질지도...
 function renderDonut() {
   renderLights();
   specularMaterial(250);
   noStroke();
-  shininess(1);
+  shininess(2);
 
   textSize(40);
   textFont(font1);
   text('조금 천천히 숨쉰다면 내가 보일지도...', -width/2+50, -height/2+10, width, 400);
   text('Breathe slower and you may find me.', -width/2+50, -height/2+60, width, 400);
-  textSize(50);
   text('x, y, z 모든 방향으로 손을 움직여보세요.', -width/2+60, height/2-100, width, 400);
+  textSize(50);
   text('NEXT', width/2 - 300, height/2 - 100)
 
   const size = 150 + sin(frameCount*0.005)*50
@@ -334,7 +369,7 @@ function renderShapes(){
   noStroke();
   shininess(3);
 
-  textSize(50);
+  textSize(40);
   textFont(font1);
   text('나의 형태는 당신의 손가락에 달려있습니다.', -width/2+50, -height/2+20, width, 400);
   text('My shape depends on your fingers. ', -width/2+50, -height/2+80, width, 400);
@@ -385,7 +420,6 @@ function donutFingers() {
       detailX = 24;
       detailY = 3;
   }
-
 }
 
 
@@ -400,13 +434,10 @@ function renderBounce() {
   let locY = rightHand.y ;
   ambientLight(1, 1, 1);
   pointLight(59, 147, 52, locX, locY, 50);
-  // pointLight(70, 73, 224, locX - 100, locY - 100, -50);
   pointLight(254, 102, 0, locX + 100, locY + 100, -250);
 
-  // 237, 188, 50),  color(59, 247, 52), 
-  //color(254, 102, 0),  color(0,107,255), color(70, 73, 224)
   specularMaterial(255);
-  shininess(20);
+  shininess(10);
   for(let i = 0; i < balls.length; i++){
     push();
     translate(balls[i].loc.x, balls[i].loc.y, balls[i].loc.z);
@@ -416,81 +447,3 @@ function renderBounce() {
     pop();
   }
 }
-
-
-/*
-// scene 7
-// 이제 내가 보이나요?
-// frameCount = 3000
-// fadeout 
-// back to scene 1
-
-const pointS = {
-  x: -300,  //+ random(150),
-  y: -100, // + random(200),
-  z: 10
-}
-const pointE = {
-  x: 200  ,//+ random(100),
-  y: -50 ,//+ random(-150, 150),
-  z: 10
-}
-const anchorS = {
-  x: 10,
-  y: -200,
-  z: 200
-}
-const anchorE = {
-  x: 200 ,//+ random(-50, 50),
-  y: 0 ,// + random(-125, 125),
-  z: 0
-}
-const newPointS = { x: pointS.x-10, y: pointS.y - 10, z: pointS.z }
-const newPointE = { x: pointE.x , y: pointE.y - 40, z: pointE.z}
-const newAnchorS = {x: anchorS.x-100, y: anchorS.y + 400, z: anchorS.z  }
-const newAnchorE = {x: anchorE.x, y: anchorE.y + 200, z: anchorE.z  }
-
-function lastScene() {
-  background(0);
-  textSize(40);
-  textFont(font1);
-  fill(255)
-  text('이제 내가 보이나요?', 0, 0, width, 400);
-  text('Do you see me now?', 0, 200, width, 400);
-
-  const t = frameCount / 150.0
-  orbitControl();
-  push()
-  camera(50 + rightHand.x/100 * 250, 50+sin(t) * 150, 10 + sin(t) * 200, 0, 0, 0, 0, 1, 0);
-  stroke(255)
-  noFill()
-  // bezierDetail(50)
-
-  push()
-  rotateX(t)
-  rotateZ(t*sin(t))
-  rotateY(t*tan(t))
-  strokeWeight(0.3)
-  drawBezier(pointS, anchorS, anchorE, pointE)    
-  drawBezier(newPointS, newAnchorS, newAnchorE, newPointE)    
-  pop()
-
-  push()
-  rotateX(t)
-  // rotateY(t / 5)
-  rotateZ(t)
-  // stroke(sin(millis()/1000) * 200)
-  strokeWeight(0.25)
-  torus(60, 20, 24, 16)
-  pop()
-
-  pop()
-}
-
-function drawBezier(pointS, anchorS, anchorE, pointE) {
-  bezier(pointS.x, pointS.y, pointS.z,
-    anchorS.x, anchorS.y, anchorS.z,
-    anchorE.x, anchorE.y, anchorE.z,
-    pointE.x, pointE.y, pointE.z)
-}
-*/

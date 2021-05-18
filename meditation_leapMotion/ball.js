@@ -1,10 +1,12 @@
 class Ball {
-  constructor(){
-    this.loc = createVector(100, 0, 100);  
-    this.vel = createVector(random(3, 5), random(-1, -3), random(-1, -5));
+  constructor(x, y){
+    this.loc = createVector(x || random(400), y || random(350), random(400));  
+    this.vel = createVector(random(2, 2), random(1, -1), random(-1, -3));
     this.col = random(0, 360);
     this.size = random(20, 30);
     this.shape = Math.floor(random(1, 5))
+    this.acc = createVector(random(0.1), random(0.1))
+    this.lifespan = 100.0;
   }
   
   display(){
@@ -30,19 +32,35 @@ class Ball {
   }
   
   update(){
-    rotateY(millis() / 1000);
+    rotateX(millis() / 800);
+    rotateZ(millis() / 800);
+    this.vel = this.vel.add(this.acc);
     this.loc = this.loc.add(this.vel); 
+    this.acc.mult(0.7)
+    this.lifespan -= 1;
   }
 
   bound(){
-    if((this.loc.x > width/2) || (this.loc.x < -width/2)){
-      this.vel.x *= -1; 
+    if((this.loc.x > width/2 + 100) || (this.loc.x < -width/2 - 100)){
+      this.vel.x *= -0.5; 
     }
-    if((this.loc.y > height/2) || (this.loc.y < -height/2)){
-      this.vel.y *= -1;
+    if((this.loc.y > height/2 + 100) || (this.loc.y < -height/2 - 100)){
+      this.vel.y *= -0.5;
     }
     if((this.loc.z > 500) || (this.loc.z < -500)){
-      this.vel.z *= -1;
+      this.vel.z *= -0.5;
+    }
+  }
+
+  applyForce(f) {
+    this.acc.add(f);
+  }
+
+  isDead() {
+    if (this.lifespan < 0.0) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
