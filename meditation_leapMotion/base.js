@@ -100,24 +100,24 @@ function setup() {
   rightYellowImg.resize(200, 200)
   rightImg.resize(100, 100)
   leftImg.resize(200, 200)
-  leap1.resize(500, 500)
-  leap2.resize(500, 500)
+  leap1.resize(400, 400)
+  leap2.resize(400, 400)
   nextBtnImg.resize(100, 100);
   numFingersImg.resize(400, 80)
   enterBtnImg.resize(enterBtnSize, enterBtnSize)
-  enterX = width/2 + 300, enterY = 140;
+  enterX = width/2 + 300, enterY = 100;
 
   // leftHand = new p5.Vector(50,  50)
   // rightHand = new p5.Vector(50, 50)
   setAttributes('antialias',true);
   setAttributes('perPixelLighting',true);
 
-  for(let i = 0; i < 40; i++) {
+  for(let i = 0; i < 60; i++) {
     let b = new Ball();
     balls.push(b);
   }
-  for(let i = 0; i < 60; i++) {
-    let b = new Ball(0, 0);
+  for(let i = 0; i < 30; i++) {
+    let b = new RepelBall(0, 0);
     repelBalls.push(b);
   }
 }
@@ -164,7 +164,7 @@ function draw() {
     case '5':
       clear();
       renderBounce();
-      checkTime(200, 0);
+      checkTime(15, 0);
       break;
   }
 }
@@ -213,11 +213,11 @@ function renderIntro() {
   pg.textSize(50)
   pg.text('의식의 방에 온 것을 환영합니다.', 50, 20, width, 400)
   pg.text('Welcome to the Room of Cognition', 50, 80, width, 400)
-  pg.text('센서를 직접 만지지 마시고, 손이 잘 인식되는지 확인해주세요.', 50, height-300, width-100, 200)
-  pg.text('Please do not touch the device, but check your hands on the screen.', 50, height-200, width-100, 200)
+  pg.text('센서를 직접 만지지 마시고, 손이 잘 인식되는지 확인해주세요. 손바닥이 아래를 향하게 하세요.', 50, height-300, width-100, 200)
+  pg.text('Please do not touch the device, but check your hands on the screen. Your palm should face downwards.', 50, height-170, width-100, 200)
 
   pg.image(leap1, 20, 120)
-  pg.image(leap2, width/3, 120)
+  pg.image(leap2, width/6, 120)
   pg.image(enterBtnImg, enterX, enterY)
 
   image(pg, -width/2, -height/2)
@@ -227,20 +227,22 @@ function renderIntro() {
 // 나는 당신의 쌍둥이이자 모순입니다.
 function renderRepeller() {
   repeller = new Repeller(rightHand.x , rightHand.y );
-  shininess(20)
+  shininess(8)
   pointLight(250, 114, 12, rightHand.x, rightHand.y, 200);
   directionalLight(250, 114, 12, rightHand.x - 100, rightHand.y, 0);
   directionalLight(250, 114, 12, rightHand.x - 100, rightHand.y, 0);
+  pointLight(250, 114, 12, rightHand.x, rightHand.y, 200);
 
   // directionalLight(50, 12, 254, rightHand.x - 100, rightHand.y, 0);
-  specularMaterial(125);
+  specularMaterial(35);
 
-  textSize(40);
+  textSize(50);
   textFont(font1);
   fill(255);
-  text('당신은 나를 비춰볼 수 있지만, 잡을 수는 없습니다.', -width/2+50, height/2-150, width, 400);
-  text('You may ignite me but cannot hold me.', -width/2+50, height/2-100, width, 400);
-  textSize(50);
+  text('당신은 나를 비춰볼 수 있지만, 쉽게 잡아둘 수는 없습니다.', -width/2+50, height/2-150, width, 400);
+  text('You may ignite me but cannot easily stop me.', -width/2+50, height/2-100, width, 400);
+
+  textSize(60);
   text('NEXT', width/2 - 300, height/2 - 100)
 
   repeller.display();
@@ -282,10 +284,12 @@ function renderWaterdrop() {
       sin(frameCount/100) * 30);
   }
 
-  textSize(40);
+  textSize(50);
   textFont(font1);
   text('나는 심연이자 바람입니다. I am an abyss and a wind.', -width/2+50, height/2-250, width, 400);
   text('손을 접었다 펴보세요', -width/2+50, height/2-150, width, 400);
+
+  textSize(60);
   text('NEXT', width/2 - 300, height/2 - 100)
   for (let i = 0; i < psArray.length; i++){
     psArray[i].addParticle();
@@ -321,7 +325,8 @@ function renderDonut() {
   text('조금 천천히 숨쉰다면 내가 보일지도...', -width/2+50, -height/2+10, width, 400);
   text('Breathe slower and you may find me.', -width/2+50, -height/2+60, width, 400);
   text('x, y, z 모든 방향으로 손을 움직여보세요.', -width/2+60, height/2-100, width, 400);
-  textSize(50);
+  
+  textSize(60);
   text('NEXT', width/2 - 300, height/2 - 100)
 
   const size = 150 + sin(frameCount*0.005)*50
@@ -375,6 +380,7 @@ function renderShapes(){
   text('My shape depends on your fingers. ', -width/2+50, -height/2+80, width, 400);
   text('5, 4, 3, 2, 1, 0...', -width/2+50, -height/2+140, width, 400);
 
+  textSize(60);
   text('NEXT', width/2 - 300, height/2 - 100);
   image(numFingersImg, -width/2+50, -height/2+200)
   const size = 50 + sin(frameCount*0.005)*50
@@ -424,7 +430,7 @@ function donutFingers() {
 
 
 function renderBounce() {
-  textSize(40);
+  textSize(50);
   textFont(font1);
   fill(255)
   text('이제 내가 보이나요?', 0, 0, width, 400);
