@@ -73,7 +73,7 @@ controller.loop(function(frame) {
 
 
 let font1;
-let rightImg, leftImg, rightYellowImg, enterBtnImg, nextBtnImg, leap1, leap2, numFingersImg;
+let rightImg, leftImg, rightYellowImg, enterBtnImg, nextBtnImg, leap1, leap2, leap3, numFingersImg;
 let handsMerge = false;
 let introGraphics;
 let enterHover = 0; // false
@@ -92,6 +92,7 @@ function preload() {
 
   leap1 = loadImage('images/leapmotion1.png');
   leap2 = loadImage('images/leapmotion2.png');
+  leap3 = loadImage('images/leapmotion3.png');
   numFingersImg = loadImage('images/numFingers.png');
 }
 function setup() {
@@ -102,6 +103,7 @@ function setup() {
   leftImg.resize(200, 200)
   leap1.resize(400, 400)
   leap2.resize(400, 400)
+  leap3.resize(450, 450)
   nextBtnImg.resize(100, 100);
   numFingersImg.resize(400, 80)
   enterBtnImg.resize(enterBtnSize, enterBtnSize)
@@ -210,14 +212,16 @@ function renderIntro() {
   pg.background(0);
   pg.fill(255)
   pg.textFont(font1)
-  pg.textSize(50)
+  pg.textSize(45)
   pg.text('의식의 방에 온 것을 환영합니다.', 50, 20, width, 400)
   pg.text('Welcome to the Room of Cognition', 50, 80, width, 400)
   pg.text('센서를 직접 만지지 마시고, 손이 잘 인식되는지 확인해주세요. 손바닥이 아래를 향하게 하세요.', 50, height-300, width-100, 200)
-  pg.text('Please do not touch the device, but check your hands on the screen. Your palm should face downwards.', 50, height-170, width-100, 200)
+  pg.text('Please do not touch the device, but check your hands on the screen.', 50, height-170, width-100, 200)
 
-  pg.image(leap1, 20, 120)
-  pg.image(leap2, width/6, 120)
+  pg.image(leap1, 20, 130)
+  pg.image(leap2, width/6, 130)
+  pg.image(leap3, width/2-100, 130)
+
   pg.image(enterBtnImg, enterX, enterY)
 
   image(pg, -width/2, -height/2)

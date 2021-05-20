@@ -121,6 +121,26 @@ function renderShapes(){
     donutFingers()
     torus(width/6, size, detailX, detailY)
     pop()
+
+    push()
+    translate(-width/2+ 200, 0)
+    //frameCount * 0.005
+    // rotateX(frameCount * 0.005)
+    // rotateY(frameCount * 0.005)
+    // rotateZ(frameCount * 0.007)
+    donutFingers()
+    torus(width/6, size, detailX, detailY)
+    pop()
+
+    push()
+    translate(width/2 - 200, 0)
+    //frameCount * 0.005
+    // rotateX(frameCount * 0.005)
+    // rotateY(frameCount * 0.005)
+    // rotateZ(frameCount * 0.007)
+    donutFingers()
+    torus(width/6, size, detailX, detailY)
+    pop()
   }
   
   // waterdrop shape
@@ -129,7 +149,7 @@ function renderShapes(){
     translate(0, 0)
     rotateX(PI)
     // rotateY(cos(frameCount/150) * TWO_PI )
-    rotateZ(sin(frameCount/200) * PI/2)
+    rotateZ(sin(frameCount/20) * PI/2)
     // cone(30, 38, 10, 4, false);
     // translate(0, -40)
     // sphere(36, 10, 7)
@@ -137,7 +157,34 @@ function renderShapes(){
     cone(30*2, 38*2, 24, 16, false);
     translate(0, -80)
     sphere(36*2, 24, 16)
+    pop()
 
+    push();
+    translate(-width/2 + 200, 0)
+    rotateX(PI)
+    // rotateY(cos(frameCount/150) * TWO_PI )
+    rotateZ(sin(frameCount/20) * PI/2)
+    // cone(30, 38, 10, 4, false);
+    // translate(0, -40)
+    // sphere(36, 10, 7)
+    torus(200, 15, 24, 16)
+    cone(30*2, 38*2, 24, 16, false);
+    translate(0, -80)
+    sphere(36*2, 24, 16)
+    pop()
+
+    push();
+    translate(width/2 - 200, 0)
+    rotateX(PI)
+    // rotateY(cos(frameCount/150) * TWO_PI )
+    rotateZ(sin(frameCount/20) * PI/2)
+    // cone(30, 38, 10, 4, false);
+    // translate(0, -40)
+    // sphere(36, 10, 7)
+    torus(200, 15, 24, 16)
+    cone(30*2, 38*2, 24, 16, false);
+    translate(0, -80)
+    sphere(36*2, 24, 16)
     pop()
   }
 }
