@@ -87,9 +87,9 @@ function renderLights() {
   z = map(mouseX, -width/2, width, -1.0, 1.0)
   
   let spd = 0.015;   // If you want accelerate or slow dow the rotation
-  let colSin = 154 + sin(frameCount/100)*100
-  let colCos = 135 + cos(frameCount/100)*100
-  let colArray = [ color(0, 67, 135),  color(184,87,15)] // 0, 57, 135
+  let colSin = 154 + sin(frameCount/50)*100
+  let colCos = 135 + cos(frameCount/50)*100
+  let colArray = [ color(colSin, 67, 255-colCos),  color(255-colCos,87,15)] // 0, 57, 135
 
   for(i=0;i<colArray.length;i++){
     lightPosx = tan(((TWO_PI/colArray.length)*i));
@@ -107,7 +107,7 @@ function renderShapes(){
   noStroke();
   shininess(1);
 
-  const size = 50 + sin(frameCount/100)*50
+  const size = 50 + sin(frameCount/50)*50
 
   specularMaterial(200);
 
@@ -115,9 +115,9 @@ function renderShapes(){
     sphere(width/20)   
     push()
     //frameCount * 0.005
-    // rotateX(frameCount * 0.005)
-    // rotateY(frameCount * 0.005)
-    // rotateZ(frameCount * 0.007)
+    rotateX(frameCount * 0.005)
+    rotateY(frameCount * 0.005)
+    rotateZ(frameCount * 0.007)
     donutFingers()
     torus(width/6, size, detailX, detailY)
     pop()
@@ -125,9 +125,9 @@ function renderShapes(){
     push()
     translate(-width/2+ 200, 0)
     //frameCount * 0.005
-    // rotateX(frameCount * 0.005)
-    // rotateY(frameCount * 0.005)
-    // rotateZ(frameCount * 0.007)
+    rotateX(frameCount * 0.005)
+    rotateY(frameCount * 0.005)
+    rotateZ(frameCount * 0.007)
     donutFingers()
     torus(width/6, size, detailX, detailY)
     pop()
