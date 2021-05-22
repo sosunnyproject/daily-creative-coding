@@ -99,15 +99,15 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   pg = createGraphics(windowWidth, windowHeight);
   rightYellowImg.resize(200, 200)
-  rightImg.resize(100, 100)
+  rightImg.resize(200, 200)
   leftImg.resize(200, 200)
-  leap1.resize(400, 400)
-  leap2.resize(400, 400)
-  leap3.resize(450, 450)
+  leap1.resize(450, 450)
+  leap2.resize(450, 450)
+  leap3.resize(550, 550)
   nextBtnImg.resize(100, 100);
   numFingersImg.resize(400, 80)
   enterBtnImg.resize(enterBtnSize, enterBtnSize)
-  enterX = width/2 + 300, enterY = 100;
+  enterX = width/2 + 300, enterY = 200;
 
   // leftHand = new p5.Vector(50,  50)
   // rightHand = new p5.Vector(50, 50)
@@ -128,6 +128,17 @@ let beginTime = 0;
 let isTimeOver = false;
 let seconds = 0;
 function draw() {
+  // repel balls reset
+  if(sceneNum.textContent === '1') {
+    if(frameCount%800 === 0) {
+      repelBalls = []
+      for(let i = 0; i < 30; i++) {
+        let b = new RepelBall(0, 0);
+        repelBalls.push(b);
+      }
+    }
+  }
+  
   switch(sceneNum.textContent) {
     case '0':
       clear();
@@ -139,29 +150,29 @@ function draw() {
       clear();
       renderRepeller();
       image(rightImg, rightHand.x, rightHand.y);
-      checkTime(500, 2);
-      pressNext(width/2 - 350, height/2 - 250, 200, 2, 0, 0)
+      checkTime(100, 2);
+      // pressNext(width/2 - 350, height/2 - 250, 200, 2, 0, 0)
       break;
     case '2':
       clear();
       renderWaterdrop();
       image(rightImg, rightHand.x, rightHand.y);
-      checkTime(500, 2);
-      pressNext(width/2 - 350, height/2 - 250, 200, 3, 0, 0)
+      checkTime(100, 3);
+      // pressNext(width/2 - 350, height/2 - 250, 200, 3, 0, 0)
       break;
     case '3':
       clear();
       renderDonut();
       image(rightImg, rightHand.x, rightHand.y);
-      checkTime(500, 3);
-      pressNext(width/2 - 350, height/2 - 250, 200, 4, 0, 0)
+      checkTime(60, 4);
+      // pressNext(width/2 - 350, height/2 - 250, 200, 4, 0, 0)
       break;
     case '4':
       clear();
       renderShapes();
       image(rightImg, rightHand.x, rightHand.y);
-      pressNext(width/2 - 350, height/2 - 250, 200, 5, 0, 0);
-      checkTime(500, 4);
+      // pressNext(width/2 - 350, height/2 - 250, 200, 5, 0, 0);
+      checkTime(100, 5);
       break;
     case '5':
       clear();
@@ -174,8 +185,9 @@ function draw() {
 function checkTime(rate, nextNum){
   if(frameCount % rate === 0) {
     seconds++;
+    console.log(seconds)
   } 
-  if(seconds >= 20) {
+  if(seconds >= 12) {
     console.log('next scene')
     isTimeOver = true;
     seconds = 0;
@@ -198,8 +210,9 @@ function pressNext(btnX, btnY, btnSize, nextNum, offsetX, offsetY) {
   // pressing enter
   if(rightHand.x + offsetX >= btnX && rightHand.x + offsetX <= btnX + btnSize) {
     if(rightHand.y + offsetY >= btnY && rightHand.y + offsetY <= btnY + btnSize) {
+      // console.log('next')
       enterHover++;
-      if(enterHover > 100) {
+      if(enterHover > 60) {
         nextScene(nextNum)
         enterHover = 0;
       }
@@ -215,12 +228,14 @@ function renderIntro() {
   pg.textSize(45)
   pg.text('의식의 방에 온 것을 환영합니다.', 50, 20, width, 400)
   pg.text('Welcome to the Room of Cognition', 50, 80, width, 400)
-  pg.text('센서를 직접 만지지 마시고, 손이 잘 인식되는지 확인해주세요. 손바닥이 아래를 향하게 하세요.', 50, height-300, width-100, 200)
-  pg.text('Please do not touch the device, but check your hands on the screen.', 50, height-170, width-100, 200)
+  pg.text('각 장면마다 약 20초씩 진행됩니다.', 50, 150, width, 400)
 
-  pg.image(leap1, 20, 130)
-  pg.image(leap2, width/6, 130)
-  pg.image(leap3, width/2-100, 130)
+  pg.text('센서를 직접 만지지 마시고, 오른손이 잘 인식되는지 확인해주세요. 손바닥이 아래를 향하게 하세요.', 50, height-250, width-100, 200)
+  pg.text('Please do not touch the device, but check your right hand.', 50, height-140, width-100, 200)
+
+  pg.image(leap1, 20, 220)
+  pg.image(leap2, width/6, 220)
+  pg.image(leap3, width/2-200, 200)
 
   pg.image(enterBtnImg, enterX, enterY)
 
@@ -246,8 +261,8 @@ function renderRepeller() {
   text('당신은 나를 비춰볼 수 있지만, 쉽게 잡아둘 수는 없습니다.', -width/2+50, height/2-150, width, 400);
   text('You may ignite me but cannot easily stop me.', -width/2+50, height/2-100, width, 400);
 
-  textSize(60);
-  text('NEXT', width/2 - 300, height/2 - 100)
+  textSize(80);
+  // text('NEXT', width/2 - 300, height/2 - 100)
 
   repeller.display();
 
@@ -293,28 +308,33 @@ function renderWaterdrop() {
   text('나는 심연이자 바람입니다. I am an abyss and a wind.', -width/2+50, height/2-250, width, 400);
   text('손을 접었다 펴보세요', -width/2+50, height/2-150, width, 400);
 
-  textSize(60);
-  text('NEXT', width/2 - 300, height/2 - 100)
+  textSize(80);
+  // text('NEXT', width/2 - 300, height/2 - 100)
   for (let i = 0; i < psArray.length; i++){
     psArray[i].addParticle();
     psArray[i].run();
   }
 
-  if(frameCount%50==0) {
+  if(frameCount%30==0) {
     if(psArray.length > 0) {
+      // console.log('reset')
       psArray.shift() // remove first ele
     }
+  }
+  if(noHands) {
+    psArray = []
   }
   // 주먹 쥐면 ps 생성. 손은 있지만 손가락은 0
   if(!noHands && !currFingers) {
     isRock++;
-    if(isRock < 5) {
+    if(isRock < 4) {
       psArray.push(new ParticleSystem(rightHand.x + width/2, rightHand.y + height/2))
     }
   } else if (currFingers) {
     isRock = 0;
   }
 }
+
 
 // scene 3
 // 조금 천천히 숨쉰다면, 내가 느껴질지도...
@@ -330,12 +350,12 @@ function renderDonut() {
   text('Breathe slower and you may find me.', -width/2+50, -height/2+60, width, 400);
   text('x, y, z 모든 방향으로 손을 움직여보세요.', -width/2+60, height/2-100, width, 400);
   
-  textSize(60);
-  text('NEXT', width/2 - 300, height/2 - 100)
+  // textSize(80);
+  // text('NEXT', width/2 - 300, height/2 - 100)
 
-  const size = 150 + sin(frameCount*0.005)*50
-  const detailX = 6 + Math.floor(sin(frameCount/50)*2)
-  const detailY = 8 + Math.floor(sin(frameCount/100)*2)
+  const size = 120 + sin(frameCount*0.005)*50
+  // const detailX = 6 + Math.floor(sin(frameCount/50)*2)
+  // const detailY = 8 + Math.floor(sin(frameCount/100)*2)
   push()
   rotateX(frameCount * 0.005)
   rotateY(frameCount * 0.005)
@@ -384,8 +404,8 @@ function renderShapes(){
   text('My shape depends on your fingers. ', -width/2+50, -height/2+80, width, 400);
   text('5, 4, 3, 2, 1, 0...', -width/2+50, -height/2+140, width, 400);
 
-  textSize(60);
-  text('NEXT', width/2 - 300, height/2 - 100);
+  textSize(80);
+  // text('NEXT', width/2 - 300, height/2 - 100);
   image(numFingersImg, -width/2+50, -height/2+200)
   const size = 50 + sin(frameCount*0.005)*50
 
@@ -394,8 +414,8 @@ function renderShapes(){
 
   push()
   //frameCount * 0.005
-  rotateX(frameCount * 0.005)
-  rotateY(frameCount * 0.005)
+  rotateX(frameCount * 0.007)
+  rotateY(frameCount * 0.006)
   rotateZ(frameCount * 0.007)
   if(!noHands && currFingers) {
     donutFingers()

@@ -1,12 +1,12 @@
 class RepelBall {
   constructor(x, y){
     this.loc = createVector(x || random(400), y || 0, random(400));  
-    this.vel = createVector(random(2, 2), random(1, -1), random(-1, -3));
+    this.vel = createVector(random(-2, 2), random(1, -1), random(0, -3));
     this.col = random(0, 360);
     this.size = random(50, 30);
     this.shape = Math.floor(random(1, 5))
     this.acc = createVector(random(0.1), random(0.1))
-    // this.lifespan = 100.0;
+    this.lifespan = 100.0;
   }
   
   display(){
@@ -56,11 +56,11 @@ class RepelBall {
     this.acc.add(f);
   }
 
-  // isDead() {
-  //   if (this.lifespan < 0.0) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  isDead() {
+    if (this.lifespan < 0.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
