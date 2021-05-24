@@ -228,9 +228,10 @@ function renderIntro() {
   pg.textSize(45)
   pg.text('의식의 방에 온 것을 환영합니다.', 50, 20, width, 400)
   pg.text('Welcome to the Room of Cognition', 50, 80, width, 400)
-  pg.text('각 장면마다 약 20초씩 진행됩니다.', 50, 150, width, 400)
+  pg.text('각 장면은 약 20초씩 진행되며 자동으로 넘어갑니다.', 50, 150, width, 400)
 
-  pg.text('센서를 직접 만지지 마시고, 오른손이 잘 인식되는지 확인해주세요. 손바닥이 아래를 향하게 하세요.', 50, height-250, width-100, 200)
+  pg.text('1. 센서를 직접 만지지 마세요. 2. 오른손만 인식됩니다.', 50, height-250, width-100, 200)
+  pg.text('3. 위아래, 좌우, 앞뒤로 손을 움직여보세요. 4.손바닥이 아래를 향하게 하세요.', 50, height-200, width-100, 200)
   pg.text('Please do not touch the device, but check your right hand.', 50, height-140, width-100, 200)
 
   pg.image(leap1, 20, 220)
@@ -348,7 +349,7 @@ function renderDonut() {
   textFont(font1);
   text('조금 천천히 숨쉰다면 내가 보일지도...', -width/2+50, -height/2+10, width, 400);
   text('Breathe slower and you may find me.', -width/2+50, -height/2+60, width, 400);
-  text('x, y, z 모든 방향으로 손을 움직여보세요.', -width/2+60, height/2-100, width, 400);
+  text('위아래, 앞뒤, 좌우 모든 방향으로 손을 움직여보세요.', -width/2+60, height/2-100, width, 400);
   
   // textSize(80);
   // text('NEXT', width/2 - 300, height/2 - 100)
