@@ -5,6 +5,7 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
   
 ## Tools
 - p5.js : https://p5js.org/
+- p5 live
 -  🎼 orca: https://github.com/hundredrabbits/Orca
 - deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
 
@@ -16,7 +17,7 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
   - https://docs.google.com/presentation/d/1GxAAlDRQaV8lhH6I-sGC8QH1v70old_-kFr6xpyUI0I/edit?usp=sharing
 - Presentation @ modulabs conference @ seoul 2019
   - http://moducon.kr/creative-coding-learn-code-to-make-art/
-- Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.wordpress.com/portfolio/)
+- Maker Portfolio Archive in my [sosunnyproject blog](https://sosunnyproject.github.io)
 
 ## Software Study (less code-based)
 - Touch Designer: [tutorial lessons](https://www.notion.so/sunny1103/Touch-Designer-Tutorial-3f8a6862eb56465993da6413237e590d)
