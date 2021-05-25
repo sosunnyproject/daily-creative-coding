@@ -8,6 +8,10 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - p5 live
 -  🎼 orca: https://github.com/hundredrabbits/Orca
 - deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
+- ml5js
+- threejs
+- matterjs
+- touch designer
 
 ## Links
 - Creative Coding Lab
