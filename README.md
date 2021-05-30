@@ -3,14 +3,15 @@
 As I am currently participating private lab / study group on creative technology, 
 I am compiling most of my codes here, and visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
   
-## Tools
+## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
 - p5 live
--  🎼 orca: https://github.com/hundredrabbits/Orca
-- deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
-- ml5js
 - threejs
 - matterjs
+- [the book of shaders](https://thebookofshaders.com/) / [intro to p5js](https://itp-xstory.github.io/p5js-shaders/#/)
+- ml5js
+- deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
+- 🎼 orca: https://github.com/hundredrabbits/Orca
 - touch designer
 
 ## Links
