@@ -6,10 +6,12 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 ## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
 - p5 live
-- threejs
-- matterjs
+- [threejs](https://threejs.org/)
+- [matterjs](https://brm.io/matter-js/)
 - [the book of shaders](https://thebookofshaders.com/) / [intro to p5js](https://itp-xstory.github.io/p5js-shaders/#/)
-- ml5js
+- [ml5js](https://ml5js.org/)
+- [teachable machine](https://teachablemachine.withgoogle.com/)
+- [runway ml](https://runwayml.com/)
 - deep learning algorithm: https://github.com/tensorflow/tfjs-models/tree/master/posenet
 - 🎼 orca: https://github.com/hundredrabbits/Orca
 - touch designer
