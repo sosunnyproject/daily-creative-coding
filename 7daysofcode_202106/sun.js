@@ -9,9 +9,9 @@ function setup() {
 
 function draw() {
   background(0);
-  speed = sin(frameCount/100)
-  //detailX = map(speed, -1, 1, 4, 20)
-  //detailY = map(speed, 1, -1, 4, 12)
+  speed = sin(frameCount/10)
+  detailX = Math.floor(map(speed, -1, 1, 6, 16))
+  detailY = Math.floor(map(speed, -1, 1, 4, 12))
   renderShapes()
 }
 
@@ -21,7 +21,7 @@ function renderShapes(){
   noStroke();
   shininess(3);
 
-  const size = 50 + speed*50
+  const size = 50 //+ speed*50
   sphere(width/12)
   specularMaterial(250);
 
