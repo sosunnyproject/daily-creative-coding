@@ -1,25 +1,27 @@
-// p5 live
-let detailX = 24
+let detailX = 12
 let detailY = 16
+let speed = 0.01
 
 function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
+	
 }
 
 function draw() {
   background(0);
-  //const speed = sin(frameCount/100)
-  //detailX = map(speed, -1, 1, 4, 24)
-  //detailY = map(speed, 1, -1, 4, 16)
+  speed = sin(frameCount/100)
+  //detailX = map(speed, -1, 1, 4, 20)
+  //detailY = map(speed, 1, -1, 4, 12)
   renderShapes()
 }
+
 
 function renderShapes(){
   renderLights();
   noStroke();
   shininess(3);
 
-  const size = 150 + sin(frameCount*0.005)*50
+  const size = 50 + speed*50
   sphere(width/12)
   specularMaterial(250);
 
