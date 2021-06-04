@@ -16,26 +16,31 @@ function setup() {
 }
 
 function keyPressed() { 
- if(particles.length < 100) {
+  console.log(particles.length)
+  if(particles.length < 200) {
 	 for (let i = 0; i < numParticles; i++){
 	   particles.push(new Particle(random(width, 0), 0))
-	 } 
+    }
   }
 } 
  
 function draw() {
   background(0)  
-  specularMaterial(105) 
-  shininess(4); 
-  orbitControl();
+  specularMaterial(155) 
+  shininess(2)
+  orbitControl()
 
-  let colArray = [ color(0, 32, 250), color(0, 113, 254), 
-  color(10, 13, 20), color(10, 53, 254),color(0, 150, 255), color(0, 203, 254)]
-  const speed = sin(frameCount/200)/10 
+  if(frameCount%1000 ===0) {
+  	particles = []
+  }
   
+  let colArray = [ color(0, 32, 250), color(0, 0, 255), color(15, 150, 100), 
+    color(123,80,154)]
+  const speed = sin(frameCount/100) 
+ 
   for(i=0;i<colArray.length;i++){
-    lightPosx = sin(((TWO_PI*2/colArray.length)*i));
-    lightPosy = cos(((TWO_PI/colArray.length)*i));
+    lightPosx = sin(((TWO_PI/colArray.length)*2*i));
+    lightPosy = cos(((TWO_PI/colArray.length)*3*i));
 
     directionalLight(colArray[i], 
 	lightPosx * cos(frameCount/100) * 45,
@@ -43,33 +48,42 @@ function draw() {
 	sin(frameCount/100) * 30) 
   }
   
-  noStroke();
-  
+  noStroke() 
+   
   for(let i = 0; i < particles.length; i++){
   	particles[i].run()
   }
   
   push()
-  rotateX(frameCount * 0.01)
-  rotateY(frameCount * 0.01)
-  rotateZ(frameCount * 0.02) 
-  plane(width*2, height*2)
+  rotateX(frameCount * 0.001)
+  rotateY(frameCount * -0.015)
+  rotateZ(frameCount * 0.001)
+  //plane(width*4, height*4)
   sphere(width) 
-  pop()
+  pop() 
+  
+  for(let i = 0; i < 100; i++){
+  	push()
+  	translate(0, 0, 0) 
+	rotateX(frameCount * -0.0001 * i)
+	rotateY(frameCount * -0.00002 * i)
+	rotateZ(frameCount * 0.00003 * i)
+	torus(width/2, 200) 
+	pop()
+  }
 } 
 
 
 class Particle {
  
   constructor(x, y) {
-    this.acc = createVector(random(0.01), random(0.25))
-    this.vel = createVector(0, random(1, 5)); 
-    this.pos = createVector(random(x - width/2 - 100, x - width/2 + 100), 
-    random(y - height/2 - 100, y - height/2 - 20))
+    this.acc = createVector(random(0.01), 1 * random(0.25)) 
+    this.vel = createVector(0, 1*random(1, 5)) 
+    this.pos = createVector(x-width/2, y-height/2)
 
     this.maxforce = 0.5
-    this.maxspeed = 3
-    this.lifespan = 100.0;
+    this.maxspeed = 3 
+    this.lifespan = 50.0;
     this.randomOffset = random(-TWO_PI, TWO_PI)
   }
 
@@ -85,7 +99,7 @@ class Particle {
     this.pos.add(this.vel)
     this.applyForce(p5.Vector(0.1, -0.2));
     this.acc.mult(0)
-    this.lifespan -= 10.0
+    this.lifespan -= 10.0 
   }
 
   applyForce(force) {
@@ -103,10 +117,10 @@ class Particle {
     // cone(30, 38, 20, 4, false)
     // translate(0, -40)
     // sphere(36) 
-	cone(80, 108, 22, 8, false);
-	translate(0, -100) 
-	sphere(90)  
-    pop()
+	cone(50,  66, 22, 8, false); 
+	translate(0, -60)
+	sphere(55) 
+    pop() 
   }
 
   isDead() {
