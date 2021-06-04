@@ -26,16 +26,18 @@ function keyPressed() {
  
 function draw() {
   background(0)  
-  specularMaterial(155) 
+  specularMaterial(15) 
   shininess(2)
+  fill(5)
   orbitControl()
+  blendMode(LIGHTEST) 
 
   if(frameCount%1000 ===0) {
   	particles = []
   }
   
-  let colArray = [ color(0, 32, 250), color(0, 0, 255), color(15, 150, 100), 
-    color(123,80,154)]
+  let colArray = [ color(0, 32, 250), color(0, 0, 255), color(15, 150, 145), 
+    color(103,90,154)]
   const speed = sin(frameCount/100) 
  
   for(i=0;i<colArray.length;i++){
@@ -65,11 +67,11 @@ function draw() {
   for(let i = 0; i < 100; i++){
   	push()
   	translate(0, 0, 0) 
-	rotateX(frameCount * -0.0001 * i)
-	rotateY(frameCount * -0.00002 * i)
-	rotateZ(frameCount * 0.00003 * i)
-	torus(width/2, 200) 
-	pop()
+    rotateX(frameCount * -0.0001 * i)
+    rotateY(frameCount * -0.00002 * i)
+    rotateZ(frameCount * 0.00003 * i)
+    torus(width/2, 200) 
+    pop()
   }
 } 
 
@@ -117,9 +119,9 @@ class Particle {
     // cone(30, 38, 20, 4, false)
     // translate(0, -40)
     // sphere(36) 
-	cone(50,  66, 22, 8, false); 
-	translate(0, -60)
-	sphere(55) 
+    cone(50,  66, 22, 8, false); 
+    translate(0, -60)
+    sphere(55) 
     pop() 
   }
 
