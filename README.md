@@ -3,6 +3,11 @@
 As I am currently participating private lab / study group on creative technology, 
 I am compiling most of my codes here, and visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
   
+## To do algorithms
+- [inverse kinematics](https://www.youtube.com/watch?v=hbgDqyy8bIw)
+- physarum algorithm
+- cloud theory
+
 ## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
 - p5 live
