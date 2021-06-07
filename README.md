@@ -8,6 +8,14 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - physarum algorithm
 - cloud theory
 
+## To read lists
+- Maeda & media by John Maeda
+- Dear Data by Giorgia Lupi, Stefanie Posavec
+- Paula Scher: Works
+- midnight animation - masahiko sato, Euphrates
+- mathematics + art
+- paul bourke
+
 ## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
 - p5 live
@@ -43,4 +51,4 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - #creativeCoding on Instagram
 
 ## Contribution
-🙊 sorry, currently not accepting branch / merge / contribution to this personal archive. 
+🙊 currently not accepting branch / merge / contribution to this personal archive. 
