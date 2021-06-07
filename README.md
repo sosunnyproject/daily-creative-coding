@@ -9,12 +9,15 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - cloud theory
 
 ## To read lists
-- Maeda & media by John Maeda
 - Dear Data by Giorgia Lupi, Stefanie Posavec
 - Paula Scher: Works
 - midnight animation - masahiko sato, Euphrates
 - mathematics + art
 - paul bourke
+- Form+Code in Design, Art, and Architecture by Casey Reas
+- Maeda @ media, Creative Code, How to Speak Machine, Design by Numbers, The Laws of Simplicity by John Maeda
+- Generative Design
+- Code as Creative Medium by Golan Levin
 
 ## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
