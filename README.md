@@ -24,7 +24,7 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - p5 live
 - [threejs](https://threejs.org/)
 - [matterjs](https://brm.io/matter-js/)
-- [the book of shaders](https://thebookofshaders.com/) / [intro to p5js](https://itp-xstory.github.io/p5js-shaders/#/)
+- [the book of shaders](https://thebookofshaders.com/) / [intro to p5js shaders](https://itp-xstory.github.io/p5js-shaders/#/)
 - [ml5js](https://ml5js.org/)
 - [teachable machine](https://teachablemachine.withgoogle.com/)
 - [runway ml](https://runwayml.com/)
