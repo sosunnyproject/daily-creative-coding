@@ -1,7 +1,6 @@
 # daily-creative-coding 👩‍🎨 👩‍💻
 ### Daily works on creative coding. Using P5.js mostly.
-As I am currently participating private lab / study group on creative technology, 
-I am compiling most of my codes here, and visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
+visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
   
 ## To do algorithms
 - [inverse kinematics](https://www.youtube.com/watch?v=hbgDqyy8bIw)
