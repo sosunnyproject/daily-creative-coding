@@ -100,7 +100,7 @@ function drawLandmarks(detections){
         const noseColor = video.get(nose[3]._x, nose[3]._y)
       
         // fill(noseColor)
-        drawPart(jawOutline, false);
+        // drawPart(jawOutline, false);
       
         // noStroke()
         // rect(nose[3]._x, nose[3]._y-10, 50, 50)
@@ -116,8 +116,8 @@ function drawLandmarks(detections){
       
         // ellipse(mouth[1]._x, mouth[1]._y, 30, 30)
         // ellipse(mouth[10]._x, mouth[10]._y, 30, 30)
-        image(mouthTopImg, mouth[1]._x-40, mouth[1]._y-0)
-        image(mouthBottomImg, mouth[10]._x-40, mouth[10]._y+5)
+        image(mouthTopImg, mouth[1]._x-30, mouth[1]._y+20)
+        image(mouthBottomImg, mouth[10]._x-30, mouth[10]._y+25)
         // image(noseImg, nose[3]._x-50, nose[3]._y-50)
         image(leftEyeImg, leftEye[1]._x-80, leftEye[1]._y-10)
         image(rightEyeImg, rightEye[1]._x+10, rightEye[1]._y-10)
