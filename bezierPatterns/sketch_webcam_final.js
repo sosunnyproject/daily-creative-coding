@@ -8,7 +8,7 @@ let xoff = 0.1
 // let stepSize = 30;
 
 function setup() {
-  c = createCanvas(800, 800);
+  c = createCanvas(windowWidth, windowHeight);
   // setPoints()
   // capture = createCapture(VIDEO);
   // capture.size(320, 240)
@@ -16,8 +16,8 @@ function setup() {
   let constraints = {
     video: {
       mandatory: {
-        minWidth: 720,
-        minHeight: 480
+        minWidth: width,
+        minHeight: height
       },
       optional: [{ maxFrameRate: 10 }]
     },
@@ -39,11 +39,11 @@ function setPoints(x, y, off) {
 
       let anchorS = {
         x: pointS.x + random(-25, 25), //(off)*25,
-        y: pointS.y + random(-50, 100),
+        y: pointS.y + random(-20, 30),
       }
       let anchorE = {
         x: pointE.x + sin(off)*25,
-        y: pointE.y + sin(off)*100,
+        y: pointE.y + sin(off)*30,
       }
       // anchors.push(anchorS)
       // anchors.push(anchorE)
@@ -54,16 +54,17 @@ function setPoints(x, y, off) {
 }
 
 function draw() {
-  t = frameCount / 100.0
-  background(255)
+  t = frameCount / 200.0
+  background(0)
   
   noFill()
+  stroke(255)
   
   capture.loadPixels()
   const stepSize = round(constrain(width / 8, 12, 32));
   // const stepSize = 30;
-  for (let y = 50; y < height; y += stepSize) {
-    for (let x = 50; x < width; x += stepSize) {
+  for (let y = 20; y < height; y += stepSize) {
+    for (let x = 20; x < width; x += stepSize) {
       const i = y * width + x;
       const darkness = (255 - capture.pixels[i * 4]) / 255;
       const radius = stepSize * darkness;
@@ -71,13 +72,12 @@ function draw() {
         xoff += 0.001
         let v = setPoints(x, y, xoff)
 
-        strokeWeight(5+sin(t)*3)
+        strokeWeight(5+sin(t)*2)
         drawBezier(v[0], v[1], v[2], v[3])
         // ellipse(x, y, radius, radius);
       }
     }
   }
-
 }
 
 function drawBezier(pointS, anchorS, anchorE, pointE) {
@@ -88,7 +88,7 @@ function drawBezier(pointS, anchorS, anchorE, pointE) {
 }
 
 function mouseClicked() {
-  console.log(mouseX, mouseY)
+  // console.log(mouseX, mouseY)
 
 }
 
