@@ -1,14 +1,29 @@
 # daily-creative-coding 👩‍🎨 👩‍💻
 ### Daily works on creative coding. Using P5.js mostly.
-As I am currently participating private lab / study group on creative technology, 
-I am compiling most of my codes here, and visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
+visual outputs on my Instagram [@sosunnyproject](https://www.instagram.com/sosunnyproject/)
   
+## To do algorithms
+- [inverse kinematics](https://www.youtube.com/watch?v=hbgDqyy8bIw)
+- physarum algorithm
+- cloud theory
+
+## To read lists
+- Dear Data by Giorgia Lupi, Stefanie Posavec
+- Paula Scher: Works
+- midnight animation - masahiko sato, Euphrates
+- mathematics + art
+- paul bourke
+- Form+Code in Design, Art, and Architecture by Casey Reas
+- Maeda @ media, Creative Code, How to Speak Machine, Design by Numbers, The Laws of Simplicity by John Maeda
+- Generative Design
+- Code as Creative Medium by Golan Levin
+
 ## Tools (ordered by high ~ low usage)
 - p5.js : https://p5js.org/
 - p5 live
 - [threejs](https://threejs.org/)
 - [matterjs](https://brm.io/matter-js/)
-- [the book of shaders](https://thebookofshaders.com/) / [intro to p5js](https://itp-xstory.github.io/p5js-shaders/#/)
+- [the book of shaders](https://thebookofshaders.com/) / [intro to p5js shaders](https://itp-xstory.github.io/p5js-shaders/#/)
 - [ml5js](https://ml5js.org/)
 - [teachable machine](https://teachablemachine.withgoogle.com/)
 - [runway ml](https://runwayml.com/)
@@ -38,4 +53,4 @@ I am compiling most of my codes here, and visual outputs on my Instagram [@sosun
 - #creativeCoding on Instagram
 
 ## Contribution
-🙊 sorry, currently not accepting branch / merge / contribution to this personal archive. 
+🙊 currently not accepting branch / merge / contribution to this personal archive. 
