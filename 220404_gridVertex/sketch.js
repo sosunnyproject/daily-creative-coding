@@ -107,6 +107,9 @@ function drawOneRow(topY, bottomY, slow, fast, colorArr){
   fill(colorArr[0])
   vertex(0, topY)  // left top
   vertex(xSize + change1 + vertexOffset1, topY) // right top
+	curveVertex(xSize + change1 + vertexOffset1 + 25, topY+heightSize/3);
+  curveVertex(xSize + change1 + vertexOffset1 - 25, bottomY-heightSize/3);
+
   vertex(xSize + change1, bottomY) // right bottom
   vertex(0, bottomY)  // left bottom
   endShape(CLOSE)
@@ -129,20 +132,29 @@ function drawOneRow(topY, bottomY, slow, fast, colorArr){
       let rightTopX = xSize * (i+2)
       
       // VERTEX 2 (RIGHT TOP), VERTEX 3 (RIGHT BOTTOM)
-      vertex(rightTopX, topY) 
+      vertex(rightTopX, topY)
       vertex(rightTopX, bottomY)
     
     } else {
       let rightTopX = xSize * (i+2) + changes[nextIndex] + vOffsets[nextIndex]
       
       // VERTEX 2 (RIGHT TOP), VERTEX 3 (RIGHT BOTTOM)
-      vertex(rightTopX, topY) 
+      vertex(rightTopX, topY)
+			curveVertex(rightTopX - cosSpeed*sinOffset*i/4, topY+(cosSpeed*heightSize/5));
+      curveVertex(rightTopX + sinSpeed*cosOffset, topY+(cosSpeed*heightSize/5*3));
+      curveVertex(rightTopX - sinSpeed*sinOffset*i/4, bottomY-(sinSpeed*heightSize/5*3));
+      curveVertex(rightTopX + cosSpeed*cosOffset, bottomY-(sinSpeed*heightSize/5));
+			 
       vertex(xSize * (i+2) + changes[nextIndex], bottomY)
     }
 
     // VERTEX 4 (LEFT BOTTOM)
     let leftBottomX = xSize * (i+1) + changes[index]
     vertex(leftBottomX, bottomY)
+		curveVertex(leftBottomX + sinSpeed*sinOffset, bottomY-(cosSpeed*heightSize/5));
+    curveVertex(leftBottomX - sinSpeed*cosOffset*i/4, bottomY-(cosSpeed*heightSize/5*3));
+    curveVertex(leftBottomX + cosSpeed*cosOffset, topY+(sinSpeed*heightSize/5*3));
+    curveVertex(leftBottomX - cosSpeed*sinOffset*i/4, topY+(sinSpeed*heightSize/5));
 
     // VERTEX 1 (LEFT TOP)
     vertex(leftTopX, topY) 
