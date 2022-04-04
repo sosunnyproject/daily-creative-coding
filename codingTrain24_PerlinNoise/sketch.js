@@ -44,18 +44,21 @@ function flowField() {
 
       // stroke(255, 100);
       // strokeWeight(0.5);
-      push();
-      translate(x * scl, y * scl);
-      rotate(v.heading());
-      line(0, 0, scl, 0); // for every vector, rotate according to angle of that random vector
-      pop();
-
+			drawGuideLines(x, y, v)
     }
     yoff += inc;
     zoff += 0.00004;  // fixed flow field, if you comment this
   }
 
   runParticles()
+}
+
+function drawGuideLines(x, y, v) {
+	push();
+	translate(x * scl, y * scl);
+	rotate(v.heading());
+	line(0, 0, scl, 0); // for every vector, rotate according to angle of that random vector
+	pop();
 }
 
 function runParticles(){

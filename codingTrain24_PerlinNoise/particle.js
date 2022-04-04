@@ -7,15 +7,20 @@ function Particle() {
 
   this.prevPos = this.pos.copy();
 
+	// Add Lifespan Property, if wanted
+	// this.lifespan = 255;
+
   // update vel based on acc
   this.update = function(col) {
     this.vel.add(this.acc);
     this.vel.limit(this.maxspeed);
     this.pos.add(this.vel);
     this.acc.mult(0);
-    stroke(map(sin(this.vel.x), -1, 1,100, 255), col,  map(sin(this.vel.y), -1, 1, 200, 0)); //color
 
+		// this.lifespan -= 5;
 
+    // Preferred: Write stroke() command in sketch: function runParticles()
+		// stroke(map(sin(this.vel.x), -1, 1,100, 255), col,  map(sin(this.vel.y), -1, 1, 200, 0)); //color
   }
 
   // receive force
@@ -26,6 +31,7 @@ function Particle() {
   this.show = function(col) {
     // stroke(map(sin(this.vel.x), -1, 1, 100, 255), map(sin(this.acc.y), -1, 1, 50, 200), col); //color
     strokeWeight(1);
+		
     // point(this.pos.x, this.pos.y);
     line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y); //draw line from current to previous pos
 
