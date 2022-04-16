@@ -2,7 +2,7 @@
 
 let colors = []
 const nums = 10
-const r1 = 50, r2= 100, r3 = 150
+let r1 = 50, r2= 100, r3 = 150
 let heightSize, heightNums;
 let offset = 0.1;
 
@@ -32,27 +32,49 @@ function draw() {
 
   translate(width/2, height/2)
   stroke(255)
-  strokeWeight(5)
+  strokeWeight(2)
   noFill()
 
-  drawCircleSegments(frameCount/20, r1, r1*2)
-  drawCircleSegments(frameCount/20 + 5, r1, r1*2)
-  drawCircleSegments(frameCount/20 + 10, r1, r1*2)
-  drawCircleSegments(frameCount/20 + 15, r1, r1*2)
-  drawCircleSegments(frameCount/20 + 20, r1, r1*2)
+  r1 = sin(frameCount/30)*5 + r1
 
-  drawCircleSegments(frameCount/30 + 10, r2, r2*1.5)
-  drawCircleSegments(frameCount/30 + 20, r2, r2*1.5)
-  drawCircleSegments(frameCount/30 + 30, r2, r2*1.5)
-  drawCircleSegments(frameCount/30 + 40, r2, r2*1.5)
-  drawCircleSegments(frameCount/30, r2, r2*1.5)
+  let speed1 = sin(frameCount/100)*TWO_PI
+  let speed2 = sin(frameCount/200)*TWO_PI
 
-  push()
-  strokeWeight(0.5)
-  ellipse(0, 0, r1*2)  // entire path
-  ellipse(0, 0, r2*2)  // entire path
-  ellipse(0, 0, r2*1.5*2)  // entire path
-  pop()
+  drawCircleSegments(speed1, r1, r1*2, colors[0][1])
+  drawCircleSegments(speed1 + 5, r1, r1*2, colors[0][2])
+  drawCircleSegments(speed1 + 10, r1, r1*2, colors[0][3] )
+  drawCircleSegments(speed2 + 15, r1, r1*2, colors[0][4])
+  drawCircleSegments(speed2 + 20, r1, r1*2, colors[0][0])
+
+  // inner circle
+  arc(0, 0, r1*2, r1*2, speed2+20, speed2+15)
+  // arc(0, 0, r1*2, r1*2, speed2+15, speed2+10)
+  arc(0, 0, r1*2, r1*2, speed1+10, speed1+5)
+  arc(0, 0, r1*2, r1*2, speed1+5, speed1)
+  // arc(0, 0, r1*2, r1*2, speed1, speed2+20)
+
+  drawCircleSegments(speed2 + TWO_PI/5, r2, r2*1.5, colors[1][0])
+  drawCircleSegments(speed1 + TWO_PI/5*2, r2, r2*1.5, colors[1][1])
+  drawCircleSegments(speed1 + TWO_PI/5*3, r2, r2*1.5, colors[1][2])
+  drawCircleSegments(speed2 + TWO_PI/5*4, r2, r2*1.5, colors[1][3])
+  drawCircleSegments(speed2, r2, r2*1.5, colors[1][4])
+
+  arc(0, 0, r2*2, r2*2, speed2+TWO_PI/5*4, speed2)
+  arc(0, 0, r2*2, r2*2, speed1+TWO_PI/5*2, speed1+ TWO_PI/5*3)
+  // arc(0, 0, r2*2, r2*2, speed1+10, speed1+5)
+  // arc(0, 0, r2*2, r2*2, speed1+5, speed1)
+
+  drawCircleSegments(speed1 + TWO_PI/5, r3, r3*1.5, colors[2][0])
+  drawCircleSegments(speed2 + TWO_PI/5*2, r3, r3*1.5, colors[2][1])
+  drawCircleSegments(speed2 + TWO_PI/5*3, r3, r3*1.5, colors[2][2])
+  drawCircleSegments(speed1 + TWO_PI/5*4, r3, r3*1.5, colors[2][3])
+  drawCircleSegments(speed1, r3, r3*1.5, colors[2][4])
+  arc(0, 0, r3*2, r3*2, speed2+TWO_PI/5*4, speed2)
+  arc(0, 0, r3*2, r3*2, speed1+TWO_PI/5*2, speed1+ TWO_PI/5*3)
+
+  arc(0, 0, r3*1.5*2, r3*1.5*2, speed2 + TWO_PI/5*2, speed2 + TWO_PI/5*3)
+  arc(0, 0, r3*1.5*2, r3*1.5*2, speed1 + TWO_PI/5*4, speed2 + TWO_PI/5*3)
+
 
   // draw gridlines
   push()
@@ -65,141 +87,25 @@ function draw() {
   pop()
 }
 
-function drawCircleSegments(speed, innerRadius, outerRadius) {
+function drawCircleSegments(speed, innerRadius, outerRadius, col) {
   let x1 = cos(speed)*innerRadius
   let y1 = sin(speed)*innerRadius
 
-  point(x1, y1)
 
   let x2 = cos(speed)*outerRadius
   let y2 = sin(speed)*outerRadius
 
-  point(x2, y2)
 
   push()
-  strokeWeight(1)
+  strokeWeight(5)
+  stroke(col)
+  point(x1, y1)
+  point(x2, y2)
   line(x1, y1, x2, y2)
   pop()
+
 }
 
-
-function drawOneRow(topY, bottomY, slow, fast, colorArr){
-  noStroke()
-  
-  let xSize = (width*2)/nums
-  
-  let speedSin = sin(frameCount/slow)
-  let speedCos = cos(frameCount/slow)
-  let speedTan = tan(frameCount/slow)
-  
-  let change1 = speedCos*xSize
-  let change2 = speedSin*xSize
-  let change3 = speedTan*xSize*2
-  
-  let xOffset1 = speedCos*xSize
-  let xOffset2 = speedSin*xSize
-  let xOffset3 = speedTan*xSize
-  
-  const changes = [change1, change2, change3]
-  const xOffsets = [xOffset1, xOffset2, xOffset3] // make rectangle to trapezoid/triangle
-  const colorInd = [1, 2, 3, 4, 
-                    3, 2, 1, 0,
-                    1, 2, 3, 4,
-                    3, 2, 1, 0,
-                    1, 2, 3, 4,
-                    3, 2, 1, 0,
-                    1, 2, 3, 4,
-                    3, 2, 1, 0]
-    
-  // Draw First One Seperately (leftmost)
-  beginShape()
-  fill(colorArr[colorArr.length-1])
-  vertex(-50, topY)  // left top
-
-  let rtx = xSize + change1
-  vertex(rtx, topY) // right top  
-  vertex(rtx, bottomY) // right bottom
-    
-  vertex(-50, bottomY)  // left bottom
-  endShape(CLOSE)
-  
-  // Draw Last One (rightmost)
-  beginShape()
-  fill(colorArr[0])
-  vertex(width+200 - change1, topY)  // left top
-  
-  vertex(width+500 + change1, topY) // right top  
-  vertex(width+500 + change1, bottomY) // right bottom
-    
-  vertex(width+200 - change1, bottomY)  // left bottom
-  endShape(CLOSE)
-
-  // Draw rest number of Rectangles
-  // besides leftmost and rightmost
-  for(let i = 0; i < nums+1; i++) {
-    stroke(colorArr[colorInd[i]])
-    
-    let index = i % changes.length // 0, 1, 2
-    let nextIndex = (i+1) % changes.length    
-  
-    beginShape()
-    // fill(colorArr[colorInd[i]])
-    
-    let xInc = map(speedCos, -1, 1, 1, 2)
-    let leftTopX = xSize * (i+xInc) + changes[index] + xOffsets[index]
-    let v1 = {x: leftTopX, y: topY}
-    
-    // VERTEX 1 (LEFT TOP)
-    vertex(v1.x, v1.y) 
-    push()
-    stroke(colorArr[colorInd[i]])
-    strokeWeight(3)
-    point(v1.x, v1.y)
-    pop()
-
-    // VERTEX 2 (RIGHT TOP)
-    let rightTopX = xSize * (i+2) + changes[nextIndex] + xOffsets[nextIndex]
-    let v2 = {x: rightTopX, y: topY}  
-    vertex(v2.x , v2.y)
-    push()
-    stroke(colorArr[colorInd[i]])
-    strokeWeight(3)
-    point(v2.x , v2.y)
-    pop()
-
-    // VERTEX 3 (RIGHT BOTTOM)      
-    let rightBottomX = xSize * (i+2) + changes[nextIndex] + xOffsets[nextIndex]
-    let v3 = {x: rightBottomX, y: bottomY}
-    vertex(v3.x, v3.y)
-
-    push()
-    stroke(colorArr[colorInd[i]])
-    strokeWeight(3)
-    point(v3.x, v3.y)
-    pop()
-
-    // VERTEX 4 (LEFT BOTTOM)
-    let leftBottomX = xSize * (i+1) + changes[index] + xOffsets[nextIndex]
-    let v4 = {x: leftBottomX, y: bottomY}
-    vertex(v4.x, v4.y)
-    
-    push()
-    stroke(colorArr[colorInd[i]])
-    strokeWeight(3)
-    point(v4.x, v4.y)
-    pop()
-
-    let closeRight = distCheck(v1, v2)
-    let closeLeft = distCheck(v3, v4)
-    if(closeLeft && closeRight) fill(colorArr[colorInd[i]]) 
-    else noFill()
-
-    // VERTEX 1 (LEFT TOP)
-    vertex(leftTopX, topY) 
-
-    endShape()
-  }
-}
 
 function getColors(url)
 {
