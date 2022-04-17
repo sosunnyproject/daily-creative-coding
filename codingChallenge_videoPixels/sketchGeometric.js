@@ -1,14 +1,14 @@
 // black and white rectangle
 // smaller videoSize
 var video;
-var vScale = 20;
-let 색깔리스트 = ["#ff8360", "#e8e288", "#7dce82", "#3cdbd3", "#00fff5", "8ea604", "f5bb00", "d76a03", "bf3100"] 
+var vScale = 10;
+let 색깔리스트 = [ "#0075C4", "#EFA00B", "#D65108", "#7dce82", "#e8e288", "#DDFCAD", "#74D3AE"] 
 // 색깔리스트정하기('https://coolors.co/ff8360-e8e288-7dce82-3cdbd3-00fff5')
 // https://coolors.co/7c6a0a-babd8d-ffdac6-fa9500-eb6424
 
 let 시작각도 = 0
 function setup() {
-  createCanvas(240*4, 320*2);
+  createCanvas(240*4, 320*2.5);
   pixelDensity(1);
   video = createCapture(VIDEO);
   video.size(width/vScale, height/vScale)
@@ -62,12 +62,12 @@ function addAngle() {
 
 function colorMosaic(x, y, w, bright) {
 	// rect(x * vScale, y * vScale, w, w);
-  noFill()
-  let order = int(map(bright, 0, 255, 0, 4))
+  // noStroke()
+  let order = int(map(bright, 0, 255, 0, 6))
   // if(bright < 50) order = 0
 
-  strokeWeight(2)
-  stroke(색깔리스트[order%색깔리스트.length])
+  // strokeWeight(2)
+  fill(색깔리스트[order%색깔리스트.length])
 
   let 지름 = w
 
@@ -78,13 +78,12 @@ function colorMosaic(x, y, w, bright) {
     case 0: 
       // rotate(-45)
       // ellipse(0, 0, 지름/3, 지름+5)
-      push()
-      fill(색깔리스트[order%색깔리스트.length])
-      ellipse(-지름/4, -지름/4, w/2)
-      ellipse(지름/4, -지름/4, w/2)
-      ellipse(-지름/4, 지름/4, w/2)
-			ellipse(지름/4, 지름/4, w/2)
-      pop()
+
+      fill("#0075C4")
+      ellipse(-w/4, -w/4, w/2)
+      ellipse(w/4, -w/4, w/2)
+      ellipse(-w/4, w/4, w/2)
+			ellipse(w/4, w/4, w/2)
 
       // rotate(90)
       // ellipse(0, 0, 지름/3, 지름+5)
@@ -95,12 +94,13 @@ function colorMosaic(x, y, w, bright) {
     case 1: 
       // push()
       rotate(시작각도)
+      fill("#EFA00B")
       // arc(-지름/2, 지름/2, 지름, 지름, 270, 360)
       // arc(지름/2, -지름/2, 지름, 지름, 90, 180)
       // pop()
 
-      arc(지름/2, -지름/2, w*2, w*2, 시작각도+90, 시작각도+180)
-      arc(지름/2, -지름/2, w, w, 시작각도+90, 시작각도+180)
+      arc(w/2, -w/2, w*2, w*2, 시작각도+90, 시작각도+180)
+      arc(w/2, -w/2, w, w, 시작각도+90, 시작각도+180)
 
       // ellipse(-지름/4, -지름/4, 지름/2, 지름/2)
       // ellipse(지름/4, 지름/4, 지름/2, 지름/2)
@@ -115,8 +115,9 @@ function colorMosaic(x, y, w, bright) {
       // arc(지름/2, -지름/2, w, w, 90, 180)
       // pop()
 
-      arc(-지름/2, 지름/2, w*2, w*2, 시작각도+270, 시작각도+360)
-      arc(-지름/2, 지름/2, w, w, 시작각도+270, 시작각도+360)
+      fill("#D65108")
+      arc(-w/2, w/2, w*2, w*2, 시작각도+270, 시작각도+360)
+      arc(-w/2, w/2, w, w, 시작각도+270, 시작각도+360)
       break;
 
     case 3: 
@@ -125,13 +126,15 @@ function colorMosaic(x, y, w, bright) {
       // arc(- 지름/2, -지름/2, w, w, 0, 90)
 			// arc( 지름/2, 지름/2, w, w, 180, 270)
       // pop()
-      arc(w/2, -w/2, w*2, w*2, 시작각도+180, 시작각도+270)
-      arc(w/2, -w/2, w, w, 시작각도+180, 시작각도+270)
+      fill("#7dce82")
+      arc(w/2, w/2, w*2, w*2, 시작각도+180, 시작각도+270)
+      arc(w/2, w/2, w, w, 시작각도+180, 시작각도+270)
       break;
 
     case 4: 
-      arc(지름/2, 지름/2, 지름*2, 지름*2, 180, 270)
-      arc(지름/2, 지름/2, 지름, 지름, 180, 270)
+      fill("#e8e288")
+      arc(w/2, w/2, w*2, w*2, 180, 270)
+      arc(w/2, w/2, w, w, 180, 270)
       
       // noFill()
       // stroke(색깔리스트[order])
@@ -141,13 +144,15 @@ function colorMosaic(x, y, w, bright) {
       break;
 
     case 5: 
-      arc(지름/2, -지름/2, 지름*2, 지름*2, 90, 180)
-      arc(지름/2, -지름/2, 지름, 지름, 90, 180)
+      fill("#DDFCAD")
+      arc(w/2, -w/2, w*2, w*2, 90, 180)
+      arc(w/2, -w/2, w, w, 90, 180)
       break;
 
     case 6: 
-      arc(-지름/2, -지름/2, 지름*2, 지름*2, 0, 90)
-      arc(-지름/2, -지름/2, 지름, 지름, 0, 90)
+      fill("#74D3AE")
+      arc(-w/2, -w/2, w*2, w*2, 0, 90)
+      arc(-w/2, -w/2, w, w, 0, 90)
       break;
   }
   pop()
