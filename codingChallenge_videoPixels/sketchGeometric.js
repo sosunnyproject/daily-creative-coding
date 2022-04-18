@@ -1,14 +1,14 @@
 // black and white rectangle
 // smaller videoSize
 var video;
-var vScale = 10;
+var vScale = 15;
 let 색깔리스트 = [ "#0075C4", "#EFA00B", "#D65108", "#7dce82", "#e8e288", "#DDFCAD", "#74D3AE"] 
 // 색깔리스트정하기('https://coolors.co/ff8360-e8e288-7dce82-3cdbd3-00fff5')
 // https://coolors.co/7c6a0a-babd8d-ffdac6-fa9500-eb6424
 
 let 시작각도 = 0
 function setup() {
-  createCanvas(240*4, 320*2.5);
+  createCanvas(300*3, 200*4);
   pixelDensity(1);
   video = createCapture(VIDEO);
   video.size(width/vScale, height/vScale)
@@ -67,40 +67,47 @@ function colorMosaic(x, y, w, bright) {
   // if(bright < 50) order = 0
 
   // strokeWeight(2)
-  fill(색깔리스트[order%색깔리스트.length])
+  // fill(색깔리스트[order%색깔리스트.length])
 
-  let 지름 = w
+  let 지름 = vScale
 
+  noFill()
+  noStroke()
+  strokeWeight(2)
   push()
   translate(x*vScale + vScale/2, y*vScale + vScale/2)      
 
   switch(order) {
-    case 0: 
-      // rotate(-45)
-      // ellipse(0, 0, 지름/3, 지름+5)
+    case 0:
+      fill(50)
+      // stroke("#335C67") // #791E94") //#74D3AE")
+      // stroke("#9b5de5")
 
-      fill("#0075C4")
-      ellipse(-w/4, -w/4, w/2)
-      ellipse(w/4, -w/4, w/2)
-      ellipse(-w/4, w/4, w/2)
-			ellipse(w/4, w/4, w/2)
+      rotate(-45)
+      ellipse(0, 0, w/2, w+10)
+      rotate(90)
+      ellipse(0, 0, w/2, w+10)
 
-      // rotate(90)
-      // ellipse(0, 0, 지름/3, 지름+5)
+      // ellipse(-w/4, -w/4, w/2)
+      // ellipse(w/4, -w/4, w/2)
+      // ellipse(-w/4, w/4, w/2)
+			// ellipse(w/4, w/4, w/2)
+
       // arc(-지름/2, -지름/2, 지름*2, 지름*2, 시작각도, 시작각도+90)
       // arc(-지름/2, -지름/2, 지름, 지름, 시작각도, 시작각도+90)
       break;
 
     case 1: 
-      // push()
       rotate(시작각도)
-      fill("#EFA00B")
-      // arc(-지름/2, 지름/2, 지름, 지름, 270, 360)
-      // arc(지름/2, -지름/2, 지름, 지름, 90, 180)
-      // pop()
+      stroke(80)
+      // stroke("#E09F3E")
+      // stroke("#f15bb5")
+      arc(-지름/2, 지름/2, 지름, 지름, 270, 360)
+      arc(지름/2, -지름/2, 지름, 지름, 90, 180)
 
-      arc(w/2, -w/2, w*2, w*2, 시작각도+90, 시작각도+180)
-      arc(w/2, -w/2, w, w, 시작각도+90, 시작각도+180)
+      // fill("#EFA00B")
+      // arc(w/2, -w/2, w*2, w*2, 시작각도+90, 시작각도+180)
+      // arc(w/2, -w/2, w, w, 시작각도+90, 시작각도+180)
 
       // ellipse(-지름/4, -지름/4, 지름/2, 지름/2)
       // ellipse(지름/4, 지름/4, 지름/2, 지름/2)
@@ -110,49 +117,75 @@ function colorMosaic(x, y, w, bright) {
 
     case 2: 
       // push()
-      // rotate(시작각도)
-      // arc(-지름/2, 지름/2, w, w, 270, 360)
-      // arc(지름/2, -지름/2, w, w, 90, 180)
+      stroke("#9E2A2B") // red
+      stroke("#00bbf9")
+      rotate(시작각도)
+      // arc(- 지름/2, -지름/2, 지름, 지름, 0, 90)
+      // arc( 지름/2, 지름/2, 지름, 지름, 180, 270)
+
+      stroke(120)
+      arc(-w/2, -w/2, w/2, w/2, 0, 90)
+      arc(-w/2, -w/2, w, w, 0, 90)
+      arc(-w/2, -w/2, w*1.5, w*1.5, 0, 90)
+      arc(-w/2, -w/2, w*2, w*2, 0, 90)
       // pop()
 
-      fill("#D65108")
-      arc(-w/2, w/2, w*2, w*2, 시작각도+270, 시작각도+360)
-      arc(-w/2, w/2, w, w, 시작각도+270, 시작각도+360)
+      // fill("#8A84E2") // ("#7dce82")
+      // arc(w/2, w/2, w*2, w*2, 시작각도+180, 시작각도+270)
+      // arc(w/2, w/2, w, w, 시작각도+180, 시작각도+270)
       break;
 
     case 3: 
-      // push()
-      // rotate(시작각도)
-      // arc(- 지름/2, -지름/2, w, w, 0, 90)
-			// arc( 지름/2, 지름/2, w, w, 180, 270)
-      // pop()
-      fill("#7dce82")
-      arc(w/2, w/2, w*2, w*2, 시작각도+180, 시작각도+270)
-      arc(w/2, w/2, w, w, 시작각도+180, 시작각도+270)
-      break;
+      stroke("#DE6449") // #F7FFF7") // "#e8e288")
+      stroke("#00f5d4")
+      stroke(180)
 
-    case 4: 
-      fill("#e8e288")
-      arc(w/2, w/2, w*2, w*2, 180, 270)
-      arc(w/2, w/2, w, w, 180, 270)
+      // arc(w/2, w/2, w*2, w*2, 180, 270)
+      // arc(w/2, w/2, w, w, 180, 270)
       
       // noFill()
       // stroke(색깔리스트[order])
-      // arc(-지름, -지름, 지름*1.5, 지름*1.5, 0, 90)
-      // arc(-지름/2, -지름/2, 지름*2, 지름*2, 0, 90)
+      arc(w/2, -w/2, w/2, w/2, 90, 180)
+      arc(w/2, -w/2, w, w, 90, 180)
+      arc(w/2, -w/2, w*1.5, w*1.5, 90, 180)
+      arc(w/2, -w/2, w*2, w*2, 90, 180)
       // arc(0, 0, 지름*2.5, 지름*2.5, 0, 90)
       break;
 
+    case 4: 
+       // push()
+       stroke(220)
+       // stroke("#FFF3B0")
+       // stroke("#fee440")
+       rotate(시작각도)
+       arc(-지름/2, 지름/2, 지름, 지름, 270, 360)
+       arc(지름/2, -지름/2, 지름, 지름, 90, 180)
+       // pop()
+ 
+       // fill("#4ECDC4") //#D65108")
+       // arc(-w/2, w/2, w*2, w*2, 시작각도+270, 시작각도+360)
+       // arc(-w/2, w/2, w, w, 시작각도+270, 시작각도+360)
+      break;
+
     case 5: 
-      fill("#DDFCAD")
-      arc(w/2, -w/2, w*2, w*2, 90, 180)
-      arc(w/2, -w/2, w, w, 90, 180)
+      stroke(255)
+      // stroke("#B4C5E4") // "#FF6B6B") // ("#DDFCAD")
+      // arc(0, 0, w, w, 0, 90)
+      // arc(0, 0, w, w, 180, 270)
+      // stroke("#073b4c")
+      arc(w/2, w/2, w/2, w/2,180, 270)
+      arc(w/2, w/2, w, w,180, 270)
+      arc(w/2, w/2, w*1.5, w*1.5, 180, 270)
+      arc(w/2, w/2, w*2, w*2, 180, 270)
       break;
 
     case 6: 
-      fill("#74D3AE")
+      fill("#0075C4")
+      stroke(255)
       arc(-w/2, -w/2, w*2, w*2, 0, 90)
       arc(-w/2, -w/2, w, w, 0, 90)
+
+      
       break;
   }
   pop()
