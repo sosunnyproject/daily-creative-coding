@@ -35,45 +35,56 @@ function draw() {
   strokeWeight(2)
   noFill()
 
-  r1 = sin(frameCount/30)*5 + r1
+  // r1 = sin(frameCount/30)*5 + r1
 
-  let speed1 = sin(frameCount/100)*TWO_PI
-  let speed2 = sin(frameCount/200)*TWO_PI
+  let speed1 = sin(frameCount/300)*TWO_PI
+  let speed2 = sin(frameCount/400)*TWO_PI
 
-  drawCircleSegments(speed1, r1, r1*2, colors[0][1])
-  drawCircleSegments(speed1 + 5, r1, r1*2, colors[0][2])
-  drawCircleSegments(speed1 + 10, r1, r1*2, colors[0][3] )
-  drawCircleSegments(speed2 + 15, r1, r1*2, colors[0][4])
-  drawCircleSegments(speed2 + 20, r1, r1*2, colors[0][0])
+  for(let i = 0; i < 8; i++) {
+    let speed = speed2
+    if(i % 2 === 1) speed = speed1
+    drawCircleSegments(speed + TWO_PI/8*i, r1, r1*2, colors[1][i%colors.length])
+  }
+  // drawCircleSegments(speed1, r1, r1*2, colors[0][1])
+  // drawCircleSegments(speed1 + 5, r1, r1*2, colors[0][2])
+  // drawCircleSegments(speed1 + 10, r1, r1*2, colors[0][3] )
+  // drawCircleSegments(speed2 + 15, r1, r1*2, colors[0][4])
+  // drawCircleSegments(speed2 + 20, r1, r1*2, colors[0][0])
 
   // inner circle
-  arc(0, 0, r1*2, r1*2, speed2+20, speed2+15)
-  // arc(0, 0, r1*2, r1*2, speed2+15, speed2+10)
-  arc(0, 0, r1*2, r1*2, speed1+10, speed1+5)
-  arc(0, 0, r1*2, r1*2, speed1+5, speed1)
-  // arc(0, 0, r1*2, r1*2, speed1, speed2+20)
+  arc(0, 0, r1*2, r1*2, speed2 + TWO_PI/8*1, speed2 + TWO_PI/8*3)
+  arc(0, 0, r1*2, r1*2, speed1 + TWO_PI/8*4, speed1 + TWO_PI/8*7)
+  arc(0, 0, r1*2, r1*2, speed1 + TWO_PI/8*6, speed1 + TWO_PI/8*8)
 
-  drawCircleSegments(speed2 + TWO_PI/5, r2, r2*1.5, colors[1][0])
-  drawCircleSegments(speed1 + TWO_PI/5*2, r2, r2*1.5, colors[1][1])
-  drawCircleSegments(speed1 + TWO_PI/5*3, r2, r2*1.5, colors[1][2])
-  drawCircleSegments(speed2 + TWO_PI/5*4, r2, r2*1.5, colors[1][3])
-  drawCircleSegments(speed2, r2, r2*1.5, colors[1][4])
+  for(let i = 0; i < 10; i++) {
+    let speed = speed2
+    if(i % 2 === 1) speed = speed1
+    drawCircleSegments(speed + TWO_PI/10*i, r2, r2*1.5, colors[1][i%colors.length])
+  }
+  // drawCircleSegments(speed2 + TWO_PI/5, r2, r2*1.5, colors[1][0])
+  // drawCircleSegments(speed1 + TWO_PI/5*2, r2, r2*1.5, colors[1][1])
+  // drawCircleSegments(speed1 + TWO_PI/5*3, r2, r2*1.5, colors[1][2])
+  // drawCircleSegments(speed2 + TWO_PI/5*4, r2, r2*1.5, colors[1][3])
+  // drawCircleSegments(speed2, r2, r2*1.5, colors[1][4])
 
-  arc(0, 0, r2*2, r2*2, speed2+TWO_PI/5*4, speed2)
-  arc(0, 0, r2*2, r2*2, speed1+TWO_PI/5*2, speed1+ TWO_PI/5*3)
-  // arc(0, 0, r2*2, r2*2, speed1+10, speed1+5)
-  // arc(0, 0, r2*2, r2*2, speed1+5, speed1)
+  arc(0, 0, r2*2, r2*2, speed2 + TWO_PI/10*6, speed1 + TWO_PI/10*9)
+  arc(0, 0, r2*2, r2*2, speed2 + TWO_PI/10*2, speed1 + TWO_PI/10*5)
 
-  drawCircleSegments(speed1 + TWO_PI/5, r3, r3*1.5, colors[2][0])
-  drawCircleSegments(speed2 + TWO_PI/5*2, r3, r3*1.5, colors[2][1])
-  drawCircleSegments(speed2 + TWO_PI/5*3, r3, r3*1.5, colors[2][2])
-  drawCircleSegments(speed1 + TWO_PI/5*4, r3, r3*1.5, colors[2][3])
-  drawCircleSegments(speed1, r3, r3*1.5, colors[2][4])
-  arc(0, 0, r3*2, r3*2, speed2+TWO_PI/5*4, speed2)
-  arc(0, 0, r3*2, r3*2, speed1+TWO_PI/5*2, speed1+ TWO_PI/5*3)
+  for(let i = 0; i < 6; i++) {
+    let speed = speed2
+    if(i % 2 === 0) speed = speed1
+    drawCircleSegments(speed + TWO_PI/6*i, r3, r3*1.25, colors[1][i%colors.length])
+  }
+  // drawCircleSegments(speed1 + TWO_PI/5, r3, r3*1.5, colors[2][0])
+  // drawCircleSegments(speed2 + TWO_PI/5*2, r3, r3*1.5, colors[2][1])
+  // drawCircleSegments(speed2 + TWO_PI/5*3, r3, r3*1.5, colors[2][2])
+  // drawCircleSegments(speed1 + TWO_PI/5*4, r3, r3*1.5, colors[2][3])
+  // drawCircleSegments(speed1, r3, r3*1.5, colors[2][4])
+  arc(0, 0, r3*2, r3*2, speed2+TWO_PI/6*3, speed2)
+  arc(0, 0, r3*2, r3*2, speed1+TWO_PI/6*6, speed1+ TWO_PI/6*3)
 
-  arc(0, 0, r3*1.5*2, r3*1.5*2, speed2 + TWO_PI/5*2, speed2 + TWO_PI/5*3)
-  arc(0, 0, r3*1.5*2, r3*1.5*2, speed1 + TWO_PI/5*4, speed2 + TWO_PI/5*3)
+  // arc(0, 0, r3*1.5*2, r3*1.5*2, speed2 + TWO_PI/5*2, speed2 + TWO_PI/5*3)
+  // arc(0, 0, r3*1.5*2, r3*1.5*2, speed1 + TWO_PI/5*4, speed2 + TWO_PI/5*3)
 
 
   // draw gridlines
@@ -91,10 +102,8 @@ function drawCircleSegments(speed, innerRadius, outerRadius, col) {
   let x1 = cos(speed)*innerRadius
   let y1 = sin(speed)*innerRadius
 
-
   let x2 = cos(speed)*outerRadius
   let y2 = sin(speed)*outerRadius
-
 
   push()
   strokeWeight(5)
