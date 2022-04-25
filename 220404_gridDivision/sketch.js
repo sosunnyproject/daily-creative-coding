@@ -1,19 +1,24 @@
 function setup() {
   createCanvas(400, 400);
-  ellipseMode(CORNER);
-  noFill();
-  noStroke();
-  colorMode(HSB);
+  // ellipseMode(CORNER);
+  background(0)
+  // noFill();
+  // noStroke();
+  stroke(0)
+  fill(255)
+  // colorMode(HSB);
   frameRate(10)
+  division(0,0,width,height, 1, 100); 
+
 }
 
 function draw(){
   // background(0, 10); // RGB
-  let rand = Math.round(random(5, 15));
-  if(frameCount % rand === 0) {
-    background(0);
-    division(0,0,width,height,1, 100); 
-  }
+  // let rand = Math.round(random(5, 15));
+  // if(frameCount % rand > 0) {
+  //   background(0);
+  // division(0,0,width,height, 1, 100); 
+  // }
 }
 
 function division(x,y,w,h,prob, hue){
@@ -22,8 +27,9 @@ function division(x,y,w,h,prob, hue){
     let probRand = random(0.7, 0.95);
     let colRand = random(w, w*h);
     hue = (hue+colRand)%360;
-        
     prob = prob * probRand;
+    
+        
     for(let row=0; row<2; row++){
       for(let col=0; col<2; col++){
         division(x+w/2*col,y+h/2*row,w/2,h/2,prob, hue);
@@ -31,9 +37,7 @@ function division(x,y,w,h,prob, hue){
     }
   }
   else{
-    // fill(random(255),random(255),random(255)); //RGB
-    fill(hue, 100, 100); // HSB
-    ellipse(x, y, h*0.7, h);
+    rect(x, y, w, h)
     // egg(x, y, 0, 0.7, col, w);
   }
 }
