@@ -3,14 +3,14 @@
 
 let colors = []
 const nums = 10
-let r1 = 20, r2= 40, r3 = 60, r4 = 80, r5 = 100, r6 = 120, r7 = 140, r8 = 160, r9 = 180
+let r1 = 10, r2= 30, r3 = 60, r4 = 100, r5 = 100, r6 = 120, r7 = 140, r8 = 160, r9 = 180
 let heightSize, heightNums;
 let offset = 0.1;
 let mic, micLevel
 let startAngleSlider, endAngleSlider, startAngleValue, endAngleValue
 
 function setup() {
-  createCanvas(9*50, 14*50);
+  createCanvas(9*50, 12*50);
   heightSize = height/(nums+5)
   heightNums = int(height/heightSize)+ 10
   
@@ -81,13 +81,13 @@ function draw() {
   // pop()
 
   makeDonut(r1*2, r2*2, startAngleValue, endAngleValue, 60, '#ff4800')
-  makeDonut(r2*2, r3*2, startAngleValue, endAngleValue, 60, '#ff5400')
-  makeDonut(r3*2, r4*2, startAngleValue, endAngleValue, 60, '#ff6000')
-  makeDonut(r4*2, r5*2, startAngleValue, endAngleValue, 60, '#ff6d00')
-  makeDonut(r5*2, r6*2, startAngleValue, endAngleValue, 60, '#ff7900')
-  makeDonut(r6*2, r7*2, startAngleValue, endAngleValue, 60, '#ff8500')
-  makeDonut(r7*2, r8*2, startAngleValue, endAngleValue, 60, '#ff9100')
-  makeDonut(r8*2, r9*2, startAngleValue, endAngleValue, 60, '#ff9e00')
+  makeDonut(r2*2, r3*2, startAngleValue, endAngleValue, 60, '#ff6000')
+  makeDonut(r3*2, r4*2, startAngleValue, endAngleValue, 60, '#ff7900')
+  makeDonut(r4*2, r5*2, startAngleValue, endAngleValue, 60, '#ff9100')
+  // makeDonut(r5*2, r6*2, startAngleValue, endAngleValue, 60, '#ff7900')
+  // makeDonut(r6*2, r7*2, startAngleValue, endAngleValue, 60, '#ff8500')
+  // makeDonut(r7*2, r8*2, startAngleValue, endAngleValue, 60, '#ff9100')
+  // makeDonut(r8*2, r9*2, startAngleValue, endAngleValue, 60, '#ff9e00')
 }
 
 function drawCircleSegments(speed, innerRadius, outerRadius, col) {
@@ -134,7 +134,8 @@ function distCheck(vertex1, vertex2) {
 // https://p5js.org/ko/reference/#/p5/beginContour
 function makeDonut(innerRadius, outerRadius, startAngle, endAngle, steps, color) {
   push()
-  // stroke(255)
+  stroke(color)
+  // strokeWeight(3)
   fill(color)
 
   beginShape()

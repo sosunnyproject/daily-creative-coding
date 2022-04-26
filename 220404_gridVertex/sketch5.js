@@ -5,6 +5,7 @@ const nums = 10
 let r1 = 50, r2= 100, r3 = 150, r4 = 200, r5 = 250, r6 = 300
 let heightSize, heightNums;
 let offset = 0.1;
+let mic, micLevel
 
 function setup() {
   createCanvas(9*50, 16*50);
@@ -18,10 +19,15 @@ function setup() {
   colors.push(arr1, arr2)
   // frameRate(40)
   strokeWeight(0.25)
+
+  // audio
+	mic = new p5.AudioIn()
+	mic.start()
 }
 
 function draw() {
   background("#000"); // #9792E3 C5D5EA
+	micLevel = map(mic.getLevel(), 0.0, 1.0, 20, 80)
 
   // r1 = sin(frameCount/30)*5 + r1
 
@@ -116,8 +122,14 @@ function drawCircleSegments(speed, innerRadius, outerRadius, col) {
   let x2 = cos(speed)*outerRadius
   let y2 = sin(speed)*outerRadius
 
+  let thickness = 1
+  if(mic.getLevel()*100 > 3) thickness = tan(speed)*2
+  else thickness = sin(speed)*2
+
+  // if(frameCount%100 === 0 ) console.log(micLevel, mic.getLevel()*100)
+
   push()
-  strokeWeight(tan(speed)*2)
+  strokeWeight(thickness)
   stroke(col)
   point(x1, y1)
   point(x2, y2)
