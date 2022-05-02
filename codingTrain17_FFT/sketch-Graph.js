@@ -12,7 +12,7 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('Billie Eilish - bad guy.mp3');
+  song = loadSound('mongle.wav');
 }
 
 function setup() {

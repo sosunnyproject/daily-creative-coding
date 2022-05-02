@@ -11,7 +11,7 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('Who You Say I Am Lyric Video - Hillsong Worship.mp3');
+  song = loadSound('mongle.wav');
 }
 
 function setup() {

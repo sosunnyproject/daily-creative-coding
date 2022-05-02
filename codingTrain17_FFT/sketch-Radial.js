@@ -12,7 +12,7 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('Daddy YankeeDura.mp3');
+  song = loadSound('mongle.wav');
 }
 
 function setup() {

@@ -21,6 +21,7 @@
 *.png
 *.jpg
 *.jpeg
+*.wav
 
 # Logs and databases #
 ######################
