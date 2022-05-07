@@ -27,5 +27,4 @@ function draw() {
 function makeTerrain() {
   let yoff;
 
-  for (let y = 0; y < row)
 }
