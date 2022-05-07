@@ -1,5 +1,5 @@
-var inc = 0.25; //increment
-var scl = 20; //scale
+var inc = 0.5; //increment
+var scl = 5; //scale
 var cols, rows;
 var zoff = 0;
 var particles = [];
@@ -16,6 +16,7 @@ let textPg;
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
+  background(0)
   cols = floor(width/scl);
   rows = floor(height/scl);
 
@@ -24,17 +25,18 @@ function setup(){
   // fft = new p5.FFT();
   // fft.setInput(mic);
 
-  for (var i = 0; i < 1200; i++) {
-    particles[i] = new Particle(i);
+  for (var i = 0; i < 1000; i++) {
+    particles[i] = new Particle();
   }
 
   textPg = createGraphics(width, height)
   textPg.background(0)
-  textPg.textSize(250);
+  textPg.textSize(220);
   textPg.textWrap(WORD);
+  textPg.textFont('Abril Fatface')
   textPg.stroke(255)
   textPg.fill(255)
-  textPg.text('SYNTH', 0, height/2-150, 150);
+  textPg.text('SYNTH', 0, height/2-150, 10);
 
   // image(textPg, 0, 0)
 
@@ -74,7 +76,7 @@ function setup(){
 }
 
 function draw() {
-  background(0, 20)
+  // background(0, 10)
 
   /*
   spectrum = fft.analyze();
@@ -112,23 +114,34 @@ function draw() {
     zoff += 0.003;  // fixed flow field, if you comment this
   }
 
-  for (var i = 0; i < particles.length; i++) {
+  for (var i = particles.length - 1; i > 0; i--) {
     
     // find appropriate, nearby vector
     particles[i].follow(flowfield);
     particles[i].update();
     particles[i].edges();
-    // particles.kill()
+
+    let dead = particles[i].isDead();
+    if(dead) {
+      particles.splice(i, 1)
+      // particles.push(new Particle())
+    }
+  }
+
+  if(frameCount%50 == 0) {
+    for(let i = 0; i < 100; i++) {
+      particles.push(new Particle())
+    }
   }
 }
 
 function Particle() {
 
-  this.pos = createVector(random(0, width), random(height/3, height/3*2-100));
+  this.pos = createVector(random(0, width), random(height/3, height/3*2-50));
   this.vel = createVector(random(-100, 100), random(-100, 100));
   this.acc = createVector(random(-100, 100), random(-100, 100));
   this.maxspeed = 3;
-  this.lifespan = 0;
+  this.lifespan = 255;
 
   this.prevPos = this.pos.copy();
 
@@ -138,13 +151,15 @@ function Particle() {
     this.vel.limit(this.maxspeed);
     this.pos.add(this.vel);
     this.acc.mult(0);
-    this.lifespan += 1;
+    this.lifespan -= 1;
   }
 
   this.show = function(col, weight) {
+    
     push()
     strokeWeight(weight);
     stroke(col)
+    fill(col)
     line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y); //draw line from current to previous pos
     pop()
   }
@@ -182,8 +197,8 @@ function Particle() {
     var index = x + y * cols;
     var force = vectors[index];
 
-    if(flowfieldText[index]) this.show(color('#80A1D4'), 2)
-    else this.show(color('#F7F4EA'), 0.1)
+    if(flowfieldText[index]) this.show(color('#000'), 2)
+    else this.show(color('#8980F5'), 0.5)
     this.applyForce(force);
     this.updatePrev();
   }
@@ -193,8 +208,8 @@ function Particle() {
     this.acc.add(force);
   }
   
-  this.isDead = () => {
-    if(this.lifespan >= 255) return true 
+  this.isDead = function() {
+    if(this.lifespan < 0.0) return true 
     else return false
   }
 
