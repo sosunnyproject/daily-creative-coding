@@ -16,7 +16,7 @@ function setup() {
   console.log(cols, rows, flowfield)
 
   capture = createCapture(VIDEO);
-  capture.size(width, height)
+  capture.size(width/scl, height/scl)
   // capture.hide()
 }
 
