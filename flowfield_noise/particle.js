@@ -21,12 +21,12 @@ function Particle() {
 
   this.show = function(flowfield) {
     strokeWeight(random(20, 50))
-    // stroke(random(100, 255))
+    stroke(random(100, 255))
     // stroke(frameCount%360, 100, 100)
     noFill()
-    stroke(map(sin(this.vel.y), -1, 1, 0, 255), 
-    150, 
-    map(sin(this.pos.x), 1, -1, 0, 255))
+    // stroke(map(sin(this.vel.y), -1, 1, 0, 255), 
+    // 150, 
+    // map(sin(this.pos.x), 1, -1, 0, 255))
 
     //index
     var x = floor(this.pos.x / scl);
@@ -37,7 +37,7 @@ function Particle() {
       ellipse(this.pos.x, this.pos.y, this.prevPos.x - this.pos.x, this.prevPos.y - this.pos.y)
       // line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y)
     }
-
+ 
     //draw line from current to previous pos
     this.updatePrev();
   }
