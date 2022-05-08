@@ -6,7 +6,7 @@ function setup() {
   colorMode(HSB);
   // b = new Blob(200, 200);
   for (let i = 0; i < 4; i++) {
-    blobs.push(new Blob(random(0, width), random(0, height), random(3,5)));
+    blobs.push(new Blobby(random(0, width), random(0, height), random(3,5)));
   }
 }
 

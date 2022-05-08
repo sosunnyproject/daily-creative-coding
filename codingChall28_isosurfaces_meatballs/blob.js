@@ -1,4 +1,4 @@
-class Blob {
+class Blobby {
   constructor(x, y,r) {
     this.pos = createVector(x, y);
     this.r = r;
