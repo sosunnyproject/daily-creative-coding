@@ -1,3 +1,5 @@
+
+
 function setup() {
   createCanvas(640, 640);
 
@@ -7,10 +9,10 @@ function setup() {
 function draw() {
   background(0);
 
-  var centerX = width/2;
+  var centerX = width/4;
   var centerY = height/2;
 
-  var moveX = mouseX - centerX;
+  var moveX = mouseX*2 - centerX;
   var moveY = mouseY - centerY;
 
   noFill();
