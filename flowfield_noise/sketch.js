@@ -76,13 +76,13 @@ function draw() {
 
         for (var i = 0; i < particles.length; i++) {
 
-          // let col = random(frameCount%360);
-          // stroke(map(sin(i), -1, 1, 0, 360), 100, 100 ); 
-          // particles[i].follow(flowfield);
+          let col = random(frameCount%360);
+          stroke(map(sin(i), -1, 1, 0, 360), 100, 100 ); 
+          particles[i].follow(flowfield);
           // // find appropriate, nearby vector
-          // particles[i].update();
-          // particles[i].show(flowfield);
-          // particles[i].edges();
+          particles[i].update();
+          particles[i].show(flowfield);
+          particles[i].edges();
         }
       }
     }
